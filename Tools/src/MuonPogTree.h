@@ -3,6 +3,7 @@
 
 #include "TROOT.h"
 #include "TMath.h"
+#include <bitset>
 #include <vector>
 #include <string>
 
@@ -57,7 +58,6 @@ namespace muon_pog {
   };
 
   enum MuonDetType { DT=0, CSC, RPC };
-  enum MuonMatchQual { None=0, Trk, TrkArb, Sta, TrkSta, TrkStaArb, StaVal, TrkStaVal, TrkStaValArb };
 
   class ChambMatch {
   public:
@@ -83,7 +83,7 @@ namespace muon_pog {
     Float_t errDyDz; 
 
     std::vector<std::size_t> indexes;
-    std::vector<MuonMatchQual>  matchQuals;
+    std::vector<std::bitset<4> >  matchQuals; // 0 = Trk, 1 = TrkArb, 2 = Sta, 3 = Sta Valid 
 
     // std::vector<std::size_t> trigIndexes;
 
