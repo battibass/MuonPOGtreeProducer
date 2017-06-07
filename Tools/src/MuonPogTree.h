@@ -57,43 +57,100 @@ namespace muon_pog {
   };
 
   enum MuonDetType { DT=0, CSC, RPC };
+  enum MuonMatchQual { None=0, Trk, TrkArb, Sta, TrkSta, TrkStaArb };
 
   class ChambMatch {
   public:
-    Int_t r;   // station/disk
-    Int_t phi; // sector
-    Int_t eta; // ring/wheel
+    Int_t id_r;   // station/disk
+    Int_t id_phi; // sector
+    Int_t id_eta; // ring/wheel
     
     MuonDetType type;
-    
+
     Float_t x; 
     Float_t y;
+
+    Float_t phi; 
+    Float_t eta;
 
     Float_t dXdZ; 
     Float_t dYdZ;
 
-    Float_t dx;  // 999999 if not matched with a segment (I think) 
-    Float_t dy;  // 999999 if not matched with a segment (I think)
+    Float_t errx; 
+    Float_t erry; 
 
-    Float_t dDxDz;  // 999999 if not matched with a segment (I think) 
-    Float_t dDyDz;  // 999999 if not matched with a segment (I think)
-    
-    Float_t errxTk; 
-    Float_t erryTk; 
+    Float_t errDxDz; 
+    Float_t errDyDz; 
 
-    Float_t errDxDzTk; 
-    Float_t errDyDzTk; 
-    
-    Float_t errxSeg;  // 999999 if not matched with a segment (I think)
-    Float_t errySeg;  // 999999 if not matched with a segment (I think) 
+    std::vector<std::size_t> indexes;
+    std::vector<MuonMatchQual>  matchQuals;
 
-    Float_t errDxDzSeg;  // 999999 if not matched with a segment (I think)
-    Float_t errDyDzSeg;  // 999999 if not matched with a segment (I think) 
-    
+    // std::vector<std::size_t> trigIndexes;
+
     ChambMatch(){};
     virtual ~ChambMatch(){};
     
-    ClassDef(ChambMatch,2)
+    ClassDef(ChambMatch,3)
+  };
+
+  class MuonSegment {
+
+  public:
+
+    Int_t id_r;   // station/disk
+    Int_t id_phi; // sector
+    Int_t id_eta; // ring/wheel
+    
+    Float_t x; 
+    Float_t y;
+
+    Float_t phi; 
+    Float_t eta;
+
+    Float_t dXdZ; 
+    Float_t dYdZ;
+
+    Float_t errx; 
+    Float_t erry; 
+
+    Float_t errDxDz; 
+    Float_t errDyDz; 
+
+    Float_t chi2;  
+    Float_t time; 
+
+    Int_t nHitsX; 
+    Int_t nHitsY;
+    
+    MuonSegment(){};
+    virtual ~MuonSegment(){};
+    
+    ClassDef(MuonSegment,1)
+  };
+
+  class TriggerPrimitive {
+
+  public:
+
+    Int_t id_r;   // station/disk
+    Int_t id_phi; // sector
+    Int_t Id_eta; // ring/wheel
+    
+    Float_t x; 
+    Float_t y;
+
+    Float_t phi; 
+    Float_t eta;
+
+    Short_t quality;  
+    Short_t bx; 
+
+    Bool_t is2nd;  
+    
+    TriggerPrimitive(){};
+    virtual ~TriggerPrimitive(){};
+    
+    ClassDef(TriggerPrimitive,2)
   };
 
   class HitInfo {
@@ -218,12 +275,16 @@ namespace muon_pog {
     Float_t dxyInner; 
     Float_t dzInner; 
 
+    // Trk algo
+    Int_t algo; 
+    Int_t origAlgo; 
+
     // Muon time 
     Float_t muonTimeDof; 
     Float_t muonTime; 
     Float_t muonTimeErr;
 
-    // Muon time 
+    // RPC Muon time 
     Float_t muonRpcTimeDof; 
     Float_t muonRpcTime; 
     Float_t muonRpcTimeErr;
@@ -356,6 +417,9 @@ namespace muon_pog {
     std::vector <muon_pog::GenInfo> genInfos;        // venctor of genInfos; size=0 in data
     std::vector<muon_pog::GenParticle> genParticles; // venctor of genParticles size=0 in data
     std::vector<muon_pog::Muon> muons; // vector of muons
+    std::vector<muon_pog::MuonSegment> dtSegments; // vector of DT segments
+    std::vector<muon_pog::MuonSegment> cscSegments; // vector of CSC segments
+    std::vector<muon_pog::TriggerPrimitive> dtPrimitives; // vector of DT trigger primitives
     muon_pog::METs mets;  // vector of different MET definitions 
     muon_pog::HLT hlt;                 // HLT objects
     std::vector <muon_pog::L1Muon> l1muons; //vector with the L1 muon candidates
