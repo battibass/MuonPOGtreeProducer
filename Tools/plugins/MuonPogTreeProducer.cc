@@ -781,7 +781,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
             {
               muon_pog::ChambMatch ntupleMatch;
 	      
-              if ( getMuonChamberId(match.id,
+              If ( getMuonChamberId(match.id,
                                     ntupleMatch.type,ntupleMatch.id_r,
                                     ntupleMatch.id_phi,ntupleMatch.id_eta)
 		   )
@@ -930,7 +930,30 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	      bool recHitIsValid = (*recHitIt)->isValid();
 	      std::bitset<4> sta(std::string(recHitIsValid ? "1100" : "0100"));			      
 
-	      for (auto ntupleMatch : ntupleMu.matches)
+	      for (auto ntupleMatch : ntupleMu.matces)
+		{
+
+		  if(id_r   == ntupleMatch.id_r   &&
+		     id_eta == ntupleMatch.id_eta &&
+		     id_phi == ntupleMatch.id_phi )
+		    {
+		      hasChambMatch = true;                      
+		    }
+		}
+	      if (!hasChambMatch)
+		{
+
+		  muon_pog::ChambMatch ntupleMatch;
+		  ntupleMatch.type = type;
+		  ntupleMatch.id_r = id_r;
+		  ntupleMatch.id_eta = id_eta;
+		  ntupleMatch.id_phi = id_phi;
+
+		  ntupleMu.matces.push_back(ntupleMatch);
+		  
+		}
+
+	      for (auto ntupleMatch : ntupleMu.matces)
 		{
 
 		  if(id_r   == ntupleMatch.id_r   &&
@@ -938,8 +961,6 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		     id_phi == ntupleMatch.id_phi )
 		    {
 
-		      hasChambMatch = true;                      
-		      
 		      if (type == muon_pog::MuonDetType::DT)
 			{
 			  
@@ -952,6 +973,9 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 			      bool hasMatch = false;
 
 			      if (dtRecHit &&
+				  id_r   == dtSegment.id_r   &&
+				  id_eta == dtSegment.id_eta &&
+				  id_phi == dtSegment.id_phi &&
 				  std::abs(dtRecHit->localPosition().x() - dtSegment.x) < 0.01     &&
 				  std::abs(dtRecHit->localPosition().y() - dtSegment.y) < 0.01     &&
 				  std::abs(dtRecHit->localDirection().x() - dtSegment.dXdZ) < 0.01 &&
@@ -998,6 +1022,9 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 			      bool hasMatch = false;
 
 			      if (cscRecHit &&
+				  id_r   == cscSegment.id_r   &&
+				  id_eta == cscSegment.id_eta &&
+				  id_phi == cscSegment.id_phi &&
 				  std::abs(cscRecHit->localPosition().x() - cscSegment.x) < 0.01     &&
 				  std::abs(cscRecHit->localPosition().y() - cscSegment.y) < 0.01     &&
 				  std::abs(cscRecHit->localDirection().x() - cscSegment.dXdZ) < 0.01 &&
@@ -1032,27 +1059,6 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 			    }
 			}
 		    }
-		}
-
-	      if (!hasChambMatch)
-		{
-		  std::cout << "chamber type: " << type
-			    << ", r: "          << id_r
-			    << ", id_eta: "     << id_eta
-			    << ", id_phi: "     << id_phi
-			    << " not present in chamber matches\n";
-
-		  for (auto ntupleMatch : ntupleMu.matches)
-		    {
-
-		      std::cout << "\ttype: " << ntupleMatch.type
-				<< ", r: "          << ntupleMatch.id_r
-				<< ", id_eta: "     << ntupleMatch.id_eta
-				<< ", id_phi: "     << ntupleMatch.id_phi
-				<< "\n";
-
-		    }
-
 		}
 	    		  
 	    }
