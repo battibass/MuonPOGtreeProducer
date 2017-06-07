@@ -89,13 +89,17 @@ private:
   void fillPV(const edm::Handle<std::vector<reco::Vertex> > &);
   
 
-  void fillDtSegments(const edm::Handle<DTRecSegment4DCollection> &);
+  void fillDtSegments(const edm::Handle<DTRecSegment4DCollection> &,
+		      const edm::ESHandle<DTGeometry> &);
 
-  void fillCscSegments(const edm::Handle<CSCSegmentCollection> &);
+  void fillCscSegments(const edm::Handle<CSCSegmentCollection> &,
+		       const edm::ESHandle<CSCGeometry> &);
 
   Int_t fillMuons(const edm::Handle<edm::View<reco::Muon> > &,
 		  const edm::Handle<std::vector<reco::Vertex> > &,
-		  const edm::Handle<reco::BeamSpot> &);
+		  const edm::Handle<reco::BeamSpot> &,
+		  const edm::ESHandle<DTGeometry> &,
+		  const edm::ESHandle<CSCGeometry> &);
 
   void fillL1(const edm::Handle<l1t::MuonBxCollection> &);
 
@@ -224,9 +228,15 @@ void MuonPogTreeProducer::endJob()
 }
 
 
-void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup &)
+void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup & config)
 {
 
+  edm::ESHandle<DTGeometry>  dtGeom;
+  edm::ESHandle<CSCGeometry> cscGeom;
+
+  config.get<MuonGeometryRecord>().get(dtGeom);
+  
+      
   // Clearing branch variables
   // and setting default values
   event_.hlt.triggers.clear();
@@ -242,7 +252,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
   
   event_.mets.pfMet   = -999; 
   event_.mets.pfChMet = -999; 
-  event_.mets.caloMet = -999; 
+  event_.mets.caloMet = -999;
 
   for (unsigned int ix=0; ix<3; ++ix) {
     event_.primaryVertex[ix] = 0.;
@@ -331,9 +341,9 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
     {     
 
       edm::Handle<DTRecSegment4DCollection> dtSegments;
-
-      if (ev.getByToken(dtSegmentToken_,dtSegments))
-	fillDtSegments(dtSegments);
+      
+      if (ev.getByToken(dtSegmentToken_,dtSegments) && dtGeom.isValid())
+	fillDtSegments(dtSegments, dtGeom);
       else
 	edm::LogError("") << "[MuonPogTreeProducer]: DT segments collection does not exist !!!";
 
@@ -345,8 +355,8 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
       
       edm::Handle<CSCSegmentCollection> cscSegments;
 
-      if (ev.getByToken(cscSegmentToken_,cscSegments))
-	fillCscSegments(cscSegments);
+      if (ev.getByToken(cscSegmentToken_,cscSegments) && cscGeom.isValid())
+	fillCscSegments(cscSegments, cscGeom);
       else
 	edm::LogError("") << "[MuonPogTreeProducer]: CSC segments collection does not exist !!!";
 
@@ -417,9 +427,11 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
   Int_t nGoodMuons = 0;
   eventId_.maxPTs.clear();
   // Fill muon information
-  if (muons.isValid() && vertexes.isValid() && beamSpot.isValid()) 
+  if (muons.isValid()    &&
+      vertexes.isValid() && beamSpot.isValid() &&
+      dtGeom.isValid()   && cscGeom.isValid() ) 
     {
-      nGoodMuons = fillMuons(muons,vertexes,beamSpot);
+      nGoodMuons = fillMuons(muons,vertexes,beamSpot,dtGeom,cscGeom);
     }
   eventId_.nMuons = nGoodMuons;
 
@@ -636,7 +648,9 @@ void MuonPogTreeProducer::fillPV(const edm::Handle<std::vector<reco::Vertex> > &
 
 Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > & muons,
 				     const edm::Handle<std::vector<reco::Vertex> > & vertexes,
-				     const edm::Handle<reco::BeamSpot> & beamSpot)
+				     const edm::Handle<reco::BeamSpot> & beamSpot,
+				     const edm::ESHandle<DTGeometry> & dtGeom,
+				     const edm::ESHandle<CSCGeometry> & cscGeom)
 {
   
   edm::View<reco::Muon>::const_iterator muonIt  = muons->begin();
@@ -787,7 +801,12 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		  
                   if (ntupleMatch.type == muon_pog::MuonDetType::DT)
                     {
-		      
+
+		      const auto chamb = dtGeom->get()->chamber(static_cast<DTChamberId*>(match.id));
+	  	  
+		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
+		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
+
                       bool hasMatch = false;
                       std::size_t iDtSeg = 0;
 		      
@@ -826,10 +845,15 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
                     ++iDtSeg;
                         }
 		    }
-		
+
                   if (ntupleMatch.type == muon_pog::MuonDetType::CSC)
                     {
-        
+
+		      const auto chamb = cscGeom->get()->chamber(static_cast<CSCDetId*>(match.id));
+	  	  
+		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
+		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
+		      
                       bool hasMatch = false;
                       std::size_t iCscSeg = 0;      
 		      
@@ -870,13 +894,151 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		  
                 }
 
-      ntupleMu.matches.push_back(ntupleMatch); 
+	      ntupleMu.matches.push_back(ntupleMatch); 
 
             }
-
+	  
 	}
-          
-      
+
+      reco::TrackRef outTrack = muon->outerTrack();
+      if (muon->innerTrack().isNonnull() && outTrack().isNonnull())
+	{
+	  
+	  trackingRecHit_iterator recHitIt  = outTrack->recHitsBegin();
+	  trackingRecHit_iterator recHitEnd = outTrack->recHitsEnd();
+	  
+	  for (; recHitIt != recHitEnd; ++recHitIt)
+	    {
+	      
+	      DetId detId = (*recHitIt)->Geographicalid();
+	      
+	      muon_pog::MuonDetType type = muon_pog::MuonDetType::RPC;
+	      
+	      Int_t id_r;
+	      Int_t id_eta;
+	      Int_t id_phi;
+	      
+	      getMuonChamberId(detId,ntupleMatch.type,
+			       id_r,id_phi,id_eta)
+		
+	      bool recHitIsValid = (*recHitIt)->isValid();
+
+	      for (auto ntupleMatch : ntupleMu.matches)
+		{
+
+		  if(id_r   == ntupleMatch.id_r   &&
+		     id_eta == ntupleMatch.id_eta &&
+		     id_phi == ntupleMatch.id_phi )
+		    {
+
+		      if (type == muon_pog::MuonDetType::DT)
+			{
+			  
+			  std::size_t iDtSeg = 0;
+			  const auto dtRecHit = dynamic_cast<const DTRecSegment4D *>(*recHitIt);
+
+			  for ( const auto & dtSegment : Event_.dtSegments )
+			    {
+
+			      bool hasMatch = false;
+
+			      if (dtRecHit &&
+				  std::abs(dtRecHit->localPosition().x() - dtSegment.x) < 0.01     &&
+				  std::abs(dtRecHit->localPosition().y() - dtSegment.y) < 0.01     &&
+				  std::abs(dtRecHit->localDirection().x() - dtSegment.dXdZ) < 0.01 &&
+				  std::abs(dtRecHit->localDirection().x() - dtSegment.dXdZ) < 0.01 )
+				{
+
+				  const auto indexIt  = ntupleMatch.indexes.begin();
+				  const auto indexEnd = ntupleMatch.indexes.end();
+
+				  auto qualIt  = ntupleMatch.matchQuals.begin();
+				  auto qualEnd = ntupleMatch.matchQuals.end();
+				  
+				  for (; indexIt!=indexEnd && qualIt!=qualEnd; ++indexIt, ++qualIt)
+				    {
+				      if (iDtSeg == (*indexIt))
+					{
+					  (*qualIt)+= recHitIsValid ? 6 : 3;
+					  break;
+					}
+				    }
+
+				  if (indexIt == indexEnd)
+				    {
+				      ntupleMatch.indexes.push_back(iDtSeg);
+				      ntupleMatch.matchQuals.push_back(recHitIsValid ? 6 : 3); 
+				    }
+				}
+
+			      if (hasMatch) break;
+			      ++iDtSeg;
+			      
+			    }
+			}
+
+		      if (type == muon_pog::MuonDetType::CSC)
+			{
+			  
+			  std::size_t iCscSeg = 0;
+			  const auto cscRecHit = dynamic_cast<const CSCSegment *>(*recHitIt);
+
+			  for ( const auto & cscSegment : Event_.cscSegments )
+			    {
+
+			      bool hasMatch = false;
+
+			      if (cscRecHit &&
+				  std::abs(cscRecHit->localPosition().x() - cscSegment.x) < 0.01     &&
+				  std::abs(cscRecHit->localPosition().y() - cscSegment.y) < 0.01     &&
+				  std::abs(cscRecHit->localDirection().x() - cscSegment.dXdZ) < 0.01 &&
+				  std::abs(cscRecHit->localDirection().x() - cscSegment.dXdZ) < 0.01 )
+				{
+
+				  const auto indexIt  = ntupleMatch.indexes.begin();
+				  const auto indexEnd = ntupleMatch.indexes.end();
+
+				  auto qualIt  = ntupleMatch.matchQuals.begin();
+				  auto qualEnd = ntupleMatch.matchQuals.end();
+				  
+				  for (; indexIt!=indexEnd && qualIt!=qualEnd; ++indexIt, ++qualIt)
+				    {
+				      if (iCscSeg == (*indexIt))
+					{
+					  (*qualIt)+= recHitIsValid ? 6 : 3;
+					  break;
+					}
+				    }
+
+				  if (indexIt == indexEnd)
+				    {
+				      ntupleMatch.indexes.push_back(iCscSeg);
+				      ntupleMatch.matchQuals.push_back(recHitIsValid ? 6 : 3); 
+				    }
+				}
+
+			      if (hasMatch) break;
+			      ++iDtSeg;
+			      
+			    }
+			}
+		    }
+		  else
+		    {
+		      std::cout << "chamber type: " << type
+				<< ", r: "          << id_r
+				<< ", id_eta: "     << id_eta
+				<< ", id_phi: "     << id_phi
+				<< "not present in chamber matches\n";
+		    }
+		  
+
+		}
+	      
+	    }
+	  
+	}
+
       ntupleMu.dxyBest  = -999; 
       ntupleMu.dzBest   = -999; 
       ntupleMu.dxyInner = -999; 
@@ -990,7 +1152,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 
 
 
-void MuonPogTreeProducer::fillDtSegments(const edm::Handle<DTRecSegment4DCollection> & segments)
+void MuonPogTreeProducer::fillDtSegments(const edm::Handle<DTRecSegment4DCollection> & segments,
+					 const edm::ESHandle<DTGeometry> & geom)
 {
   
   DTRecSegment4DCollection::id_iterator chambIt  = segments->id_begin();
@@ -1011,29 +1174,41 @@ void MuonPogTreeProducer::fillDtSegments(const edm::Handle<DTRecSegment4DCollect
 			   dummyType,ntupleSeg.id_r,
 			   ntupleSeg.id_phi,ntupleSeg.id_eta);
 
-	  std::cout << "[MuonPogTreeProducer] : DT segment type : " << dummyType << std::endl;
-	  
+	  const auto chamb = geom->get()->chamber(*chambIt);
+	  	  
 	  ntupleSeg.x = segment->localPosition().x(); 
 	  ntupleSeg.y = segment->localPosition().y();
 	  
-	  ntupleSeg.phi = 0.; 
-	  ntupleSeg.eta = 0.;
+	  ntupleSeg.phi = chamb->toGlobal(segment->localPosition()).phi(); 
+	  ntupleSeg.eta = chamb->toGlobal(segment->localPosition()).eta();
 
 	  ntupleSeg.dXdZ = segment->localDirection().x(); 
 	  ntupleSeg.dYdZ = segment->localDirection().y();
 
-	  ntupleSeg.errx = 0.; 
-	  ntupleSeg.erry = 0.; 
+	  ntupleSeg.errx = segment->localPositionError().x(); 
+	  ntupleSeg.erry = segment->localPositionError().y(); 
 
-	  ntupleSeg.errDxDz = 0.; 
-	  ntupleSeg.errDyDz = 0.; 
+	  ntupleSeg.errDxDz = segment->localDirectionError().x(); 
+	  ntupleSeg.errDyDz = segment->localDirectionError().y(); 
 
-	  ntupleSeg.chi2 = segment->hasPhi() ? (segment->phiSegment()->chi2() /
-                                            segment->phiSegment()->degreesOfFreedom()) : -999.;  
-	  
-	  ntupleSeg.time = segment->hasPhi() ? segment->phiSegment()->t0() : -999.; 
-	  
-	  ntupleSeg.nHitsX = segment->hasPhi() ? segment->phiSegment()->specificRecHits().size() : 0; 
+	  if ( segment->hasPhi() )
+	    {
+	      counst auto & phiSeg = segment->phiSegment();
+	      
+	      ntupleSeg.chi2 = phiSeg->chi2() /
+		               phiSeg->degreesOfFreedom();  
+	      ntupleSeg.time = phiSeg->t0();	      
+	 
+	      ntupleSeg.nHitsX = phiSeg->specificRecHits().size();
+	    }
+	  else
+	    {
+	      ntupleSeg.chi2 = -999.;  
+	      ntupleSeg.time = -999.;	      
+	 
+	      ntupleSeg.nHitsX = 0;
+	    }
+
 	  ntupleSeg.nHitsY = segment->hasZed() ? segment->zSegment()->specificRecHits().size()   : 0;
 	  
 	  event_.dtSegments.push_back(ntupleSeg);
@@ -1045,7 +1220,8 @@ void MuonPogTreeProducer::fillDtSegments(const edm::Handle<DTRecSegment4DCollect
 
 
 
-void MuonPogTreeProducer::fillCscSegments(const edm::Handle<CSCSegmentCollection> & segments)
+void MuonPogTreeProducer::fillCscSegments(const edm::Handle<CSCSegmentCollection> & segments,
+					  const edm::ESHandle<CSCGeometry> & geom )
 {
   
   CSCSegmentCollection::id_iterator chambIt  = segments->id_begin();
@@ -1065,25 +1241,25 @@ void MuonPogTreeProducer::fillCscSegments(const edm::Handle<CSCSegmentCollection
 			   dummyType,ntupleSeg.id_r,
 			   ntupleSeg.id_phi,ntupleSeg.id_eta);
 	  
-	  std::cout << "[MuonPogTreeProducer] : CSC segment type : " << dummyType << std::endl;
+	  const auto chamb = geom->get()->chamber(*chambIt);
 
 	  ntupleSeg.x = segment->localPosition().x(); 
 	  ntupleSeg.y = segment->localPosition().y();
 
-	  ntupleSeg.phi = 0.; 
-	  ntupleSeg.eta = 0.;
+	  ntupleSeg.phi = chamb->toGlobal(segment->localPosition()).phi(); 
+	  ntupleSeg.eta = chamb->toGlobal(segment->localPosition()).eta();
 
 	  ntupleSeg.dXdZ = segment->localDirection().x(); 
 	  ntupleSeg.dYdZ = segment->localDirection().y();
 
-	  ntupleSeg.errx = 0.; 
-	  ntupleSeg.erry = 0.; 
+	  ntupleSeg.errx = segment->localPositionError().x(); 
+	  ntupleSeg.erry = segment->localPositionError().y(); 
 
-	  ntupleSeg.errDxDz = 0.; 
-	  ntupleSeg.errDyDz = 0.; 
+	  ntupleSeg.errDxDz = segment->localDirectionError().x(); 
+	  ntupleSeg.errDyDz = segment->localDirectionError().y(); 
 
 	  ntupleSeg.chi2 = segment->chi2() /
-                       segment->degreesOfFreedom();  
+	                   segment->degreesOfFreedom();  
 
 	  ntupleSeg.time = segment->time(); 
 	  

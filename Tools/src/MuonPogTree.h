@@ -57,7 +57,7 @@ namespace muon_pog {
   };
 
   enum MuonDetType { DT=0, CSC, RPC };
-  enum MuonMatchQual { None=0, Trk, TrkArb, Sta, TrkSta, TrkStaArb };
+  enum MuonMatchQual { None=0, Trk, TrkArb, Sta, TrkSta, TrkStaArb, StaVal, TrkStaVal, TrkStaValArb };
 
   class ChambMatch {
   public:
