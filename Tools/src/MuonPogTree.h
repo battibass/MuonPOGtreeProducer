@@ -331,8 +331,8 @@ namespace muon_pog {
       {
 	for (int i=0; i<2; ++i)
 	  {
-	    muIdx[i]    = 0;
-	    muWeight[i] = 0;
+	    muIdx[i] = 0;
+	    muPt[i]  = -999.;
 	  }
       };
 
@@ -345,8 +345,8 @@ namespace muon_pog {
 
 	for (int i=0; i<2; ++i)
 	  {
-	    muIdx[i]    = pair.muIdx[i];
-	    muWeight[i] = pair.muWeight[i];
+	    muIdx[i] = pair.muIdx[i];
+	    muPt[i]  = pair.muPt[i];
 	  }
       };
 
@@ -356,7 +356,7 @@ namespace muon_pog {
     Float_t vertexChi2;
     Int_t   vertexNDof;
     std::size_t  muIdx[2];
-    Float_t      muWeight[2];
+    Float_t      muPt[2];
     
     muon_pog::Muon & getMu(int i, std::vector<muon_pog::Muon> & muons )
       {

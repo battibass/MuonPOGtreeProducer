@@ -1357,12 +1357,12 @@ void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco:
 
 	  if (!mu1.innerTrack().isNull()  &&
 	      mu1.innerTrack()->pt() > 10 &&
-	      ( mu1.isGlobalMuon() || muon::isGoodMuon(mu1, muon::TrackerMuonArbitrated) )
+	      ( mu1.isGlobalMuon() || mu1.isTrackerMuon() )
 	     )
 	    tracks.push_back(builder->build(mu1.innerTrack()));
 	  if (!mu2.innerTrack().isNull() &&
 	      mu2.innerTrack()->pt() > 10 &&
-	      ( mu2.isGlobalMuon() || muon::isGoodMuon(mu2, muon::TrackerMuonArbitrated) )
+	      ( mu2.isGlobalMuon() || mu2.isTrackerMuon() )
 	      )
 	    tracks.push_back(builder->build(mu2.innerTrack()));
 
@@ -1386,8 +1386,8 @@ void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco:
 	  muPair.muIdx[0] = muId1;
 	  muPair.muIdx[1] = muId2;
 
-	  muPair.muWeight[0] = vertex.hasTrackWeight() ? vertex.trackWeight(tracks.at(0)) : 999.;
-	  muPair.muWeight[1] = vertex.hasTrackWeight() ? vertex.trackWeight(tracks.at(0)) : 999.;
+	  muPair.muPt[0] = vertex.refittedTracks().size() == 2 ? vertex.refittedTracks().at(0).track().pt() : -999.;
+	  muPair.muPt[1] = vertex.refittedTracks().size() == 2 ? vertex.refittedTracks().at(1).track().pt() : -999.;
 
 	  event_.pairs.push_back(muPair);
 
