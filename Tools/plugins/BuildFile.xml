@@ -10,8 +10,8 @@
 <use name="CommonTools/UtilAlgos"/>
 <use name="PhysicsTools/PatAlgos"/>
 <use name="DataFormats/MuonDetId"/>
-<use name="DataFormats/DTRecHit/"/>
-<use name="DataFormats/CSCRecHit/"/>
+<use name="DataFormats/DTRecHit"/>
+<use name="DataFormats/CSCRecHit"/>
 <use name="CommonTools/CandUtils"/>
 <use name="Geometry/CSCGeometry"/>
 <use name="Geometry/DTGeometry"/>
