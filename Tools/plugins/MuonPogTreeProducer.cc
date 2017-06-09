@@ -46,6 +46,12 @@
 #include "DataFormats/HLTReco/interface/TriggerEvent.h"
 #include "DataFormats/L1Trigger/interface/Muon.h"
 
+#include "RecoVertex/KalmanVertexFit/interface/KalmanVertexFitter.h"
+
+#include "TrackingTools/Records/interface/TransientTrackRecord.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrack.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrackBuilder.h"
+
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 #include "DataFormats/HepMCCandidate/interface/GenStatusFlags.h"
 #include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
@@ -103,6 +109,8 @@ private:
 
   void fillL1(const edm::Handle<l1t::MuonBxCollection> &);
 
+  void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
+			    const edm::ESHandle<TransientTrackBuilder> &);
     
   // returns false in case the match is for a RPC chamber
   bool getMuonChamberId(const DetId & id, muon_pog::MuonDetType & det, Int_t & r, Int_t & phi, Int_t & eta) const ;
@@ -236,8 +244,11 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 
   config.get<MuonGeometryRecord>().get(dtGeom);
   config.get<MuonGeometryRecord>().get(cscGeom);
+
+  edm::ESHandle<TransientTrackBuilder> builder;
+
+  config.get<TransientTrackRecord>().get("TransientTrackBuilder", builder);
   
-      
   // Clearing branch variables
   // and setting default values
   event_.hlt.triggers.clear();
@@ -247,6 +258,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
   event_.genParticles.clear();
   event_.genInfos.clear();
   event_.muons.clear();
+  event_.pairs.clear();
 
   event_.dtSegments.clear();
   event_.cscSegments.clear();
@@ -436,7 +448,11 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
     }
   eventId_.nMuons = nGoodMuons;
 
-    
+  if (muons.isValid() && builder.isValid()) 
+    {
+      fillMuonPairVertexes(muons,builder);
+    }
+ 
   //Fill L1 informations
   edm::Handle<l1t::MuonBxCollection> l1s;
   if (!l1Token_.isUninitialized() )
@@ -780,14 +796,16 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
         {
           for ( reco::MuonChamberMatch match : mu.matches() )
             {
-              muon_pog::ChambMatch ntupleMatch;
-	      
+
+	      muon_pog::ChambMatch ntupleMatch;
+
               if ( getMuonChamberId(match.id,
                                     ntupleMatch.type,ntupleMatch.id_r,
                                     ntupleMatch.id_phi,ntupleMatch.id_eta)
 		   )
                 {
-		  
+
+		   
                   ntupleMatch.x = mu.trackX(match.station(),match.detector());
                   ntupleMatch.y = mu.trackY(match.station(),match.detector());
 		  
@@ -826,7 +844,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 				  bool isArb = segMatch.isMask(reco::MuonSegmentMatch::BestInChamberByDR) &&
 				    segMatch.isMask(reco::MuonSegmentMatch::BelongsToTrackByDR);
 				  
-				  std::bitset<4> trk(std::string(isArb ? "0011" : "0010"));			      
+				  std::bitset<4> trk(std::string(isArb ? "0011" : "0001"));			      
 				  ntupleMatch.indexes.push_back(refKey);
 				  ntupleMatch.matchQuals.push_back(trk); 
 				  hasMatch = true;
@@ -873,7 +891,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 				  bool isArb = segMatch.isMask(reco::MuonSegmentMatch::BestInChamberByDR) &&
 				    segMatch.isMask(reco::MuonSegmentMatch::BelongsToTrackByDR);
 
-				  std::bitset<4> trk(std::string(isArb ? "0011" : "0010"));			      
+				  std::bitset<4> trk(std::string(isArb ? "0011" : "0001"));			      
 				  ntupleMatch.indexes.push_back(refKey);
 				  ntupleMatch.matchQuals.push_back(trk); 
 				  hasMatch = true;
@@ -895,12 +913,13 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
                         }
                     }
 		  
-                }
 
-	      ntupleMu.matches.push_back(ntupleMatch); 
+		  ntupleMu.matches.push_back(ntupleMatch); 
+
+                }	      
 
             }
-	  
+	
 	}
 
       if ( (isTracker || isGlobal) && isStandAlone)
@@ -1079,7 +1098,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		}
 	    		  
 	    }
-	  
+		  
 	}
 
       ntupleMu.dxyBest  = -999; 
@@ -1168,14 +1187,13 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	     ntupleMu.fitPt(muon_pog::MuonFitType::GLB)     > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::TUNEP)   > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::INNER)   > m_minMuPtCut ||
-	     ntupleMu.fitPt(muon_pog::MuonFitType::STA)     > m_minMuPtCut ||
+	     //ntupleMu.fitPt(muon_pog::MuonFitType::STA)     > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::PICKY)   > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::DYT)     > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::TPFMS)   > m_minMuPtCut)
 	     )
           )
       {
-        event_.muons.push_back(ntupleMu);
         
         std::vector<Float_t> PTs = {ntupleMu.fitPt(muon_pog::MuonFitType::DEFAULT),
 				    ntupleMu.fitPt(muon_pog::MuonFitType::GLB),
@@ -1187,9 +1205,11 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
         eventId_.maxPTs.push_back(*std::max_element(PTs.begin(), PTs.end()));
       }
 
+      event_.muons.push_back(ntupleMu);
+
     }
 
-  return event_.muons.size();
+  return eventId_.maxPTs.size();
 
 }
 
@@ -1315,6 +1335,68 @@ void MuonPogTreeProducer::fillCscSegments(const edm::Handle<CSCSegmentCollection
     }
   
 }
+
+
+void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > & muons,
+					       const edm::ESHandle<TransientTrackBuilder> & builder)
+{
+
+
+  edm::View<pat::Muon>::size_type nMuons = muons->size();
+  edm::View<pat::Muon>::size_type muId1 = 0;
+
+  for (; muId1 < nMuons; ++muId1)
+    {
+      const reco::Muon& mu1 = muons->at(muId1);
+      edm::View<pat::Muon>::size_type muId2 = muId1 + 1;
+      for (; muId2 < nMuons; ++muId2)
+	{
+	  const reco::Muon& mu2 = muons->at(muId2);
+
+	  std::vector<reco::TransientTrack> tracks;
+
+	  if (!mu1.innerTrack().isNull()  &&
+	      mu1.innerTrack()->pt() > 10 &&
+	      ( mu1.isGlobalMuon() || muon::isGoodMuon(mu1, muon::TrackerMuonArbitrated) )
+	     )
+	    tracks.push_back(builder->build(mu1.innerTrack()));
+	  if (!mu2.innerTrack().isNull() &&
+	      mu2.innerTrack()->pt() > 10 &&
+	      ( mu2.isGlobalMuon() || muon::isGoodMuon(mu2, muon::TrackerMuonArbitrated) )
+	      )
+	    tracks.push_back(builder->build(mu2.innerTrack()));
+
+	  if(tracks.size() != 2 || 
+	     (mu1.innerTrack()->pt() < 25 && 
+	      mu2.innerTrack()->pt() < 25 )) continue;
+
+	  muon_pog::MuonPair muPair;
+
+	  KalmanVertexFitter vtxFitter(true);
+	  TransientVertex vertex = vtxFitter.vertex(tracks);
+
+	  if( !vertex.isValid() ) continue;
+
+	  muPair.vertexChi2 = vertex.totalChiSquared();
+	  muPair.vertexNDof = vertex.degreesOfFreedom();
+
+	  muPair.vertexProb = TMath::Prob(muPair.vertexChi2,
+					  muPair.vertexNDof);
+
+	  muPair.muIdx[0] = muId1;
+	  muPair.muIdx[1] = muId2;
+
+	  muPair.muWeight[0] = vertex.hasTrackWeight() ? vertex.trackWeight(tracks.at(0)) : 999.;
+	  muPair.muWeight[1] = vertex.hasTrackWeight() ? vertex.trackWeight(tracks.at(0)) : 999.;
+
+	  event_.pairs.push_back(muPair);
+
+	}
+
+    }
+	  
+}
+
 
 
 bool MuonPogTreeProducer::getMuonChamberId(const DetId & id, muon_pog::MuonDetType & det,

@@ -9,6 +9,7 @@
 #pragma link C++ class muon_pog::GenParticle+;
 #pragma link C++ class muon_pog::METs+;
 #pragma link C++ class muon_pog::Muon+;
+#pragma link C++ class muon_pog::MuonPair+;
 #pragma link C++ class muon_pog::MuonSegment+;
 #pragma link C++ class muon_pog::TriggerPrimitive+;
 #pragma link C++ class muon_pog::L1Muon+;
@@ -20,6 +21,7 @@
 #pragma link C++ class std::vector<muon_pog::GenInfo>+;
 #pragma link C++ class std::vector<muon_pog::GenParticle>+;
 #pragma link C++ class std::vector<muon_pog::Muon>+;
+#pragma link C++ class std::vector<muon_pog::MuonPair>+;
 #pragma link C++ class std::vector<muon_pog::MuonSegment>+;
 #pragma link C++ class std::vector<muon_pog::TriggerPrimitive>+;
 #pragma link C++ class std::vector<muon_pog::HLTObject>+;

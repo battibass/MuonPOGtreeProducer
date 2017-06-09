@@ -83,7 +83,7 @@ namespace muon_pog {
     Float_t errDyDz; 
 
     std::vector<std::size_t> indexes;
-    std::vector<std::bitset<4> >  matchQuals; // 0 = Trk, 1 = TrkArb, 2 = Sta, 3 = Sta Valid 
+    std::vector<std::bitset<4> >  matchQuals; // bit order 0 = Trk, 1 = TrkArb, 2 = Sta, 3 = Sta Valid 
 
     // std::vector<std::size_t> trigIndexes;
 
@@ -324,6 +324,49 @@ namespace muon_pog {
     ClassDef(Muon,4)
   };
 
+  class MuonPair {
+  public:
+
+    MuonPair()
+      {
+	for (int i=0; i<2; ++i)
+	  {
+	    muIdx[i]    = 0;
+	    muWeight[i] = 0;
+	  }
+      };
+
+    MuonPair(const MuonPair & pair)
+      {
+
+	vertexProb = pair.vertexProb;
+	vertexChi2 = pair.vertexChi2;
+	vertexNDof = pair.vertexNDof;
+
+	for (int i=0; i<2; ++i)
+	  {
+	    muIdx[i]    = pair.muIdx[i];
+	    muWeight[i] = pair.muWeight[i];
+	  }
+      };
+
+    virtual ~MuonPair() { };
+    
+    Float_t vertexProb;
+    Float_t vertexChi2;
+    Int_t   vertexNDof;
+    std::size_t  muIdx[2];
+    Float_t      muWeight[2];
+    
+    muon_pog::Muon & getMu(int i, std::vector<muon_pog::Muon> & muons )
+      {
+	return muons.at(muIdx[i-1]);
+      };
+
+    ClassDef(MuonPair,1)
+
+  };
+  
   class HLTObject {
   public:
 
@@ -414,9 +457,10 @@ namespace muon_pog {
     Float_t primaryVertex[3];        // 3d coordinates of PV [cm]
     Float_t cov_primaryVertex[3][3]; // 3x3 covariance matrix of PV estimation [cm*cm]
 
-    std::vector <muon_pog::GenInfo> genInfos;        // venctor of genInfos; size=0 in data
+    std::vector<muon_pog::GenInfo> genInfos;        // venctor of genInfos; size=0 in data
     std::vector<muon_pog::GenParticle> genParticles; // venctor of genParticles size=0 in data
     std::vector<muon_pog::Muon> muons; // vector of muons
+    std::vector<muon_pog::MuonPair> pairs; // vector of muon pairs
     std::vector<muon_pog::MuonSegment> dtSegments; // vector of DT segments
     std::vector<muon_pog::MuonSegment> cscSegments; // vector of CSC segments
     std::vector<muon_pog::TriggerPrimitive> dtPrimitives; // vector of DT trigger primitives
@@ -427,7 +471,7 @@ namespace muon_pog {
     Event(){};
     virtual ~Event(){};
 
-    ClassDef(Event,6)
+    ClassDef(Event,7)
   };
 
 }

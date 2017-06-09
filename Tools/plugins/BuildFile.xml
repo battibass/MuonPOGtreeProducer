@@ -15,8 +15,10 @@
 <use name="CommonTools/CandUtils"/>
 <use name="Geometry/CSCGeometry"/>
 <use name="Geometry/DTGeometry"/>
+<use name="RecoVertex/KalmanVertexFit"/>
+<use name="TrackingTools/TransientTrack"/>
+<use name="TrackingTools/Records"/>
 <use name="Geometry/Records"/>
-
 
 <library name="MuonPOGtreeProducerToolsPlugin" file="*.cc">
    <use name="MuonPOGtreeProducer/Tools"/>

@@ -80,7 +80,9 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(options.nEvents))
 
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+process.load("TrackingTools.TransientTrack.TransientTrackBuilder_cfi")
 process.load('Configuration.StandardSequences.MagneticField_cff')
+
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 
 process.GlobalTag.globaltag = cms.string(options.globalTag)
