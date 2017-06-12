@@ -111,9 +111,25 @@ private:
 
   void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
 			    const edm::ESHandle<TransientTrackBuilder> &);
-    
+     
   // returns false in case the match is for a RPC chamber
   bool getMuonChamberId(const DetId & id, muon_pog::MuonDetType & det, Int_t & r, Int_t & phi, Int_t & eta) const ;
+
+  //fills muon_pog::ChambMatch(es) with info from traker muons
+  void matchTkMuSeg( const reco::MuonChamberMatch & match,
+		     const std::vector<muon_pog::MuonSegment> & segments,
+		     muon_pog::ChambMatch & ntupleMatch );
+  
+  //extends muon_pog::ChambMatch(es) with info from standalone muons
+  template<class T> void matchStaMuSeg( const trackingRecHit_iterator & recHitIt,
+					const std::vector<muon_pog::MuonSegment> & segments,
+					Int_t id_r, Int_t id_eta, Int_t id_phi,
+					muon_pog::ChambMatch & ntupleMatch );
+
+  //extends muon_pog::ChambMatch(es) with info from non used segments
+  void matchChambSeg( const std::vector<muon_pog::MuonSegment> & segments,
+		      muon_pog::ChambMatch & ntupleMatch );
+  
   
   edm::EDGetTokenT<edm::TriggerResults> trigResultsToken_;
   edm::EDGetTokenT<trigger::TriggerEvent> trigSummaryToken_;
@@ -168,9 +184,6 @@ MuonPogTreeProducer::MuonPogTreeProducer( const edm::ParameterSet & cfg )
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("CSCSegmentTag", edm::InputTag("cscSegments"));
   if (tag.label() != "none") cscSegmentToken_ = consumes<CSCSegmentCollection>(tag);
-
-  tag = cfg.getUntrackedParameter<edm::InputTag>("MuonTag", edm::InputTag("muons"));
-  if (tag.label() != "none") muonToken_ = consumes<edm::View<reco::Muon> >(tag);
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("MuonTag", edm::InputTag("muons"));
   if (tag.label() != "none") muonToken_ = consumes<edm::View<reco::Muon> >(tag);
@@ -301,8 +314,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 	  else 
 	    edm::LogError("") << "[MuonPogTreeProducer]: Pile-Up Info collection does not exist !!!";
 	}      
-    }
-  
+    }  
 
   // Fill GEN particles information
   if (!ev.isRealData()) 
@@ -435,10 +447,10 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
       if (!ev.getByToken(muonToken_, muons)) 
 	edm::LogError("") << "[MuonPogTreeProducer] Muon collection does not exist !!!";
     }
-  
 
   Int_t nGoodMuons = 0;
   eventId_.maxPTs.clear();
+  
   // Fill muon information
   if (muons.isValid()    &&
       vertexes.isValid() && beamSpot.isValid() &&
@@ -448,12 +460,13 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
     }
   eventId_.nMuons = nGoodMuons;
 
+  // Fill muon pairs information
   if (muons.isValid() && builder.isValid()) 
     {
       fillMuonPairVertexes(muons,builder);
     }
  
-  //Fill L1 informations
+  //Fill L1 information
   edm::Handle<l1t::MuonBxCollection> l1s;
   if (!l1Token_.isUninitialized() )
     {
@@ -463,11 +476,12 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
             fillL1(l1s);
         }
     }
-    
+  
   if (nGoodMuons >= m_minNMuCut)
-  tree_["muPogTree"]->Fill();
+    tree_["muPogTree"]->Fill();
 
 }
+
 
 void MuonPogTreeProducer::fillGenInfo(const edm::Handle<std::vector<PileupSummaryInfo> > & puInfo,
 				      const edm::Handle<GenEventInfoProduct> & gen)
@@ -599,6 +613,7 @@ void MuonPogTreeProducer::fillHlt(const edm::Handle<edm::TriggerResults> & trigg
 
 }
 
+
 void MuonPogTreeProducer::fillL1(const edm::Handle<l1t::MuonBxCollection> & l1MuonBxColl)
 {
 
@@ -623,7 +638,6 @@ void MuonPogTreeProducer::fillL1(const edm::Handle<l1t::MuonBxCollection> & l1Mu
 	}
     }
 }
-
 
 
 void MuonPogTreeProducer::fillPV(const edm::Handle<std::vector<reco::Vertex> > & vertexes)
@@ -792,127 +806,55 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.isTrkMuOST               = muon::isGoodMuon(mu, muon::TMOneStationTight) ? 1 : 0; 
       ntupleMu.isTrkHP                  = hasInnerTrack && mu.innerTrack()->quality(reco::TrackBase::highPurity) ? 1 : 0; 
 
+      // Fill muon_pog "chamber matches" with information from tracker muons
       if ( mu.isMatchesValid() )
         {
-          for ( reco::MuonChamberMatch match : mu.matches() )
+          for ( const reco::MuonChamberMatch & match : mu.matches() )
             {
-
+	      
 	      muon_pog::ChambMatch ntupleMatch;
-
+	      
               if ( getMuonChamberId(match.id,
                                     ntupleMatch.type,ntupleMatch.id_r,
                                     ntupleMatch.id_phi,ntupleMatch.id_eta)
 		   )
                 {
-
-		   
-                  ntupleMatch.x = mu.trackX(match.station(),match.detector());
-                  ntupleMatch.y = mu.trackY(match.station(),match.detector());
 		  
-                  ntupleMatch.dXdZ = mu.trackDxDz(match.station(),match.detector());
-                  ntupleMatch.dYdZ = mu.trackDyDz(match.station(),match.detector());
+                  ntupleMatch.x = match.x;
+                  ntupleMatch.y = match.y;
 		  
-                  ntupleMatch.errx = mu.trackXErr(match.station(),match.detector());
-                  ntupleMatch.erry = mu.trackYErr(match.station(),match.detector());
+                  ntupleMatch.dXdZ = match.dXdZ;
+                  ntupleMatch.dYdZ = match.dYdZ;
 		  
-                  ntupleMatch.errDxDz = mu.trackDxDzErr(match.station(),match.detector());
-                  ntupleMatch.errDyDz = mu.trackDyDzErr(match.station(),match.detector());
+                  ntupleMatch.errx = match.xErr;
+                  ntupleMatch.erry = match.yErr;
+		  
+                  ntupleMatch.errDxDz = match.dXdZErr;
+                  ntupleMatch.errDyDz = match.dYdZErr;
 		  
                   if (ntupleMatch.type == muon_pog::MuonDetType::DT)
-                    {
-
-		      const auto chamb = dtGeom->chamber(DTChamberId(match.id));
-	  	  
+		    {
+		      
+		      const auto chamb = dtGeom->chamber(static_cast<DTChamberId>(match.id));
+		      
 		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
 		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
 
-                      bool hasMatch = false;
-                      std::size_t iDtSeg = 0;
-		      
-                      for ( const auto & dtSegment : event_.dtSegments )
-                        {
-                          for ( const auto & segMatch : match.segmentMatches )
-                            {
-			      
-                              std::size_t refKey = 
-				segMatch.dtSegmentRef.isNonnull() ? 
-				segMatch.dtSegmentRef.key() : 
-				std::numeric_limits<std::size_t>::max();
-			      
-                              if ( refKey == iDtSeg )
-                                {
-				  bool isArb = segMatch.isMask(reco::MuonSegmentMatch::BestInChamberByDR) &&
-				    segMatch.isMask(reco::MuonSegmentMatch::BelongsToTrackByDR);
-				  
-				  std::bitset<4> trk(std::string(isArb ? "0011" : "0001"));			      
-				  ntupleMatch.indexes.push_back(refKey);
-				  ntupleMatch.matchQuals.push_back(trk); 
-				  hasMatch = true;
-				  break;
-                                }
+		      matchTkMuSeg(match, event_.dtSegments, ntupleMatch);
 
-                            }
-			  
-			  if ( !hasMatch &&
-			       dtSegment.id_r   == ntupleMatch.id_r &&
-			       dtSegment.id_phi == ntupleMatch.id_phi &&
-			       dtSegment.id_eta == ntupleMatch.id_eta )
-                            {
-			      std::bitset<4> none(std::string("0000"));			      
-			      ntupleMatch.indexes.push_back(iDtSeg);
-			      ntupleMatch.matchQuals.push_back(none);
-                            }
-			  ++iDtSeg;
-                        }
 		    }
-
+		  
                   if (ntupleMatch.type == muon_pog::MuonDetType::CSC)
-                    {
-
-		      const auto chamb = cscGeom->chamber(CSCDetId(match.id));
-	  	  
+		    {
+		      
+		      const auto chamb = cscGeom->chamber(static_cast<CSCDetId>(match.id));
+		      
 		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
 		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
 		      
-                      bool hasMatch = false;
-                      std::size_t iCscSeg = 0;      
+		      matchTkMuSeg(match, event_.cscSegments, ntupleMatch);
 		      
-                      for ( const auto & cscSegment : event_.cscSegments )
-                        {
-                          for ( const auto & segMatch : match.segmentMatches )
-                            {
-			      
-                              std::size_t refKey = segMatch.cscSegmentRef.isNonnull() ? 
-				segMatch.cscSegmentRef.key() : 
-				std::numeric_limits<std::size_t>::max();
-			      
-                              if ( refKey == iCscSeg )
-                                {
-				  bool isArb = segMatch.isMask(reco::MuonSegmentMatch::BestInChamberByDR) &&
-				    segMatch.isMask(reco::MuonSegmentMatch::BelongsToTrackByDR);
-
-				  std::bitset<4> trk(std::string(isArb ? "0011" : "0001"));			      
-				  ntupleMatch.indexes.push_back(refKey);
-				  ntupleMatch.matchQuals.push_back(trk); 
-				  hasMatch = true;
-				  break;
-                                }
-			      
-                            }
-
-			  if ( !hasMatch &&
-			       cscSegment.id_r   == ntupleMatch.id_r &&
-			       cscSegment.id_phi == ntupleMatch.id_phi &&
-			       cscSegment.id_eta == ntupleMatch.id_eta )
-                            {
-			      std::bitset<4> none(std::string("0000"));			      
-			      ntupleMatch.indexes.push_back(iCscSeg);
-			      ntupleMatch.matchQuals.push_back(none);
-                            }
-			  ++iCscSeg;
-                        }
-                    }
-		  
+		    }
 
 		  ntupleMu.matches.push_back(ntupleMatch); 
 
@@ -922,9 +864,13 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	
 	}
 
+      // Extends muon_pog "chamber matches" with information from standalone muons :
+      // both by : increasing chamber matches: vector size and estending the list of
+      // matched segments within a chamber
+
       if ( (isTracker || isGlobal) && isStandAlone)
 	{
-
+	  
 	  reco::TrackRef outTrack = mu.outerTrack();
 	  
 	  trackingRecHit_iterator recHitIt  = outTrack->recHitsBegin();
@@ -942,17 +888,14 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	      Int_t id_phi;
 	      
 	      getMuonChamberId(detId,type,id_r,id_phi,id_eta);
-
+	      
 	      if (type == muon_pog::MuonDetType::RPC) continue;
-
+	      
 	      bool hasChambMatch = false;                      
-		
-	      bool recHitIsValid = (*recHitIt)->isValid();
-	      std::bitset<4> sta(std::string(recHitIsValid ? "1100" : "0100"));			      
-
+	      
 	      for (const auto & ntupleMatch : ntupleMu.matches)
 		{
-
+		  
 		  if(id_r   == ntupleMatch.id_r   &&
 		     id_eta == ntupleMatch.id_eta &&
 		     id_phi == ntupleMatch.id_phi )
@@ -963,7 +906,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		}
 	      if (!hasChambMatch)
 		{
-
+		  
 		  muon_pog::ChambMatch ntupleMatch;
 		  ntupleMatch.type = type;
 		  ntupleMatch.id_r = id_r;
@@ -980,125 +923,45 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		  
                   ntupleMatch.errDxDz = -999.;
                   ntupleMatch.errDyDz = -999.;
-
+		  
 		  ntupleMu.matches.push_back(ntupleMatch);
 		  
-		}
-
+		}	      
+	      		      	      
 	      for (auto & ntupleMatch : ntupleMu.matches)
 		{
-
+		  
 		  if(id_r   == ntupleMatch.id_r   &&
 		     id_eta == ntupleMatch.id_eta &&
 		     id_phi == ntupleMatch.id_phi )
 		    {
-
+		      
 		      if (type == muon_pog::MuonDetType::DT)
-			{
+			matchStaMuSeg<DTRecSegment4D>(recHitIt, event_.dtSegments,
+						      id_r, id_eta, id_phi, ntupleMatch );
 			  
-			  std::size_t iDtSeg = 0;
-			  const auto dtRecHit = dynamic_cast<const DTRecSegment4D *>(*recHitIt);
-
-			  for ( const auto & dtSegment : event_.dtSegments )
-			    {
-
-			      bool hasMatch = false;
-
-			      if (dtRecHit &&
-				  id_r   == dtSegment.id_r   &&
-				  id_eta == dtSegment.id_eta &&
-				  id_phi == dtSegment.id_phi &&
-				  std::abs(dtRecHit->localPosition().x() - dtSegment.x) < 0.01     &&
-				  std::abs(dtRecHit->localPosition().y() - dtSegment.y) < 0.01     &&
-				  std::abs(dtRecHit->localDirection().x() - dtSegment.dXdZ) < 0.01 &&
-				  std::abs(dtRecHit->localDirection().y() - dtSegment.dYdZ) < 0.01 )
-				{
-
-				  std::vector<std::size_t>::const_iterator indexIt = ntupleMatch.indexes.begin();
-				  std::vector<std::size_t>::const_iterator indexEnd = ntupleMatch.indexes.end();
-
-				  std::vector<std::bitset<4>>::iterator qualIt  = ntupleMatch.matchQuals.begin();
-				  std::vector<std::bitset<4>>::iterator qualEnd = ntupleMatch.matchQuals.end();
-				  
-				  for (; indexIt!=indexEnd && qualIt!=qualEnd; ++indexIt, ++qualIt)
-				    {
-				      if (iDtSeg == (*indexIt))
-					{
-					  (*qualIt) =  (*qualIt) |= sta;
-					  hasMatch = true;
-					  break;
-					}
-				    }
-
-				  if (hasMatch == false && indexIt == indexEnd)
-				    {
-				      hasMatch = true;
-				      ntupleMatch.indexes.push_back(iDtSeg);
-				      ntupleMatch.matchQuals.push_back(sta); 
-				    }
-				}
-
-			      if (hasMatch) break;
-			      ++iDtSeg;
-			      
-			    }
-			}
-
 		      if (type == muon_pog::MuonDetType::CSC)
-			{
-			  
-			  std::size_t iCscSeg = 0;
-			  const auto cscRecHit = dynamic_cast<const CSCSegment *>(*recHitIt);
-
-			  for ( const auto & cscSegment : event_.cscSegments )
-			    {
-
-			      bool hasMatch = false;
-
-			      if (cscRecHit &&
-				  id_r   == cscSegment.id_r   &&
-				  id_eta == cscSegment.id_eta &&
-				  id_phi == cscSegment.id_phi &&
-				  std::abs(cscRecHit->localPosition().x() - cscSegment.x) < 0.01     &&
-				  std::abs(cscRecHit->localPosition().y() - cscSegment.y) < 0.01     &&
-				  std::abs(cscRecHit->localDirection().x() - cscSegment.dXdZ) < 0.01 &&
-				  std::abs(cscRecHit->localDirection().y() - cscSegment.dYdZ) < 0.01 )
-				{
-
-				  std::vector<std::size_t>::const_iterator indexIt = ntupleMatch.indexes.begin();
-				  std::vector<std::size_t>::const_iterator indexEnd = ntupleMatch.indexes.end();
-
-				  std::vector<std::bitset<4>>::iterator qualIt  = ntupleMatch.matchQuals.begin();
-				  std::vector<std::bitset<4>>::iterator qualEnd = ntupleMatch.matchQuals.end();
-				  
-				  for (; indexIt!=indexEnd && qualIt!=qualEnd; ++indexIt, ++qualIt)
-				    {
-				      if (iCscSeg == (*indexIt))
-					{
-					  hasMatch = true;
-					  (*qualIt) = (*qualIt) |= sta;
-					  break;
-					}
-				    }
-
-				  if (hasMatch == false && indexIt == indexEnd)
-				    {
-				      hasMatch = true;
-				      ntupleMatch.indexes.push_back(iCscSeg);
-				      ntupleMatch.matchQuals.push_back(sta); 
-				    }
-				}
-
-			      if (hasMatch) break;
-			      ++iCscSeg;
-			      
-			    }
-			}
+			matchStaMuSeg<CSCSegment>(recHitIt, event_.cscSegments,
+						  id_r, id_eta, id_phi, ntupleMatch );
 		    }
+
 		}
-	    		  
+
 	    }
-		  
+    	  
+	}
+
+      // Finally add to existing "chamber matches" information from segments
+      // not used in muon reconstruction
+      for (auto & ntupleMatch : ntupleMu.matches)
+	{
+	  
+	  if (type == muon_pog::MuonDetType::DT)
+	    matchChambSeg(event_.dtSegments, ntupleMatch);
+
+	  if (type == muon_pog::MuonDetType::CSC)
+	    matchChambSeg(event_.cscSegments, ntupleMatch);
+
 	}
 
       ntupleMu.dxyBest  = -999; 
@@ -1342,13 +1205,14 @@ void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco:
 {
 
 
-  edm::View<pat::Muon>::size_type nMuons = muons->size();
-  edm::View<pat::Muon>::size_type muId1 = 0;
+  std::size_t nMuons = muons->size();
+  std::size_t muId1 = 0;
 
   for (; muId1 < nMuons; ++muId1)
     {
       const reco::Muon& mu1 = muons->at(muId1);
-      edm::View<pat::Muon>::size_type muId2 = muId1 + 1;
+      std::size_t muId2 = muId1 + 1;
+      
       for (; muId2 < nMuons; ++muId2)
 	{
 	  const reco::Muon& mu2 = muons->at(muId2);
@@ -1431,6 +1295,147 @@ bool MuonPogTreeProducer::getMuonChamberId(const DetId & id, muon_pog::MuonDetTy
       
 }
 
+void MuonPogTreeProducer::matchTkMuSeg( const reco::MuonChamberMatch & match,
+				        const std::vector<muon_pog::MuonSegment> & segments,
+				        muon_pog::ChambMatch & ntupleMatch )
+{
+  
+  std::size_t iSeg = 0;
+  
+  for ( const auto & segment : segments )
+    {
+      for ( const auto & segMatch : match.segmentMatches )
+	{
+	  
+	  std::size_t refKey = 
+	    segMatch.segmentRef.isNonnull() ? 
+	    segMatch.segmentRef.key() : 
+	    std::numeric_limits<std::size_t>::max();
+			      
+	  if ( refKey == iSeg )
+	    {
+	      bool isArb = segMatch.isMask(reco::MuonSegmentMatch::BestInChamberByDR) &&
+		           segMatch.isMask(reco::MuonSegmentMatch::BelongsToTrackByDR);
+	      
+	      std::bitset<4> trk(std::string(isArb ? "0011" : "0001"));			      
+	      ntupleMatch.indexes.push_back(refKey);
+	      ntupleMatch.matchQuals.push_back(trk); 
+	      break;
+	    }
+	  
+	}
+      
+      ++iSeg;
+      
+    }
+      
+}
+
+template<class T> void MuonPogTreeProducer::matchStaMuSeg( const trackingRecHit_iterator & recHitIt,
+							   const std::vector<muon_pog::MuonSegment> & segments,
+							   Int_t id_r, Int_t id_eta, Int_t id_phi,
+							   muon_pog::ChambMatch & ntupleMatch )
+{  
+  
+  bool recHitIsValid = (*recHitIt)->isValid();
+  std::bitset<4> sta(std::string(recHitIsValid ? "1100" : "0100"));	
+  
+  std::size_t iSeg = 0;
+  const auto recHit = dynamic_cast<const T *>(*recHitIt);
+  
+  for ( const auto & segment : segments )
+    {
+			      
+      bool hasMatch = false;
+      
+      if (recHit &&
+	  id_r   == segment.id_r   &&
+	  id_eta == segment.id_eta &&
+	  id_phi == segment.id_phi &&
+	  std::abs(recHit->localPosition().x()  - segment.x) < 0.01    &&
+	  std::abs(recHit->localPosition().y()  - segment.y) < 0.01    &&
+	  std::abs(recHit->localDirection().x() - segment.dXdZ) < 0.01 &&
+	  std::abs(recHit->localDirection().y() - segment.dYdZ) < 0.01 )
+	{
+	  
+	  std::vector<std::size_t>::const_iterator indexIt = ntupleMatch.indexes.begin();
+	  std::vector<std::size_t>::const_iterator indexEnd = ntupleMatch.indexes.end();
+	  
+	  std::vector<std::bitset<4>>::iterator qualIt  = ntupleMatch.matchQuals.begin();
+	  std::vector<std::bitset<4>>::iterator qualEnd = ntupleMatch.matchQuals.end();
+	  
+	  for (; indexIt!=indexEnd && qualIt!=qualEnd; ++indexIt, ++qualIt)
+	    {
+	      
+	      if (iSeg == (*indexIt))
+		{
+		  (*qualIt) =  (*qualIt) |= sta;
+		  hasMatch = true;
+		  break;
+		}
+	    }
+	  
+	  if (hasMatch == false && indexIt == indexEnd)
+	    {
+	      hasMatch = true;
+	      ntupleMatch.indexes.push_back(iSeg);
+	      ntupleMatch.matchQuals.push_back(sta); 
+	    }
+	}
+      
+      if (hasMatch)
+	break;
+    }
+  
+}
+
+
+void MuonPogTreeProducer::matchChambSeg( const std::vector<muon_pog::MuonSegment> & segments,
+					 muon_pog::ChambMatch & ntupleMatch )
+{
+
+  std::size_t iSeg = 0;
+  
+  for ( const auto & segment : segments )
+    {
+			      
+      bool hasMatch = false;
+      
+      if ( ntupleMatch.id_r   == segment.id_r   &&
+	   ntupleMatch.id_eta == segment.id_eta &&
+	   ntupleMatch.id_phi == segment.id_phi )
+
+	{
+	  
+	  std::vector<std::size_t>::const_iterator indexIt  = ntupleMatch.indexes.begin();
+	  std::vector<std::size_t>::const_iterator indexEnd = ntupleMatch.indexes.end();
+	  
+	  for (; indexIt!=indexEnd ; ++indexIt)
+	    {
+
+	        const auto matchSeg = segments.at(*indexIt);
+      
+		if (std::abs(matchSeg.x - segment.x) < 0.01       &&
+		    std::abs(matchSeg.y - segment.y) < 0.01       &&
+		    std::abs(matchSeg.dXdZ - segment.dXdZ) < 0.01 &&
+		    std::abs(matchSeg.dYdZ - segment.dYdZ) < 0.01 )
+		  {
+		    hasMatch = true;
+		    break;
+		  }
+	    }
+	  
+	  if (hasMatch == false && indexIt == indexEnd)
+	    {
+	      std::bitset<4> none(std::string("0000"));			      
+	      ntupleMatch.indexes.push_back(iSeg);
+	      ntupleMatch.matchQuals.push_back(none); 
+	    }
+	}
+      
+    }
+  
+}
 
 #include "FWCore/Framework/interface/MakerMacros.h"
 
