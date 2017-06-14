@@ -974,10 +974,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.isoPflow03 = (pfIso03.sumChargedHadronPt+ 
 			     std::max(0.,pfIso03.sumPhotonEt+pfIso03.sumNeutralHadronEt - 0.5*pfIso03.sumPUPt)) / mu.pt();
 
-      double dxybs = isGlobal ? mu.globalTrack()->dxy(beamSpot->position()) :
-	hasInnerTrack ? mu.innerTrack()->dxy(beamSpot->position()) : -1000;
-      double dzbs  = isGlobal ? mu.globalTrack()->dz(beamSpot->position()) :
-	hasInnerTrack ? mu.innerTrack()->dz(beamSpot->position()) : -1000;
+      double dxybs = hasInnerTrack ? mu.innerTrack()->dxy(beamSpot->position()) : -1000;
+      double dzbs  = hasInnerTrack ? mu.innerTrack()->dz(beamSpot->position())  : -1000;
 
       double dxy = -1000.;
       double dz  = -1000.;
