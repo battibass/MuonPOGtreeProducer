@@ -85,12 +85,12 @@ namespace muon_pog {
     std::vector<std::size_t> indexes;
     std::vector<std::bitset<4> >  matchQuals; // bit order 0 = Trk, 1 = TrkArb, 2 = Sta, 3 = Sta Valid 
 
-    // std::vector<std::size_t> trigIndexes;
+    std::vector<std::size_t> trigIndexes;
 
     ChambMatch(){};
     virtual ~ChambMatch(){};
     
-    ClassDef(ChambMatch,3)
+    ClassDef(ChambMatch,4)
   };
 
   class MuonSegment {
@@ -134,13 +134,10 @@ namespace muon_pog {
 
     Int_t id_r;   // station/disk
     Int_t id_phi; // sector
-    Int_t Id_eta; // ring/wheel
+    Int_t id_eta; // ring/wheel
     
-    Float_t x; 
-    Float_t y;
-
     Float_t phi; 
-    Float_t eta;
+    Float_t phiB;
 
     Short_t quality;  
     Short_t bx; 
@@ -149,8 +146,18 @@ namespace muon_pog {
     
     TriggerPrimitive(){};
     virtual ~TriggerPrimitive(){};
-    
-    ClassDef(TriggerPrimitive,2)
+
+    inline Int_t bxTrackFinder() const 
+    {
+      return bx - (is2nd ? 1 : 0);
+    };
+
+    inline Float_t phiGlb() const 
+    {
+      return (phi / 4096.) + TMath::Pi() / 180. * (id_phi - 1);
+    };
+
+    ClassDef(TriggerPrimitive,3)
   };
 
   class HitInfo {
@@ -296,27 +303,27 @@ namespace muon_pog {
     Muon(){};
     virtual ~Muon(){};
 
-    inline Float_t fitPt( const muon_pog::MuonFitType type ) 
+    inline Float_t fitPt( const muon_pog::MuonFitType type ) const 
     {
       return fits.at(type).pt;
     };
 
-    inline Float_t fitEta( const muon_pog::MuonFitType type ) 
+    inline Float_t fitEta( const muon_pog::MuonFitType type ) const 
     {
       return fits.at(type).eta;
     };
 
-    inline Float_t fitPhi( const muon_pog::MuonFitType type ) 
+    inline Float_t fitPhi( const muon_pog::MuonFitType type ) const 
     {
       return fits.at(type).phi;
     };
 
-    inline Int_t fitCharge( const muon_pog::MuonFitType type ) 
+    inline Int_t fitCharge( const muon_pog::MuonFitType type ) const 
     {
       return fits.at(type).charge;
     };
 
-    inline Float_t fitPtErr( const muon_pog::MuonFitType type ) 
+    inline Float_t fitPtErr( const muon_pog::MuonFitType type ) const 
     {
       return fits.at(type).ptErr;
     };
@@ -358,7 +365,7 @@ namespace muon_pog {
     std::size_t  muIdx[2];
     Float_t      muPt[2];
     
-    muon_pog::Muon & getMu(int i, std::vector<muon_pog::Muon> & muons )
+    const muon_pog::Muon & getMu(int i, std::vector<muon_pog::Muon> & muons )
       {
 	return muons.at(muIdx[i-1]);
       };
@@ -471,7 +478,7 @@ namespace muon_pog {
     Event(){};
     virtual ~Event(){};
 
-    ClassDef(Event,7)
+    ClassDef(Event,8)
   };
 
 }

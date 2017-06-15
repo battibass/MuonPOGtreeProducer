@@ -12,6 +12,7 @@
 <use name="DataFormats/MuonDetId"/>
 <use name="DataFormats/DTRecHit"/>
 <use name="DataFormats/CSCRecHit"/>
+<use name="DataFormats/L1DTTrackFinder"/>
 <use name="CommonTools/CandUtils"/>
 <use name="Geometry/CSCGeometry"/>
 <use name="Geometry/DTGeometry"/>

@@ -44,6 +44,8 @@
 #include "FWCore/Common/interface/TriggerNames.h"
 #include "DataFormats/Common/interface/TriggerResults.h"
 #include "DataFormats/HLTReco/interface/TriggerEvent.h"
+
+#include "DataFormats/L1DTTrackFinder/interface/L1MuDTChambPhContainer.h"
 #include "DataFormats/L1Trigger/interface/Muon.h"
 
 #include "RecoVertex/KalmanVertexFit/interface/KalmanVertexFitter.h"
@@ -109,6 +111,8 @@ private:
 
   void fillL1(const edm::Handle<l1t::MuonBxCollection> &);
 
+  void fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer> &);
+
   void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
 			    const edm::ESHandle<TransientTrackBuilder> &);
      
@@ -128,6 +132,10 @@ private:
   //extends muon_pog::ChambMatch(es) with info from non used segments
   void matchChambSeg( const std::vector<muon_pog::MuonSegment> & segments,
 		      muon_pog::ChambMatch & ntupleMatch );
+
+  //extends muon_pog::ChambMatch(es) with info from trigger primitives
+  void matchChambTrigPhi( const std::vector<muon_pog::TriggerPrimitive> & primitives,
+			  muon_pog::ChambMatch & ntupleMatch );
   
   
   edm::EDGetTokenT<edm::TriggerResults> trigResultsToken_;
@@ -153,6 +161,7 @@ private:
 
   edm::EDGetTokenT<LumiScalersCollection> scalersToken_;
     
+  edm::EDGetTokenT<L1MuDTChambPhContainer> dtTrigPhiToken_;
   edm::EDGetTokenT<l1t::MuonBxCollection> l1Token_;
 
   Float_t m_minMuPtCut;
@@ -214,6 +223,9 @@ MuonPogTreeProducer::MuonPogTreeProducer( const edm::ParameterSet & cfg )
   tag = cfg.getUntrackedParameter<edm::InputTag>("ScalersTag", edm::InputTag("scalersRawToDigi"));
   if (tag.label() != "none") scalersToken_ = consumes<LumiScalersCollection>(tag);
     
+  tag = cfg.getUntrackedParameter<edm::InputTag>("dtTrigPhiTag", edm::InputTag("none"));
+  if (tag.label() != "none") dtTrigPhiToken_ = consumes<L1MuDTChambPhContainer>(tag);
+
   tag = cfg.getUntrackedParameter<edm::InputTag>("l1MuonsTag", edm::InputTag("gmtStage2Digis:Muon:"));
   if (tag.label() != "none") l1Token_ = consumes<l1t::MuonBxCollection>(tag);
 
@@ -386,6 +398,17 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 
     }
 
+  //Fill DT trigger phi information
+  edm::Handle<L1MuDTChambPhContainer> dtTrigPhi;
+  if (!dtTrigPhiToken_.isUninitialized() )
+    {
+        if (!ev.getByToken(dtTrigPhiToken_,dtTrigPhi))
+	  edm::LogError("") << "[MuonPogTreeProducer] DT trigger primitives collection does not exist !!!";
+        else {
+            fillDtTrigPhi(dtTrigPhi);
+        }
+    }
+  
   // Fill vertex information
   edm::Handle<std::vector<reco::Vertex> > vertexes;
 
@@ -475,7 +498,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
             fillL1(l1s);
         }
     }
-  
+
   if (nGoodMuons >= m_minNMuCut)
     tree_["muPogTree"]->Fill();
 
@@ -636,6 +659,35 @@ void MuonPogTreeProducer::fillL1(const edm::Handle<l1t::MuonBxCollection> & l1Mu
 	  
 	}
     }
+}
+
+
+void MuonPogTreeProducer::fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer> & dtTrigPhiColl)
+{
+
+  for (const auto & dtTrigPhi : (*dtTrigPhiColl->getContainer()))
+    {
+
+      if (dtTrigPhi.code() !=7 )
+	{
+	  muon_pog::TriggerPrimitive ntupleTrigPhi;
+
+	  ntupleTrigPhi.id_eta = dtTrigPhi.whNum();
+	  ntupleTrigPhi.id_phi = dtTrigPhi.scNum() + 1; // DTTF[0-11] -> DT[1-12] Sector Numbering
+	  ntupleTrigPhi.id_r   = dtTrigPhi.stNum();
+
+	  ntupleTrigPhi.quality = dtTrigPhi.code();
+	  ntupleTrigPhi.bx = dtTrigPhi.bxNum() - (dtTrigPhi.Ts2Tag()==1 ? 1 : 0);
+
+	  ntupleTrigPhi.phi  = dtTrigPhi.phi();
+	  ntupleTrigPhi.phiB = dtTrigPhi.phiB();
+
+	  ntupleTrigPhi.is2nd = dtTrigPhi.Ts2Tag();
+
+	  event_.dtPrimitives.push_back(ntupleTrigPhi);
+	}
+    }
+
 }
 
 
@@ -840,6 +892,9 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
 
 		      matchTkMuSeg(match, ntupleMatch);
+
+		      matchChambTrigPhi(event_.dtPrimitives, ntupleMatch);
+
 
 		    }
 		  
@@ -1428,6 +1483,36 @@ void MuonPogTreeProducer::matchChambSeg( const std::vector<muon_pog::MuonSegment
     }
   
 }
+
+
+void MuonPogTreeProducer::matchChambTrigPhi( const std::vector<muon_pog::TriggerPrimitive> & primitives,
+					     muon_pog::ChambMatch & ntupleMatch )
+{
+
+  std::size_t iTrig = 0;
+  
+  for ( const auto & trig : primitives )
+    {
+
+      Int_t id_phi_trigRange = ntupleMatch.id_phi == 14 ? 10 : 
+	                       ntupleMatch.id_phi == 13 ? 4 : ntupleMatch.id_phi;
+
+	if ( ntupleMatch.id_r   == trig.id_r   &&
+	     ntupleMatch.id_eta == trig.id_eta &&
+	     id_phi_trigRange   == trig.id_phi )
+
+	{
+
+	  ntupleMatch.trigIndexes.push_back(iTrig);
+
+	}
+      
+      ++iTrig;
+
+    }
+  
+}
+
 
 #include "FWCore/Framework/interface/MakerMacros.h"
 

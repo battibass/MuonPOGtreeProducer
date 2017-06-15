@@ -36,6 +36,12 @@ options.register('runOnMC',
                  VarParsing.VarParsing.varType.bool,
                  "Run on DATA or MC")
 
+options.register('hasRaw',
+                 False, #default value
+                 VarParsing.VarParsing.multiplicity.singleton,
+                 VarParsing.VarParsing.varType.bool,
+                 "Enables DT twin mux unpacking if RAW format available")
+
 options.register('hltPathFilter',
                  "all", #default value
                  VarParsing.VarParsing.multiplicity.singleton,
@@ -94,8 +100,8 @@ process.source = cms.Source("PoolSource",
 
 )
 
-files = subprocess.check_output([ "/afs/cern.ch/project/eos/installation/0.3.15/bin/eos.select", "ls", options.eosInputFolder ])
-process.source.fileNames = [ options.eosInputFolder+"/"+f for f in files.split() ]  
+#files = subprocess.check_output([ "/afs/cern.ch/project/eos/installation/0.3.15/bin/eos.select", "ls", options.eosInputFolder ])
+process.source.fileNames = ['file:///afs/cern.ch/work/g/giovanni/public/for_Carlo/data_2016LegacyRepro.root'] #options.eosInputFolder+"/"+f for f in files.split() ]  
 
 process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load("Configuration.StandardSequences.MagneticField_38T_cff")
@@ -104,7 +110,7 @@ process.load("Configuration.StandardSequences.MagneticField_38T_cff")
 
 from MuonPOGtreeProducer.Tools.MuonPogNtuples_cff import appendMuonPogNtuple, customiseHlt, customiseMuonCuts
     
-appendMuonPogNtuple(process,options.runOnMC,"HLT",options.ntupleName)
+appendMuonPogNtuple(process,options.runOnMC,"HLT",options.ntupleName,options.hasRaw)
 
 customiseHlt(process,pathCut,filterCut)
 customiseMuonCuts(process,options.minMuPt,options.minNMu)
