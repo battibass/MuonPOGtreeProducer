@@ -846,6 +846,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.trkPixelValidHits	= hasInnerTrack ? mu.innerTrack()->hitPattern().numberOfValidPixelHits()       : -999; 
       ntupleMu.trkPixelLayersWithMeas   = hasInnerTrack ? mu.innerTrack()->hitPattern().pixelLayersWithMeasurement()   : -999; 
       ntupleMu.trkTrackerLayersWithMeas = hasInnerTrack ? mu.innerTrack()->hitPattern().trackerLayersWithMeasurement() : -999; 
+      ntupleMu.trkTrackerLostHits       = hasInnerTrack ? mu.innerTrack()->hitPattern().numberOfLostHits(reco::HitPattern::TRACK_HITS) : -999; 
 
       ntupleMu.bestMuPtErr              = mu.muonBestTrack()->ptError(); 
 
