@@ -839,9 +839,19 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.nHitsTracker    = isTracker    ? mu.innerTrack()->numberOfValidHits()  : -999;	
       ntupleMu.nHitsStandAlone = isStandAlone ? mu.outerTrack()->numberOfValidHits()  : -999;
 
-      ntupleMu.glbNormChi2              = isGlobal      ? mu.globalTrack()->normalizedChi2() : -999; 
-      ntupleMu.trkNormChi2	        = hasInnerTrack ? mu.innerTrack()->normalizedChi2()  : -999; 
-      ntupleMu.trkMuonMatchedStations   = isTracker     ? mu.numberOfMatchedStations()       : -999; 
+      ntupleMu.glbNormChi2                  = isGlobal      ? mu.globalTrack()->normalizedChi2() : -999; 
+      ntupleMu.trkNormChi2	            = hasInnerTrack ? mu.innerTrack()->normalizedChi2()  : -999; 
+      ntupleMu.trkMuonMatchedStations       = isTracker     ? mu.numberOfMatchedStations()       : -999;
+      ntupleMu.trkMuonMatchedRPCLayers      = isRPC         ? mu.numberOfMatchedRPCLayers()      : -999;
+
+      ntupleMu.trkMuonZPrimeMatchedStations = isTracker     ? (  mu.numberOfMatchedStations() > 1 || 
+								 (mu.numberOfMatchedStations() == 1 && 
+								  !(mu.stationMask() == 1 || mu.stationMask() == 16)) || 
+								 (mu.numberOfMatchedStations() == 1 && 
+								  (mu.stationMask() == 1 || mu.stationMask() == 16) && 
+								  mu.numberOfMatchedRPCLayers() > 2)) : -999;
+
+ 
       ntupleMu.glbMuonValidHits	        = isGlobal      ? mu.globalTrack()->hitPattern().numberOfValidMuonHits()       : -999; 
       ntupleMu.trkPixelValidHits	= hasInnerTrack ? mu.innerTrack()->hitPattern().numberOfValidPixelHits()       : -999; 
       ntupleMu.trkPixelLayersWithMeas   = hasInnerTrack ? mu.innerTrack()->hitPattern().pixelLayersWithMeasurement()   : -999; 

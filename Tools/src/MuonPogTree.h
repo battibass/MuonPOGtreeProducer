@@ -258,11 +258,15 @@ namespace muon_pog {
     //  - General (Tight, HighPt, Soft) 
     Float_t glbNormChi2; 
     Float_t trkNormChi2; 
-    Int_t   trkMuonMatchedStations; 
+    Int_t   trkMuonMatchedStations;
+    Int_t   trkMuonMatchedRPCLayers;
+    Int_t   trkMuonZPrimeMatchedStations;
+
     Int_t   glbMuonValidHits; 
     Int_t   trkPixelValidHits; 
     Int_t   trkPixelLayersWithMeas; 
     Int_t   trkTrackerLayersWithMeas; 
+    Int_t   trkTrackerLostHits; 
 
     //  - HighPt 
     Float_t bestMuPtErr; 
