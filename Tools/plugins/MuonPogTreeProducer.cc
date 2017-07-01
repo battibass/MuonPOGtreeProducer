@@ -1045,13 +1045,12 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	{
 	  const reco::Vertex & vertex = vertexes->at(0);
 
-	  dxy = isGlobal ? mu.globalTrack()->dxy(vertex.position()) :
-	    hasInnerTrack ? mu.innerTrack()->dxy(vertex.position()) : -1000;
-	  dz = isGlobal ? mu.globalTrack()->dz(vertex.position()) :
-	    hasInnerTrack ? mu.innerTrack()->dz(vertex.position()) : -1000;
+	  dxy = hasInnerTrack ? mu.innerTrack()->dxy(vertex.position()) : -1000;
+	  dz =  hasInnerTrack ? mu.innerTrack()->dz(vertex.position())  : -1000;
  
 	  ntupleMu.dxyBest  = mu.muonBestTrack()->dxy(vertex.position()); 
-	  ntupleMu.dzBest   = mu.muonBestTrack()->dz(vertex.position()); 
+	  ntupleMu.dzBest   = mu.muonBestTrack()->dz(vertex.position());
+ 
 	  if(hasInnerTrack) { 
 	    ntupleMu.dxyInner = mu.innerTrack()->dxy(vertex.position()); 
 	    ntupleMu.dzInner  = mu.innerTrack()->dz(vertex.position()); 
@@ -1065,8 +1064,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 
       ntupleMu.dxy    = dxy;
       ntupleMu.dz     = dz;
-      ntupleMu.edxy   = isGlobal ? mu.globalTrack()->dxyError() : hasInnerTrack ? mu.innerTrack()->dxyError() : -1000;
-      ntupleMu.edz    = isGlobal ? mu.globalTrack()->dzError()  : hasInnerTrack ? mu.innerTrack()->dzError() : -1000;
+      ntupleMu.edxy   = hasInnerTrack ? mu.innerTrack()->dxyError() : -1000;
+      ntupleMu.edz    = hasInnerTrack ? mu.innerTrack()->dzError() : -1000;
 
       ntupleMu.dxybs  = dxybs;
       ntupleMu.dzbs   = dzbs;
@@ -1097,7 +1096,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       // ignoring STA muons in this logic
       if ( m_minMuPtCut < 0 ||
 	   (
-	    (isTracker || isGlobal || isStandAlone) &&
+	    (isTracker || isGlobal || isStandAlone || isRPC) &&
 	    (ntupleMu.fitPt(muon_pog::MuonFitType::DEFAULT) > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::GLB)     > m_minMuPtCut ||
 	     ntupleMu.fitPt(muon_pog::MuonFitType::TUNEP)   > m_minMuPtCut ||
@@ -1273,12 +1272,12 @@ void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco:
 
 	  if (!mu1.innerTrack().isNull()  &&
 	      mu1.innerTrack()->pt() > 10 &&
-	      ( mu1.isGlobalMuon() || mu1.isTrackerMuon() )
+	      ( mu1.isGlobalMuon() || mu1.isTrackerMuon() || mu1.isRPCMuon() )
 	     )
 	    tracks.push_back(builder->build(mu1.innerTrack()));
 	  if (!mu2.innerTrack().isNull() &&
 	      mu2.innerTrack()->pt() > 10 &&
-	      ( mu2.isGlobalMuon() || mu2.isTrackerMuon() )
+	      ( mu2.isGlobalMuon() || mu2.isTrackerMuon() || mu1.isRPCMuon() )
 	      )
 	    tracks.push_back(builder->build(mu2.innerTrack()));
 
