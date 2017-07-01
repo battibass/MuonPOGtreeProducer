@@ -437,9 +437,9 @@ namespace muon_pog {
   class EventId {
   public:
 
-    ULong_t runNumber;              // run number
-    ULong_t luminosityBlockNumber;  // luminosity block number
-    ULong_t eventNumber;            // event number
+    ULong64_t runNumber;              // run number
+    ULong64_t luminosityBlockNumber;  // luminosity block number
+    ULong64_t eventNumber;            // event number
     Int_t nMuons;                 // number of good muons in the event
     std::vector<Float_t> maxPTs;  // max PT for each good muon in the event
 
@@ -452,9 +452,9 @@ namespace muon_pog {
   class Event {
   public:
 
-    ULong_t runNumber;             // run number
-    ULong_t luminosityBlockNumber; // luminosity block number
-    ULong_t eventNumber;           // event number
+    ULong64_t runNumber;             // run number
+    ULong64_t luminosityBlockNumber; // luminosity block number
+    ULong64_t eventNumber;           // event number
 
     Int_t bxId;                  // bunch crossing number
     unsigned long long orbit;    // orbit number
