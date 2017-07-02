@@ -227,6 +227,9 @@ namespace muon_pog {
     Int_t   isTight;
     Int_t   isMedium;
     Int_t   isHighPt;
+
+    Int_t   isBadMuon;
+    Int_t   isClone;
     
     //Detector Based Isolation
     Float_t trackerIso;

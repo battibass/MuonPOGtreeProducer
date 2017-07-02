@@ -23,6 +23,7 @@
 #include "DataFormats/BeamSpot/interface/BeamSpot.h"
 
 #include "DataFormats/Common/interface/View.h"
+#include "DataFormats/Common/interface/PtrVector.h"
 
 #include "DataFormats/PatCandidates/interface/Muon.h"
 #include "DataFormats/MuonReco/interface/MuonSelectors.h"
@@ -107,7 +108,9 @@ private:
 		  const edm::Handle<std::vector<reco::Vertex> > &,
 		  const edm::Handle<reco::BeamSpot> &,
 		  const edm::ESHandle<DTGeometry> &,
-		  const edm::ESHandle<CSCGeometry> &);
+		  const edm::ESHandle<CSCGeometry> &,
+          const edm::Handle<edm::PtrVector<reco::Muon> > &,
+          const edm::Handle<edm::PtrVector<reco::Muon> > &);
 
   void fillL1(const edm::Handle<l1t::MuonBxCollection> &);
 
@@ -146,7 +149,10 @@ private:
 
   edm::EDGetTokenT<edm::View<reco::Muon> > muonToken_;
   edm::EDGetTokenT<std::vector<reco::Vertex> > primaryVertexToken_;
-  edm::EDGetTokenT<reco::BeamSpot> beamSpotToken_;
+  edm::EDGetTokenT<reco::BeamSpot> beamSpotToken_;  
+
+  edm::EDGetTokenT<edm::PtrVector<reco::Muon> > badMuonToken_;
+  edm::EDGetTokenT<edm::PtrVector<reco::Muon> > cloneMuonToken_;
 
   edm::EDGetTokenT<DTRecSegment4DCollection> dtSegmentToken_;
   edm::EDGetTokenT<CSCSegmentCollection>     cscSegmentToken_;
@@ -195,6 +201,12 @@ MuonPogTreeProducer::MuonPogTreeProducer( const edm::ParameterSet & cfg )
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("MuonTag", edm::InputTag("muons"));
   if (tag.label() != "none") muonToken_ = consumes<edm::View<reco::Muon> >(tag);
+
+  tag = cfg.getUntrackedParameter<edm::InputTag>("BadMuonTag", edm::InputTag("badGlobalMuonTagger"));
+  if (tag.label() != "none") badMuonToken_ = consumes<edm::PtrVector<reco::Muon> >(tag);
+
+  tag = cfg.getUntrackedParameter<edm::InputTag>("CloneMuonTag", edm::InputTag("cloneGlobalMuonTagger"));
+  if (tag.label() != "none") cloneMuonToken_ = consumes<edm::PtrVector<reco::Muon> >(tag);
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("PrimaryVertexTag", edm::InputTag("offlinePrimaryVertices"));
   if (tag.label() != "none") primaryVertexToken_ = consumes<std::vector<reco::Vertex> >(tag);
@@ -470,6 +482,22 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 	edm::LogError("") << "[MuonPogTreeProducer] Muon collection does not exist !!!";
     }
 
+  // Get bad muons list  
+  edm::Handle<edm::PtrVector<reco::Muon> > badMuons;
+  if (!badMuonToken_.isUninitialized() ) 
+    { 
+      if (!ev.getByToken(badMuonToken_, badMuons)) 
+	edm::LogError("") << "[MuonPogTreeProducer] Bad muon collection does not exist !!!";
+    }
+
+  // Get clone muons list  
+  edm::Handle<edm::PtrVector<reco::Muon> > cloneMuons;
+  if (!cloneMuonToken_.isUninitialized() ) 
+    { 
+      if (!ev.getByToken(cloneMuonToken_, cloneMuons)) 
+	edm::LogError("") << "[MuonPogTreeProducer] Clone muon collection does not exist !!!";
+    }
+
   Int_t nGoodMuons = 0;
   eventId_.maxPTs.clear();
   
@@ -478,7 +506,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
       vertexes.isValid() && beamSpot.isValid() &&
       dtGeom.isValid()  && cscGeom.isValid() ) 
     {
-      nGoodMuons = fillMuons(muons,vertexes,beamSpot,dtGeom,cscGeom);
+      nGoodMuons = fillMuons(muons,vertexes,beamSpot,dtGeom,cscGeom,badMuons,cloneMuons);
     }
   eventId_.nMuons = nGoodMuons;
 
@@ -732,16 +760,17 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 				     const edm::Handle<std::vector<reco::Vertex> > & vertexes,
 				     const edm::Handle<reco::BeamSpot> & beamSpot,
 				     const edm::ESHandle<DTGeometry> & dtGeom,
-				     const edm::ESHandle<CSCGeometry> & cscGeom)
+				     const edm::ESHandle<CSCGeometry> & cscGeom,
+                     const edm::Handle<edm::PtrVector<reco::Muon> > & badMuons ,
+                     const edm::Handle<edm::PtrVector<reco::Muon> > & cloneMuons)
 {
   
   edm::View<reco::Muon>::const_iterator muonIt  = muons->begin();
   edm::View<reco::Muon>::const_iterator muonEnd = muons->end();
-  
-  for (; muonIt != muonEnd; ++muonIt) 
+ 
+  for (std::size_t iMu = 0; muonIt != muonEnd; ++muonIt , ++iMu) 
     {
       
-
       const reco::Muon& mu = (*muonIt);
       
       bool isGlobal      = mu.isGlobalMuon();
@@ -831,6 +860,33 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.isRPC        = isRPC ? 1 : 0;
       ntupleMu.isStandAlone = isStandAlone ? 1 : 0;
       ntupleMu.isPF         = isPF ? 1 : 0;
+
+      ntupleMu.isClone   = cloneMuons.isValid()  ? 0 : -999;
+      ntupleMu.isBadMuon = badMuons.isValid()  ? 0 : -999;
+
+      if (badMuons.isValid())
+	{
+	  auto badMuonIt  = badMuons.product()->begin();
+	  auto badMuonEnd = badMuons.product()->end();
+
+	  for (; badMuonIt != badMuonEnd; ++badMuonIt ) 
+            { 
+	      if (iMu == badMuonIt->key())
+		ntupleMu.isBadMuon = 1;         
+            }
+	}
+
+      if (cloneMuons.isValid())
+	{
+	  auto cloneMuonIt  = cloneMuons.product()->begin();
+	  auto cloneMuonEnd = cloneMuons.product()->end();
+	  
+	  for (; cloneMuonIt != cloneMuonEnd; ++cloneMuonIt ) 
+            { 
+	      if (iMu == cloneMuonIt->key())
+		ntupleMu.isClone = 1;         
+            }
+	}
 
       ntupleMu.algo      = hasInnerTrack ? mu.innerTrack()->algo() : -999;
       ntupleMu.origAlgo  = hasInnerTrack ? mu.innerTrack()->originalAlgo()  : -999;

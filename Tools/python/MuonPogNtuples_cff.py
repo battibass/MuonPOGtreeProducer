@@ -1,7 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 
-def appendMuonPogNtuple(process, runOnMC, processTag="HLT", ntupleFileName="MuonPogTree.root", hasRaw = False) :
+def appendMuonPogNtuple(process, runOnMC, \
+                        processTag="HLT", ntupleFileName="MuonPogTree.root", \
+                        hasRaw = False, hasMuonTagger = False) :
 
     process.load("MuonPOGtreeProducer.Tools.MuonPogTreeProducer_cfi")
     process.load("CommonTools.ParticleFlow.goodOfflinePrimaryVertices_cfi")
@@ -26,6 +28,18 @@ def appendMuonPogNtuple(process, runOnMC, processTag="HLT", ntupleFileName="Muon
         
         process.muonPogNtuple.replace(process.MuonPogTree, process.twinMuxStage2Digis + process.MuonPogTree)
         
+    if hasMuonTagger :
+        process.load("RecoMET.METFilters.badGlobalMuonTaggersAOD_cff")
+        
+        process.cloneGlobalMuonTagger.taggingMode = True
+        process.badGlobalMuonTagger.taggingMode = True
+
+        process.MuonPogTree.BadMuonTag   = cms.untracked.InputTag("badGlobalMuonTagger","bad")
+        process.MuonPogTree.CloneMuonTag = cms.untracked.InputTag("cloneGlobalMuonTagger","bad")
+
+        process.muonPogNtuple.replace(process.MuonPogTree, cms.ignore(process.cloneGlobalMuonTagger) + \
+                                                           cms.ignore(process.badGlobalMuonTagger) + process.MuonPogTree)
+
     process.TFileService = cms.Service('TFileService',
         fileName = cms.string(ntupleFileName)
     )
