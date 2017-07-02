@@ -865,28 +865,28 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.isBadMuon = badMuons.isValid()  ? 0 : -999;
 
       if (badMuons.isValid())
-	{
-	  auto badMuonIt  = badMuons.product()->begin();
-	  auto badMuonEnd = badMuons.product()->end();
+          {
+            auto badMuonIt  = badMuons.product()->begin();
+            auto badMuonEnd = badMuons.product()->end();
 
-	  for (; badMuonIt != badMuonEnd; ++badMuonIt ) 
+              for (; badMuonIt != badMuonEnd; ++badMuonIt ) 
             { 
-	      if (iMu == badMuonIt->key())
-		ntupleMu.isBadMuon = 1;         
+                if (iMu == badMuonIt->key())
+                    ntupleMu.isBadMuon = 1;         
             }
-	}
+          }
 
       if (cloneMuons.isValid())
-	{
-	  auto cloneMuonIt  = cloneMuons.product()->begin();
-	  auto cloneMuonEnd = cloneMuons.product()->end();
-	  
-	  for (; cloneMuonIt != cloneMuonEnd; ++cloneMuonIt ) 
+          {
+            auto cloneMuonIt  = cloneMuons.product()->begin();
+            auto cloneMuonEnd = cloneMuons.product()->end();
+
+              for (; cloneMuonIt != cloneMuonEnd; ++cloneMuonIt ) 
             { 
-	      if (iMu == cloneMuonIt->key())
-		ntupleMu.isClone = 1;         
+                if (iMu == cloneMuonIt->key())
+                    ntupleMu.isClone = 1;         
             }
-	}
+          }
 
       ntupleMu.algo      = hasInnerTrack ? mu.innerTrack()->algo() : -999;
       ntupleMu.origAlgo  = hasInnerTrack ? mu.innerTrack()->originalAlgo()  : -999;
@@ -1017,7 +1017,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	      for (const auto & ntupleMatch : ntupleMu.matches)
 		{
 		  
-		  if(id_r   == ntupleMatch.id_r   &&
+		  if(type   == ntupleMatch.type   &&
+		     id_r   == ntupleMatch.id_r   &&
 		     id_eta == ntupleMatch.id_eta &&
 		     id_phi == ntupleMatch.id_phi )
 		    {
@@ -1052,7 +1053,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 	      for (auto & ntupleMatch : ntupleMu.matches)
 		{
 		  
-		  if(id_r   == ntupleMatch.id_r   &&
+		  if(type   == ntupleMatch.type   &&
+             id_r   == ntupleMatch.id_r   &&
 		     id_eta == ntupleMatch.id_eta &&
 		     id_phi == ntupleMatch.id_phi )
 		    {
@@ -1490,6 +1492,7 @@ template<class T> void MuonPogTreeProducer::matchStaMuSeg( const trackingRecHit_
 	  
 	  if (hasMatch == false && indexIt == indexEnd)
 	    {
+
 	      hasMatch = true;
 	      ntupleMatch.indexes.push_back(iSeg);
 	      ntupleMatch.matchQuals.push_back(sta); 

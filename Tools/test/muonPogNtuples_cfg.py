@@ -43,7 +43,7 @@ options.register('hasRaw',
                  "Enables DT twin mux unpacking if RAW format available")
 
 options.register('hasMuonTagger',
-                 False, #default value
+                 True, #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Gets bad muon tagger information")
@@ -106,18 +106,8 @@ process.source = cms.Source("PoolSource",
 
 )
 
-#files = subprocess.check_output([ "/afs/cern.ch/project/eos/installation/0.3.15/bin/eos.select", "ls", options.eosInputFolder ])
-process.source.fileNames = ['file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunB_1.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunB_2.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunC.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunD.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunE_1.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunE_2.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunF.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunG_1.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunG_2.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunG_3.root',
-                            'file:///afs/cern.ch/user/f/federica/public/WantedMuons/Events_RunH.root'] #options.eosInputFolder+"/"+f for f in files.split() ]  
+files = subprocess.check_output([ "/afs/cern.ch/project/eos/installation/0.3.15/bin/eos.select", "ls", options.eosInputFolder ])
+options.eosInputFolder+"/"+f for f in files.split() ]  
 
 process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load("Configuration.StandardSequences.MagneticField_38T_cff")
