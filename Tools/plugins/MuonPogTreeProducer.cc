@@ -898,7 +898,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.glbNormChi2                  = isGlobal      ? mu.globalTrack()->normalizedChi2() : -999; 
       ntupleMu.trkNormChi2	            = hasInnerTrack ? mu.innerTrack()->normalizedChi2()  : -999; 
       ntupleMu.trkMuonMatchedStations       = isTracker     ? mu.numberOfMatchedStations()       : -999;
-      ntupleMu.trkMuonMatchedRPCLayers      = isRPC         ? mu.numberOfMatchedRPCLayers()      : -999;
+      ntupleMu.rpcMuonMatchedRPCLayers      = isRPC         ? mu.numberOfMatchedRPCLayers()      : -999;
 
       ntupleMu.trkMuonZPrimeMatchedStations = isTracker     ? (  mu.numberOfMatchedStations() > 1 || 
 								 (mu.numberOfMatchedStations() == 1 && 

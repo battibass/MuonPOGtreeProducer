@@ -262,7 +262,7 @@ namespace muon_pog {
     Float_t glbNormChi2; 
     Float_t trkNormChi2; 
     Int_t   trkMuonMatchedStations;
-    Int_t   trkMuonMatchedRPCLayers;
+    Int_t   rpcMuonMatchedRPCLayers;
     Int_t   trkMuonZPrimeMatchedStations;
 
     Int_t   glbMuonValidHits; 
