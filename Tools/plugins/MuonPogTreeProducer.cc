@@ -1346,7 +1346,7 @@ void MuonPogTreeProducer::fillMuonPairVertexes(const edm::Handle<edm::View<reco:
 	    tracks.push_back(builder->build(mu1.innerTrack()));
 	  if (!mu2.innerTrack().isNull() &&
 	      mu2.innerTrack()->pt() > 10 &&
-	      ( mu2.isGlobalMuon() || mu2.isTrackerMuon() || mu1.isRPCMuon() )
+	      ( mu2.isGlobalMuon() || mu2.isTrackerMuon() || mu2.isRPCMuon() )
 	      )
 	    tracks.push_back(builder->build(mu2.innerTrack()));
 
