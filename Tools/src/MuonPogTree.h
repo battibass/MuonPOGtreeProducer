@@ -372,7 +372,8 @@ namespace muon_pog {
     std::size_t  muIdx[2];
     Float_t      muPt[2];
     
-    const muon_pog::Muon & getMu(int i, std::vector<muon_pog::Muon> & muons )
+    const muon_pog::Muon & getMu(const int i, 
+				 const std::vector<muon_pog::Muon> & muons ) const
       {
 	return muons.at(muIdx[i-1]);
       };
