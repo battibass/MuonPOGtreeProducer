@@ -1,0 +1,25 @@
+#!/bin/sh
+SCRAM_ARCH=slc6_amd64_gcc530
+
+file=$0
+fileC=${file}.C
+fileEXE=${file}.exe
+
+ROOTLIBS="-L/usr/lib64 `$ROOTSYS/bin/root-config --glibs` -lMathCore -lMinuit"
+ROOTINCDIR=`$ROOTSYS/bin/root-config --incdir`
+
+BASETREEDIR="interface"
+BOOSTDIR="/cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/boost/1.63.0/"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${BOOSTDIR}lib/"
+
+rm -f ${fileEXE}
+
+echo "[$0]: Compiling"
+rootcling -f MuonPogTreeDict.C -c ${BASETREEDIR}/MuonPogTree.h ${BASETREEDIR}/MuonPogTreeLinkDef.h
+
+g++ -g -std=gnu++1y -I${ROOTINCDIR} -I${BOOSTDIR}include/ ${fileC} MuonPogTreeDict.C ${ROOTLIBS} -L${BOOSTDIR}lib/ -lX11 -lboost_system -lboost_filesystem -o ${fileEXE}
+
+echo "[$0]: Running with parameters $@" 
+${fileEXE} $@
+
+rm -f MuonPogTreeDict.C MuonPogTreeDict.h MuonPogTreeDict_rdict.pcm
