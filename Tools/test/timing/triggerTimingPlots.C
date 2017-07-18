@@ -440,103 +440,117 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  const Double_t ptBins[18] = {0., 10., 20., 30., 40., 50., 60., 70., 80., 90., 100.,
 	                               120., 140, 200., 400., 600., 800., 1200.};
 
-	  TString allTag = etaTag + IDTag + sampleTag;	  
+	  TString completeTag = etaTag + IDTag + sampleTag;	  
+	  
+	  for (Int_t iChamb = 1; iChamb<=4; iChamb)
+	    {
 
-	  m_histos[TRIG]["nTrigMB1" + etaTag + IDTag]  = new TH1F("nTrigMB1_" + allTag, "nTrigMB1_" + allTag + ";# matched primitives ;# entries", 15,-.5,14.5);
-	  m_histos[TRIG]["nTrigMB2" + etaTag + IDTag]  = new TH1F("nTrigMB2_" + allTag, "nTrigMB2_" + allTag + ";# matched primitives ;# entries", 15,-.5,14.5);
-	  m_histos[TRIG]["nTrigMB3" + etaTag + IDTag]  = new TH1F("nTrigMB3_" + allTag, "nTrigMB3_" + allTag + ";# matched primitives ;# entries", 15,-.5,14.5);
-	  m_histos[TRIG]["nTrigMB4" + etaTag + IDTag]  = new TH1F("nTrigMB4_" + allTag, "nTrigMB4_" + allTag + ";# matched primitives ;# entries", 15,-.5,14.5);
+	      TString chTag(iChamb);	  
 
-	  m_histos[TRIG]["qualTrigMB1" + etaTag + IDTag]  = new TH1F("qualTrigMB1_" + allTag, "qualTrigMB1_" + allTag + ";quality;# entries", 7,-.5,6.5);
-	  m_histos[TRIG]["qualTrigMB2" + etaTag + IDTag]  = new TH1F("qualTrigMB2_" + allTag, "qualTrigMB2_" + allTag + ";quality;# entries", 7,-.5,6.5);
-	  m_histos[TRIG]["qualTrigMB3" + etaTag + IDTag]  = new TH1F("qualTrigMB3_" + etaTag, "qualTrigMB3_" + allTag + ";quality;# entries", 7,-.5,6.5);
-	  m_histos[TRIG]["qualTrigMB4" + etaTag + IDTag]  = new TH1F("qualTrigMB4_" + etaTag, "qualTrigMB4_" + allTag + ";quality;# entries", 7,-.5,6.5);
+	      m_histos[TRIG]["nTrigMB" + chTag + etaTag + IDTag]     = new TH1F("nTrigMB" + chTag + completeTag,
+										"nTrigMB" + chTag + completeTag +
+										";# matched primitives ;# entries",
+										15,-.5,14.5);
 
-	  m_histos[TRIG]["dPhiMB1" + etaTag + IDTag]  = new TH1F("dPhiMB1_" + allTag, "dPhiMB1_" + allTag + ";dPhi(track,primitive);# entries", 300,-0.5,0.5);
-	  m_histos[TRIG]["dPhiMB2" + etaTag + IDTag]  = new TH1F("dPhiMB2_" + allTag, "dPhiMB2_" + allTag + ";dPhi(track,primitive);# entries", 300,-0.5,0.5);
-	  m_histos[TRIG]["dPhiMB3" + etaTag + IDTag]  = new TH1F("dPhiMB3_" + allTag, "dPhiMB3_" + allTag + ";dPhi(track,primitive);# entries", 300,-0.5,0.5);
-	  m_histos[TRIG]["dPhiMB4" + etaTag + IDTag]  = new TH1F("dPhiMB4_" + allTag, "dPhiMB4_" + allTag + ";dPhi(track,primitive);# entries", 300,-0.5,0.5);
+	      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]  = new TH1F("qualTrigMB" + chTag + completeTag,
+										"qualTrigMB" + chTag + completeTag +
+										";quality;# entries",
+										7,-.5,6.5);
+	      
+	      m_histos[TRIG]["dPhiMB" + chTag + etaTag + IDTag]      = new TH1F("dPhiMB" + chTag + completeTag,
+										"dPhiMB" + chTag + completeTag +
+										";dPhi(track,primitive);# entries",
+										300,-0.5,0.5);
 
-	  m_histos[TRIG]["dPhiMB1VsEta" + etaTag + IDTag]  = new TH2F("dPhiMB1VsEta_" + allTag, "dPhiMB1_" + allTag + ";dPhi(track,primitive);#eta", 300,-0.5,0.5, 24., -1.2, 1.2);
-	  m_histos[TRIG]["dPhiMB2VsEta" + etaTag + IDTag]  = new TH2F("dPhiMB2VsEta_" + allTag, "dPhiMB2_" + allTag + ";dPhi(track,primitive);#eta", 300,-0.5,0.5, 24., -1.2, 1.2);
-	  m_histos[TRIG]["dPhiMB3VsEta" + etaTag + IDTag]  = new TH2F("dPhiMB3VsEta_" + allTag, "dPhiMB3_" + allTag + ";dPhi(track,primitive);#eta", 300,-0.5,0.5, 24., -1.2, 1.2);
-	  m_histos[TRIG]["dPhiMB4VsEta" + etaTag + IDTag]  = new TH2F("dPhiMB4VsEta_" + allTag, "dPhiMB4_" + allTag + ";dPhi(track,primitive);#eta", 300,-0.5,0.5, 24., -1.2, 1.2);
+	      m_histos[TRIG]["dPhiVsEtaMB" + chTag + etaTag + IDTag] = new TH2F("dPhiVsEtaMB" + chTag + completeTag,
+										"dPhiVsEtaMB" + chTag + completeTag +
+										";dPhi(track,primitive);#eta",
+										300,-0.5,0.5, 24., -1.2, 1.2);
 
-	  m_histos[TRIG]["dPhiMB1VsPhi" + etaTag + IDTag]  = new TH2F("dPhiMB1VsPhi_" + etaTag + IDTag + sampleTag, "dPhiMB1_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);#phi", 300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
-	  m_histos[TRIG]["dPhiMB2VsPhi" + etaTag + IDTag]  = new TH2F("dPhiMB2VsPhi_" + etaTag + IDTag + sampleTag, "dPhiMB2_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);#phi", 300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
-	  m_histos[TRIG]["dPhiMB3VsPhi" + etaTag + IDTag]  = new TH2F("dPhiMB3VsPhi_" + etaTag + IDTag + sampleTag, "dPhiMB3_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);#phi", 300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
-	  m_histos[TRIG]["dPhiMB4VsPhi" + etaTag + IDTag]  = new TH2F("dPhiMB4VsPhi_" + etaTag + IDTag + sampleTag, "dPhiMB4_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);#phi", 300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
+	      m_histos[TRIG]["dPhiVsPhiMB" + chTag + etaTag + IDTag] = new TH2F("dPhiVsPhiMB" + chTag + completeTag,
+										"dPhiVsPhiMB" + chTag + completeTag +
+										";dPhi(track,primitive);#phi",
+										300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
 
-	  m_histos[TRIG]["dPhiMB1VsPt" + etaTag + IDTag]  = new TH2F("dPhiMB1VsPt_" + etaTag + IDTag + sampleTag, "dPhiMB1_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);p_{T}", 300,-0.5,0.5, 17, ptBins);
-	  m_histos[TRIG]["dPhiMB2VsPt" + etaTag + IDTag]  = new TH2F("dPhiMB2VsPt_" + etaTag + IDTag + sampleTag, "dPhiMB2_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);p_{T}", 300,-0.5,0.5, 17, ptBins);
-	  m_histos[TRIG]["dPhiMB3VsPt" + etaTag + IDTag]  = new TH2F("dPhiMB3VsPt_" + etaTag + IDTag + sampleTag, "dPhiMB3_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);p_{T}", 300,-0.5,0.5, 17, ptBins);
-	  m_histos[TRIG]["dPhiMB4VsPt" + etaTag + IDTag]  = new TH2F("dPhiMB4VsPt_" + etaTag + IDTag + sampleTag, "dPhiMB4_" + etaTag + IDTag + sampleTag +";dPhi(track,primitive);p_{T}", 300,-0.5,0.5, 17, ptBins);
+	      m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPtMB" + completeTag,
+										"dPhivsPtMB" + completeTag +
+										";dPhi(track,primitive);p_{T}",
+										300,-0.5,0.5, 17,ptBins);
 
-	  outFile->cd(sampleTag+"/timing");
+	      outFile->cd(sampleTag+"/timing");
 
-	  m_effs[TIMING]["earlyEffVsPtMB1" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPtMB1_" + etaTag + IDTag + sampleTag, "earlyEffVsPtMB1_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["earlyEffVsPtMB2" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPtMB2_" + etaTag + IDTag + sampleTag, "earlyEffVsPtMB2_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["earlyEffVsPtMB3" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPtMB3_" + etaTag + IDTag + sampleTag, "earlyEffVsPtMB3_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["earlyEffVsPtMB4" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPtMB4_" + etaTag + IDTag + sampleTag, "earlyEffVsPtMB4_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
+	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB1" + chTag + completeTag,
+											  "earlyEffVsPtMB1" + chTag + completeTag +
+											  ";p_{T} (GeV/c); fraction of prefiring",
+											  17,ptBins);
 
-	  m_effs[TIMING]["earlyEffVsEtaMB10" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB10_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB10_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB20" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB20_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB20_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB30" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB30_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB30_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB40" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB40_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB40_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "0" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "0" + completeTag +
+												 ";p_{T} (GeV/c); fraction of prefiring",
+												 24., -0.9, 0.9);
 
-	  m_effs[TIMING]["earlyEffVsEtaMB11" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB11_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB11_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB21" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB21_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB21_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB31" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB31_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB31_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
-	  m_effs[TIMING]["earlyEffVsEtaMB41" + etaTag + IDTag]  = new TEfficiency("earlyEffVsEtaMB41_" + etaTag + IDTag + sampleTag, "earlyEffVsEtaMB41_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 24., -1.2, 1.2);
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "1" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "1" + completeTag +
+												 ";p_{T} (GeV/c); fraction of prefiring",
+												 24., -0.9, 0.9);
 
-	  m_effs[TIMING]["earlyEffVsPhiMB1" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPhiMB1_" + etaTag + IDTag + sampleTag, "earlyEffVsPhiMB1_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 48,-TMath::Pi(),TMath::Pi());
-	  m_effs[TIMING]["earlyEffVsPhiMB2" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPhiMB2_" + etaTag + IDTag + sampleTag, "earlyEffVsPhiMB2_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 48,-TMath::Pi(),TMath::Pi());
-	  m_effs[TIMING]["earlyEffVsPhiMB3" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPhiMB3_" + etaTag + IDTag + sampleTag, "earlyEffVsPhiMB3_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 48,-TMath::Pi(),TMath::Pi());
-	  m_effs[TIMING]["earlyEffVsPhiMB4" + etaTag + IDTag]  = new TEfficiency("earlyEffVsPhiMB4_" + etaTag + IDTag + sampleTag, "earlyEffVsPhiMB4_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 48,-TMath::Pi(),TMath::Pi());
+	      
+	      m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhiMB" + chTag + completeTag,
+											   "earlyEffVsPhiMB" + chTag + completeTag +
+											   ";p_{T} (GeV/c); fraction of prefiring",
+											   48,-TMath::Pi(),TMath::Pi());
 
-	  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB1_" + etaTag + IDTag + sampleTag, "firstEffVsPtMB1_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB2_" + etaTag + IDTag + sampleTag, "firstEffVsPtMB2_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB3_" + etaTag + IDTag + sampleTag, "firstEffVsPtMB3_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-	  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB4_" + etaTag + IDTag + sampleTag, "firstEffVsPtMB4_" + etaTag + IDTag + sampleTag +";p_{T} (GeV/c); fraction of prefiring", 17, ptBins);
-
-
-	  m_histos[TIMING]["bxTrigMB1" + etaTag + IDTag]  = new TH1F("bxTrigMB1_" + etaTag + IDTag + sampleTag, "bxTrigMB1_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);# entries", 5,-2.5,2.5);
-	  m_histos[TIMING]["bxTrigMB2" + etaTag + IDTag]  = new TH1F("bxTrigMB2_" + etaTag + IDTag + sampleTag, "bxTrigMB2_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);# entries", 5,-2.5,2.5);
-	  m_histos[TIMING]["bxTrigMB3" + etaTag + IDTag]  = new TH1F("bxTrigMB3_" + etaTag + IDTag + sampleTag, "bxTrigMB3_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);# entries", 5,-2.5,2.5);
-	  m_histos[TIMING]["bxTrigMB4" + etaTag + IDTag]  = new TH1F("bxTrigMB4_" + etaTag + IDTag + sampleTag, "bxTrigMB4_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);# entries", 5,-2.5,2.5);
-
-	  m_histos[TIMING]["bxTrigMB1VsPt" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsPt_" + etaTag + IDTag + sampleTag, "bxTrigMB1_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);#eta", 17, ptBins, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB2VsPt" + etaTag + IDTag]  = new TProfile("bxTrigMB2VsPt_" + etaTag + IDTag + sampleTag, "bxTrigMB2_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);#eta", 17, ptBins, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB3VsPt" + etaTag + IDTag]  = new TProfile("bxTrigMB3VsPt_" + etaTag + IDTag + sampleTag, "bxTrigMB3_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);#eta", 17, ptBins, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB4VsPt" + etaTag + IDTag]  = new TProfile("bxTrigMB4VsPt_" + etaTag + IDTag + sampleTag, "bxTrigMB4_" + etaTag + IDTag + sampleTag +";bxTrig(track,primitive);#eta", 17, ptBins, -2.5, 2.5);
-
-	  m_histos[TIMING]["highPtTrigMB1VsPhi" + etaTag + IDTag]  = new TH1F("highPtTrigMB1VsPhi_" + etaTag + IDTag + sampleTag, "highPtTrigMB1_" + etaTag + IDTag + sampleTag +";earlyTrig(track,primitive);#phi", 48, -TMath::Pi(),TMath::Pi());
-	  m_histos[TIMING]["highPtTrigMB2VsPhi" + etaTag + IDTag]  = new TH1F("highPtTrigMB2VsPhi_" + etaTag + IDTag + sampleTag, "highPtTrigMB2_" + etaTag + IDTag + sampleTag +";earlyTrig(track,primitive);#phi", 48, -TMath::Pi(),TMath::Pi());
-	  m_histos[TIMING]["highPtTrigMB3VsPhi" + etaTag + IDTag]  = new TH1F("highPtTrigMB3VsPhi_" + etaTag + IDTag + sampleTag, "highPtTrigMB3_" + etaTag + IDTag + sampleTag +";earlyTrig(track,primitive);#phi", 48,-TMath::Pi(),TMath::Pi());
-	  m_histos[TIMING]["highPtTrigMB4VsPhi" + etaTag + IDTag]  = new TH1F("highPtTrigMB4VsPhi_" + etaTag + IDTag + sampleTag, "highPtTrigMB4_" + etaTag + IDTag + sampleTag +";earlyTrig(track,primitive);#phi", 48,-TMath::Pi(),TMath::Pi());
-
-	  m_histos[TIMING]["highPtTrigBxMB1" + etaTag + IDTag]  = new TH1F("highPtTrigBxMB1_" + etaTag + IDTag + sampleTag, "highPtTrigBxMB1_" + etaTag + IDTag + sampleTag +";BX;# entries", 5, -2.5, 2.5);
-	  m_histos[TIMING]["highPtTrigBxMB2" + etaTag + IDTag]  = new TH1F("highPtTrigBxMB2_" + etaTag + IDTag + sampleTag, "highPtTrigBxMB2_" + etaTag + IDTag + sampleTag +";BX;# entries", 5, -2.5, 2.5);
-	  m_histos[TIMING]["highPtTrigBxMB3" + etaTag + IDTag]  = new TH1F("highPtTrigBxMB3_" + etaTag + IDTag + sampleTag, "highPtTrigBxMB3_" + etaTag + IDTag + sampleTag +";BX;# entires", 5, -2.5, 2.5);
-	  m_histos[TIMING]["highPtTrigBxMB4" + etaTag + IDTag]  = new TH1F("highPtTrigBxMB4_" + etaTag + IDTag + sampleTag, "highPtTrigBxMB4_" + etaTag + IDTag + sampleTag +";BX;# entries", 5, -2.5, 2.5);
+	      m_effs[TIMING]["firstEffVsPtMB" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB" + chTag + completeTag,
+											   "firstEffVsPtMB" + chTag + completeTag +
+											   ";p_{T} (GeV/c); fraction of prefiring",
+											   17,ptBins);
 
 
-	  m_histos[TIMING]["bxTrigMB1VsEta0" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta0_" + etaTag + IDTag + sampleTag, "bxTrigMB1_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB2VsEta0" + etaTag + IDTag]  = new TProfile("bxTrigMB2VsEta0_" + etaTag + IDTag + sampleTag, "bxTrigMB2_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB3VsEta0" + etaTag + IDTag]  = new TProfile("bxTrigMB3VsEta0_" + etaTag + IDTag + sampleTag, "bxTrigMB3_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB4VsEta0" + etaTag + IDTag]  = new TProfile("bxTrigMB4VsEta0_" + etaTag + IDTag + sampleTag, "bxTrigMB4_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
+	      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag] = new TH1F("bxTrigMB" + chTag + completeTag,
+									       "bxTrigMB" + chTag + completeTag +
+									       ";bxTrig(track,primitive);# entries",
+									       5,-2.5,2.5);
 
-	  m_histos[TIMING]["bxTrigMB1VsEta1" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta1_" + etaTag + IDTag + sampleTag, "bxTrigMB1_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB2VsEta1" + etaTag + IDTag]  = new TProfile("bxTrigMB2VsEta1_" + etaTag + IDTag + sampleTag, "bxTrigMB2_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB3VsEta1" + etaTag + IDTag]  = new TProfile("bxTrigMB3VsEta1_" + etaTag + IDTag + sampleTag, "bxTrigMB3_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
-	  m_histos[TIMING]["bxTrigMB4VsEta1" + etaTag + IDTag]  = new TProfile("bxTrigMB4VsEta1_" + etaTag + IDTag + sampleTag, "bxTrigMB4_" + etaTag + IDTag + sampleTag +";#eta;<BX>", 36, -0.9, 0.9, -2.5, 2.5);
+	      m_histos[TIMING]["bxTrigVsPtMB" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPtMB" + chTag + completeTag,
+										       "bxTrigVsPtMB" + chTag + completeTag +
+										       ";bxTrig(track,primitive);#eta",
+										       17,ptBins, -2.5, 2.5);
 
+	      m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag] = new TH1F("highPtTrigVsPhiMB" + chTag + completeTag,
+											"highPtTrigVsPhiMB" + chTag + completeTag +
+											";earlyTrig(track,primitive);#phi",
+											48, -TMath::Pi(),TMath::Pi());
+
+	      m_histos[TIMING]["highPtTrigBxMB" + chTag + etaTag + IDTag]  = new TH1F("highPtTrigBxMB" + chTag + completeTag,
+										      "highPtTrigBxMB" + chTag + completeTag +
+										      ";BX;# entries",
+										      5, -2.5, 2.5);
+
+	      m_histos[TIMING]["bxTrigMB1VsEta" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta" + chTag + "0" + completeTag,
+												"bxTrigMB1VsEta" + chTag + "0" + completeTag +
+												";#eta;<BX>",
+												36, -0.9, 0.9, -2.5, 2.5);
+
+	      m_histos[TIMING]["bxTrigMB1VsEta" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta" + chTag + "1" + completeTag,
+												"bxTrigMB1VsEta" + chTag + "1" + completeTag +
+												";#eta;<BX>",
+												36, -0.9, 0.9, -2.5, 2.5);
+	    }
 
 	  outFile->cd(sampleTag+"/kinematical_variables");
 
-	  m_histos[KIN]["ProbePt" + etaTag + IDTag]  = new TH1F("hProbePt_" + etaTag + IDTag + sampleTag, "hProbePt_" + etaTag + IDTag + sampleTag +";p_{T} (GeV);# entries", 300,0.,1500.);
-	  m_histos[KIN]["ProbeEta" + etaTag + IDTag] = new TH1F("hProbeEta_" + etaTag + IDTag + sampleTag, "hProbeEta_" + etaTag + IDTag + sampleTag + ";#eta;# entries", 48,-2.4, 2.4);
-	  m_histos[KIN]["ProbePhi" + etaTag + IDTag] = new TH1F("hProbePhi_" + etaTag + IDTag + sampleTag, "hProbePhi_" + etaTag + IDTag + sampleTag + ";#phi;# entries", 48,-TMath::Pi(),TMath::Pi()); 
+	  m_histos[KIN]["ProbePt" + etaTag + IDTag]  = new TH1F("hProbePt" + completeTag,
+								"hProbePt" + completeTag +
+								";p_{T} (GeV);# entries",
+								300,0.,1500.);
+	  m_histos[KIN]["ProbeEta" + etaTag + IDTag] = new TH1F("hProbeEta" + completeTag,
+								"hProbeEta" + completeTag +
+								";#eta;# entries",
+								48,-2.4, 2.4);
+	  m_histos[KIN]["ProbePhi" + etaTag + IDTag] = new TH1F("hProbePhi" + completeTag,
+								"hProbePhi" + completeTag +
+								";#phi;# entries",
+								48,-TMath::Pi(),TMath::Pi()); 
 	  
 	}
 
@@ -561,8 +575,6 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 
   if (!isGoodRun) return;
   
-  TLorentzVector emptyTk;
-    
   if (!muon_pog::pathHasFired(hlt,m_tnpConfig.hlt_path)) return;
 
   std::vector<const muon_pog::Muon *> tagMuons;
@@ -570,8 +582,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
   for (auto & tagMuon : muons)
     {
 
-      TLorentzVector tagMuTk = muon_pog::muonTk(tagMuon, 
-						m_tnpConfig.muon_trackType);
+      TLorentzVector tagMuTk(muon_pog::muonTk(tagMuon,m_tnpConfig.muon_trackType));
 
       if ( tagMuTk.Pt() > m_tnpConfig.tag_minPt                       &&
 	   muon_pog::hasFilterMatch(tagMuon,hlt,
@@ -580,7 +591,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 	   muon_pog::hasGoodId(tagMuon,m_tnpConfig.tag_ID)            && 
 	   tagMuon.trackerIso / tagMuTk.Pt() < m_tnpConfig.tag_isoCut &&
 	   tagMuon.trackerIso < m_tnpConfig.tag_isoCutAbs
-	  )
+	 )
 	tagMuons.push_back(&tagMuon);
     }
   
@@ -678,13 +689,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[KIN]["ProbePt" + etaTag + IDTag]->Fill(probeMuTk.Pt(), weight);
 		      m_histos[KIN]["ProbeEta" + etaTag + IDTag]->Fill(probeMuTk.Eta(), weight);
 		      m_histos[KIN]["ProbePhi" + etaTag + IDTag]->Fill(probeMuTk.Phi(), weight);
-
+		      
 		      Int_t nTrig[4]    = { 0, 0, 0, 0 };
 		      Int_t firstBX[4]  = { 9, 9, 9, 9 };
 		      
-		      //std::cout << "macthes size : " << probeMuon.matches.size() << std::endl;
-		      //std::cout << "primitives size : " << ev.dtPrimitives.size() << std::endl;
-
 		      for(auto match : probeMuon.matches) 
 			{
 
@@ -692,69 +700,75 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  if (match.errx < 0)
 			    continue;
 			  
-			  std::string chTag(std::to_string(match.id_r));
-
-			  // std::cout << "trig size : " << match.trigIndexes.size() << std::endl;
-
+			  TString chTag(match.id_r);
+			  
 			  for (auto index : match.trigIndexes)
 			    {
 
 			      Int_t wh0Tag = (match.id_phi%4) < 2 ? 0 : 1;
-
-			      const auto & dtPrim = ev.dtPrimitives.at(index);
+			      
+ 			      const auto & dtPrim = ev.dtPrimitives.at(index);
 			      Int_t bx = dtPrim.bxTrackFinder();
-
+			      
+			      if (match.id_r   != dtPrim.id_r ||
+				  match.id_eta != dtPrim.id_eta ||
+				  match.id_phi != dtPrim.id_phi ||
+				  match.type != muon_pog::MuonDetType::DT)
+				continue;
+			    
 			      Float_t dPhi = match.phi - dtPrim.phiGlb();
 			      dPhi = dPhi >  TMath::Pi() ? dPhi - 2*TMath::Pi() :
 				     dPhi < -TMath::Pi() ? dPhi + 2*TMath::Pi() :  dPhi;
-                    
+			    
 			      m_histos[TRIG]["dPhiMB" + chTag + etaTag + IDTag]->Fill(dPhi, weight);
 			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsEta" + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight);
 			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsPhi" + etaTag + IDTag])->Fill(dPhi, probeMuTk.Phi(), weight);
 			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsPt"  + etaTag + IDTag])->Fill(dPhi, probeMuTk.Pt(),  weight);
-            
-			      static_cast<TProfile*>(m_histos[TIMING]["bxTrigMB" + chTag + "VsEta" + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
-
-			      if (bx >= m_tnpConfig.probe_minPrimBX)
+			         
+			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
 				{ 
-				  m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
-				}
-			      
-			      if ( std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi && 
-				   ( wh0Tag==0 && 
-				     probeMuTk.Eta() >  m_tnpConfig.probe_minEtaBX && 
-				     probeMuTk.Eta() <  m_tnpConfig.probe_maxEtaBX
-				     ) ||
-				   ( wh0Tag==1 && 
-				     probeMuTk.Eta() > -m_tnpConfig.probe_maxEtaBX && 
-				     probeMuTk.Eta() < -m_tnpConfig.probe_minEtaBX
-				     ) 
-				   )
-				{
+
+				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
 				  
-				
-				  nTrig[match.id_r - 1]++;
-			      if(bx < firstBX[match.id_r - 1] &&
-				     bx >= m_tnpConfig.probe_minPrimBX )
-				    firstBX[match.id_r - 1] = bx;
-			      
-				  if(probeMuTk.Pt() > 400.)
-				{
-				  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigMB" + chTag + "VsPhi" + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
-				  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigBxMB" + chTag + etaTag + IDTag])->Fill(bx, weight);
-				  
-				}
-				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigMB" + chTag + "VsPt" + etaTag + IDTag])->Fill(probeMuTk.Pt(), bx);
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
-				    { 
-				      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Pt());
-				      m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Phi());
+				    m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				  
+				  if ( ( wh0Tag==0 && 
+					 probeMuTk.Eta() >  m_tnpConfig.probe_minEtaBX && 
+					 probeMuTk.Eta() <  m_tnpConfig.probe_maxEtaBX
+					 ) ||
+				       ( wh0Tag==1 && 
+					 probeMuTk.Eta() > -m_tnpConfig.probe_maxEtaBX && 
+					 probeMuTk.Eta() < -m_tnpConfig.probe_minEtaBX
+					 ) 
+				       )
+				    {
+
+				      nTrig[match.id_r - 1]++;
+				      
+				      if(bx < firstBX[match.id_r - 1] &&
+					 bx >= m_tnpConfig.probe_minPrimBX )
+					firstBX[match.id_r - 1] = bx;
+			      
+				      if(probeMuTk.Pt() > 400.)
+					{
+					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
+					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigBxMB" + chTag + etaTag + IDTag])->Fill(bx, weight);					  
+					}
+				      
+				      static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsPtMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Pt(), bx);
+				      
+				      if (bx >= m_tnpConfig.probe_minPrimBX)
+					{ 
+					  m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Pt());
+					  m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Phi());
+					}
+				      
+				      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag]->Fill(bx, weight);
+				      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]->Fill(dtPrim.quality, weight);
+				  
 				    }
 				}
-
-			      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag]->Fill(bx, weight);
-			      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]->Fill(dtPrim.quality, weight);
-			      
 			    }
 			}
 
@@ -762,7 +776,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[TRIG]["nTrigMB2" + etaTag + IDTag]->Fill(nTrig[1], weight);
 		      m_histos[TRIG]["nTrigMB3" + etaTag + IDTag]->Fill(nTrig[2], weight);
 		      m_histos[TRIG]["nTrigMB4" + etaTag + IDTag]->Fill(nTrig[3], weight);
-
+		      
 		      if (firstBX[0] < 9)
 			m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill(firstBX[0] < 0,probeMuTk.Pt());
 		      if (firstBX[1] < 9)
@@ -772,8 +786,6 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      if (firstBX[3] < 9)
 			m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
 
-		      
-	 
 		    }
 		}
 	    }
