@@ -435,8 +435,6 @@ void muon_pog::Plotter::book(TFile *outFile)
 	{
 	  TString IDTag = "_" + probe_ID;
 	  
-	  outFile->cd(sampleTag+"/trigger");
-
 	  const Double_t ptBins[18] = {0., 10., 20., 30., 40., 50., 60., 70., 80., 90., 100.,
 	                               120., 140, 200., 400., 600., 800., 1200.};
 
@@ -444,6 +442,8 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  
 	  for (Int_t iChamb = 1; iChamb<=4; ++iChamb)
 	    {
+
+	      outFile->cd(sampleTag+"/trigger");
 
 	      TString chTag(std::to_string(iChamb).c_str());	  
 
@@ -477,7 +477,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 										";dPhi(track,primitive);p_{T}",
 										300,-0.5,0.5, 17,ptBins);
 
-	      outFile->cd(sampleTag+"/timing");
+	      outFile->cd(sampleTag+"/efficiencies");
 
 	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB" + chTag + completeTag,
 											  "earlyEffVsPtMB" + chTag + completeTag +
@@ -505,6 +505,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 											   ";p_{T} (GeV/c); fraction of prefiring",
 											   17,ptBins);
 
+	      outFile->cd(sampleTag+"/timing");
 
 	      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag] = new TH1F("bxTrigMB" + chTag + completeTag,
 									       "bxTrigMB" + chTag + completeTag +
@@ -772,8 +773,6 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			    }
 			}
 
-		      continue;
-		      
 		      m_histos[TRIG]["nTrigMB1" + etaTag + IDTag]->Fill(nTrig[0], weight);
 		      m_histos[TRIG]["nTrigMB2" + etaTag + IDTag]->Fill(nTrig[1], weight);
 		      m_histos[TRIG]["nTrigMB3" + etaTag + IDTag]->Fill(nTrig[2], weight);
