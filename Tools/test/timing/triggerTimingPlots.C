@@ -472,8 +472,8 @@ void muon_pog::Plotter::book(TFile *outFile)
 										";dPhi(track,primitive);#phi",
 										300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
 
-	      m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPtMB" + completeTag,
-										"dPhivsPtMB" + completeTag +
+	      m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPtMB" + chTag + completeTag,
+										"dPhivsPtMB" + chTag + completeTag +
 										";dPhi(track,primitive);p_{T}",
 										300,-0.5,0.5, 17,ptBins);
 
