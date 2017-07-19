@@ -297,6 +297,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
   event_.pairs.clear();
 
   event_.dtSegments.clear();
+  event_.dtPrimitives.clear();
   event_.cscSegments.clear();
   
   event_.mets.pfMet   = -999; 
@@ -970,8 +971,9 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		      
 		      const auto chamb = cscGeom->chamber(static_cast<CSCDetId>(match.id));
 		      
-		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
-		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
+		      ntupleMatch.phi  = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
+		      ntupleMatch.eta  = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
+		      ntupleMatch.zGlb = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).z();
 		      
 		      matchTkMuSeg(match, ntupleMatch);
 		      
