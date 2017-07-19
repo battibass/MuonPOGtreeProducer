@@ -494,11 +494,40 @@ void muon_pog::Plotter::book(TFile *outFile)
 												 ";p_{T} (GeV/c); fraction of prefiring",
 												 24., -0.9, 0.9);
 
+	      m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPtMB" + chTag + completeTag,
+											 "lateEffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of prefiring",
+											 17,ptBins);
+
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "0" + completeTag,
+												"lateEffVsEtaMB" + chTag + "0" + completeTag +
+												";p_{T} (GeV/c); fraction of prefiring",
+												24., -0.9, 0.9);
+
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "1" + completeTag,
+												"lateEffVsEtaMB" + chTag + "1" + completeTag +
+												";p_{T} (GeV/c); fraction of prefiring",
+												24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPtMB" + chTag + completeTag,
+											 "bxm1EffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of prefiring (BX = -1)",
+											 17,ptBins);
+
+	      m_effs[TIMING]["bxm2EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPtMB" + chTag + completeTag,
+											 "bxm2EffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of prefiring (BX = -2)",
+											 17,ptBins);
 	      
 	      m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhiMB" + chTag + completeTag,
 											   "earlyEffVsPhiMB" + chTag + completeTag +
 											   ";p_{T} (GeV/c); fraction of prefiring",
 											   48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["lateEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPhiMB" + chTag + completeTag,
+											  "lateEffVsPhiMB" + chTag + completeTag +
+											  ";p_{T} (GeV/c); fraction of prefiring",
+											  48,-TMath::Pi(),TMath::Pi());
 
 	      m_effs[TIMING]["firstEffVsPtMB" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB" + chTag + completeTag,
 											   "firstEffVsPtMB" + chTag + completeTag +
@@ -732,7 +761,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
 				  
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
-				    m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				    {
+				      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				      m_effs[TIMING]["lateEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Eta());
+				    }
 				  
 				  if ( ( wh0Tag==0 && 
 					 probeMuTk.Eta() >  m_tnpConfig.probe_minEtaBX && 
@@ -761,8 +793,14 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				      
 				      if (bx >= m_tnpConfig.probe_minPrimBX)
 					{ 
+					  m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx == -1, probeMuTk.Pt());
+					  m_effs[TIMING]["bxm2EffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx == -2, probeMuTk.Pt());
+					  
 					  m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Pt());
 					  m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Phi());
+
+					  m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Pt());
+					  m_effs[TIMING]["lateEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Phi());
 					}
 				      
 				      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag]->Fill(bx, weight);
