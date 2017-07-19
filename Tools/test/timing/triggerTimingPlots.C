@@ -442,10 +442,10 @@ void muon_pog::Plotter::book(TFile *outFile)
 
 	  TString completeTag = etaTag + IDTag + sampleTag;	  
 	  
-	  for (Int_t iChamb = 1; iChamb<=4; iChamb)
+	  for (Int_t iChamb = 1; iChamb<=4; ++iChamb)
 	    {
 
-	      TString chTag(iChamb);	  
+	      TString chTag(std::to_string(iChamb).c_str());	  
 
 	      m_histos[TRIG]["nTrigMB" + chTag + etaTag + IDTag]     = new TH1F("nTrigMB" + chTag + completeTag,
 										"nTrigMB" + chTag + completeTag +
@@ -479,8 +479,8 @@ void muon_pog::Plotter::book(TFile *outFile)
 
 	      outFile->cd(sampleTag+"/timing");
 
-	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB1" + chTag + completeTag,
-											  "earlyEffVsPtMB1" + chTag + completeTag +
+	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB" + chTag + completeTag,
+											  "earlyEffVsPtMB" + chTag + completeTag +
 											  ";p_{T} (GeV/c); fraction of prefiring",
 											  17,ptBins);
 
@@ -526,13 +526,13 @@ void muon_pog::Plotter::book(TFile *outFile)
 										      ";BX;# entries",
 										      5, -2.5, 2.5);
 
-	      m_histos[TIMING]["bxTrigMB1VsEta" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta" + chTag + "0" + completeTag,
-												"bxTrigMB1VsEta" + chTag + "0" + completeTag +
+	      m_histos[TIMING]["bxTrigVsEtaMB" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigVsEtaMB" + chTag + "0" + completeTag,
+												"bxTrigVsEtaMB" + chTag + "0" + completeTag +
 												";#eta;<BX>",
 												36, -0.9, 0.9, -2.5, 2.5);
 
-	      m_histos[TIMING]["bxTrigMB1VsEta" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigMB1VsEta" + chTag + "1" + completeTag,
-												"bxTrigMB1VsEta" + chTag + "1" + completeTag +
+	      m_histos[TIMING]["bxTrigVsEtaMB" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigVsEtaMB" + chTag + "1" + completeTag,
+												"bxTrigVsEtaMB" + chTag + "1" + completeTag +
 												";#eta;<BX>",
 												36, -0.9, 0.9, -2.5, 2.5);
 	    }
@@ -700,7 +700,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  if (match.errx < 0)
 			    continue;
 			  
-			  TString chTag(match.id_r);
+			  TString chTag(std::to_string(match.id_r));
 			  
 			  for (auto index : match.trigIndexes)
 			    {
@@ -715,16 +715,16 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				  match.id_phi != dtPrim.id_phi ||
 				  match.type != muon_pog::MuonDetType::DT)
 				continue;
-			    
+
 			      Float_t dPhi = match.phi - dtPrim.phiGlb();
 			      dPhi = dPhi >  TMath::Pi() ? dPhi - 2*TMath::Pi() :
 				     dPhi < -TMath::Pi() ? dPhi + 2*TMath::Pi() :  dPhi;
 			    
 			      m_histos[TRIG]["dPhiMB" + chTag + etaTag + IDTag]->Fill(dPhi, weight);
-			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsEta" + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight);
-			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsPhi" + etaTag + IDTag])->Fill(dPhi, probeMuTk.Phi(), weight);
-			      static_cast<TH2F*>(m_histos[TRIG]["dPhiMB" + chTag + "VsPt"  + etaTag + IDTag])->Fill(dPhi, probeMuTk.Pt(),  weight);
-			         
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsEtaMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight);
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPhiMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Phi(), weight);
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Pt(),  weight);
+
 			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
 				{ 
 
@@ -772,6 +772,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			    }
 			}
 
+		      continue;
+		      
 		      m_histos[TRIG]["nTrigMB1" + etaTag + IDTag]->Fill(nTrig[0], weight);
 		      m_histos[TRIG]["nTrigMB2" + etaTag + IDTag]->Fill(nTrig[1], weight);
 		      m_histos[TRIG]["nTrigMB3" + etaTag + IDTag]->Fill(nTrig[2], weight);
