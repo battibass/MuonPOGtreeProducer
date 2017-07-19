@@ -297,6 +297,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
   event_.pairs.clear();
 
   event_.dtSegments.clear();
+  event_.dtPrimitives.clear();
   event_.cscSegments.clear();
   
   event_.mets.pfMet   = -999; 
