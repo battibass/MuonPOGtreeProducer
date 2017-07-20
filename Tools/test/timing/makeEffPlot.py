@@ -46,7 +46,7 @@ for keyPlot in config:
     inputLegendEntries = []
     inputLabels = []
  
-    for keyInputs in config[keyPlot]['inputs']:
+    for keyInputs in sorted(config[keyPlot]['inputs']):
         inputFilenames.append(config[keyPlot]['inputs'][keyInputs]['filename'])
         inputPlotNames.append(config[keyPlot]['inputs'][keyInputs]['plot'])
         inputFolders.append(config[keyPlot]['inputs'][keyInputs]['folder'])

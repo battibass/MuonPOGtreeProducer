@@ -40,8 +40,8 @@ namespace muon_pog
     else if (muId == "TIGHT")  return muon.isTight   == 1;
     else if (muId == "MEDIUM") return muon.isMedium  == 1;
     else if (muId == "LOOSE")  return muon.isLoose   == 1;
-    else if (muId == "HIGHPT") return muon.isHighPt  == 1;
-    else if (muId == "HIGHPTZPRIME") return muon.isGlobal &&
+    else if (muId == "HIGHPTPOG") return muon.isHighPt  == 1;
+    else if (muId == "HIGHPT") return muon.isGlobal &&
 				            muon.isTracker &&
 				            muon.glbMuonValidHits  > 0 &&
 				            muon.trkPixelValidHits > 0 &&
@@ -49,8 +49,8 @@ namespace muon_pog
 				            muon.trkMuonZPrimeMatchedStations == 1 &&
 				            std::abs(muon.dxy) < 0.2 &&
 				            std::abs(muon.dz)  < 0.5 &&
-				            muon.fitPtErr( const muon_pog::MuonFitType::TUNEP) /
-				            muon.fitPt( const muon_pog::MuonFitType::TUNEP) < 0.3;
+				            muon.fitPtErr(muon_pog::MuonFitType::TUNEP) /
+				            muon.fitPt(muon_pog::MuonFitType::TUNEP) < 0.3;
     else if (muId == "SOFT")   return muon.isSoft == 1;
     else
       {

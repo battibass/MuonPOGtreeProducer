@@ -99,8 +99,8 @@ namespace muon_pog {
     Float_t probe_maxPrimDphi;      
     Int_t   probe_minPrimBX;      
 
-    Float_t probe_minZBX;      
-    Float_t probe_maxZBX;      
+    Float_t probe_minEtaBX;      
+    Float_t probe_maxEtaBX;      
 
 
     std::vector<TString> probe_IDs;
@@ -303,8 +303,8 @@ muon_pog::TagAndProbeConfig::TagAndProbeConfig(boost::property_tree::ptree::valu
       probe_isoCut    = vt.second.get<Float_t>("probe_isoCut");
       probe_isoCutAbs = vt.second.get<Float_t>("probe_isoCutAbs");
 
-      probe_minZBX  = vt.second.get<Float_t>("probe_minZBX");
-      probe_maxZBX  = vt.second.get<Float_t>("probe_maxZBX");
+      probe_minEtaBX  = vt.second.get<Float_t>("probe_minEtaBX");
+      probe_maxEtaBX  = vt.second.get<Float_t>("probe_maxEtaBX");
         
       probe_maxPrimDphi = vt.second.get<Float_t>("probe_maxPrimDphi");
       probe_minPrimBX   = vt.second.get<Int_t>("probe_minPrimBX");
@@ -491,30 +491,30 @@ void muon_pog::Plotter::book(TFile *outFile)
 											  ";p_{T} (GeV/c); fraction of prefiring",
 											  17,ptBins);
 
-	      m_effs[TIMING]["earlyEffVsGlbZMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsGlbZMB" + chTag + "0" + completeTag,
-												 "earlyEffVsGlbZMB" + chTag + "0" + completeTag +
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "0" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "0" + completeTag +
 												 ";p_{T} (GeV/c); fraction of prefiring",
-												 24., -700, 700);
+												 24., -0.9, 0.9);
 
-	      m_effs[TIMING]["earlyEffVsGlbZMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsGlbZMB" + chTag + "1" + completeTag,
-												 "earlyEffVsGlbZMB" + chTag + "1" + completeTag +
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "1" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "1" + completeTag +
 												 ";p_{T} (GeV/c); fraction of prefiring",
-												 24., -700, 700);
+												 24., -0.9, 0.9);
 
 	      m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPtMB" + chTag + completeTag,
 											 "lateEffVsPtMB" + chTag + completeTag +
 											 ";p_{T} (GeV/c); fraction of prefiring",
 											 17,ptBins);
 
-	      m_effs[TIMING]["lateEffVsGlbZMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsGlbZMB" + chTag + "0" + completeTag,
-												"lateEffVsGlbZMB" + chTag + "0" + completeTag +
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "0" + completeTag,
+												"lateEffVsEtaMB" + chTag + "0" + completeTag +
 												";p_{T} (GeV/c); fraction of prefiring",
-												24., -700, 700);
+												24., -0.9, 0.9);
 
-	      m_effs[TIMING]["lateEffVsGlbZMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsGlbZMB" + chTag + "1" + completeTag,
-												"lateEffVsGlbZMB" + chTag + "1" + completeTag +
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "1" + completeTag,
+												"lateEffVsEtaMB" + chTag + "1" + completeTag +
 												";p_{T} (GeV/c); fraction of prefiring",
-												24., -700, 700);
+												24., -0.9, 0.9);
 	      
 	      m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPtMB" + chTag + completeTag,
 											 "bxm1EffVsPtMB" + chTag + completeTag +
@@ -563,15 +563,15 @@ void muon_pog::Plotter::book(TFile *outFile)
 										      ";BX;# entries",
 										      5, -2.5, 2.5);
 
-	      m_histos[TIMING]["bxTrigVsGlbZMB" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigVsGlbZMB" + chTag + "0" + completeTag,
-												"bxTrigVsGlbZMB" + chTag + "0" + completeTag +
+	      m_histos[TIMING]["bxTrigVsEtaMB" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigVsEtaMB" + chTag + "0" + completeTag,
+												"bxTrigVsEtaMB" + chTag + "0" + completeTag +
 												";#eta;<BX>",
-												36, -700, 700, -2.5, 2.5);
+												36, -0.9, 0.9, -2.5, 2.5);
 
-	      m_histos[TIMING]["bxTrigVsGlbZMB" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigVsGlbZMB" + chTag + "1" + completeTag,
-												"bxTrigVsGlbZMB" + chTag + "1" + completeTag +
+	      m_histos[TIMING]["bxTrigVsEtaMB" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigVsEtaMB" + chTag + "1" + completeTag,
+												"bxTrigVsEtaMB" + chTag + "1" + completeTag +
 												";#eta;<BX>",
-												36, -700, 700, -2.5, 2.5);
+												36, -0.9, 0.9, -2.5, 2.5);
 	    }
 
 	  outFile->cd(sampleTag+"/kinematical_variables");
@@ -769,29 +769,30 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				     dPhi < -TMath::Pi() ? dPhi + 2*TMath::Pi() :  dPhi;
 			    
 			      m_histos[TRIG]["dPhiMB" + chTag + etaTag + IDTag]->Fill(dPhi, weight);
-			      static_cast<TH2F*>(m_histos[TRIG]["dPhivsEta" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight)
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsEtaMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight);
 			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPhiMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Phi(), weight);
 			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Pt(),  weight);
+
 
 			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
 				{ 
 
 				  static_cast<TH2F*>(m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag])->Fill(match.id_phi, match.id_eta, weight);
-				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsGlbZMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(match.zGlb, dtPrim.bxTrackFinder());
+				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(match.eta, dtPrim.bxTrackFinder());
 				  
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
 				    {
-				      m_effs[TIMING]["earlyEffVsGlbZMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, match.zGlb);
-				      m_effs[TIMING]["lateEffVsGlbZMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, match.zGlb);
+				      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				      m_effs[TIMING]["lateEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Eta());
 				    }
 				  
 				  if ( ( wh0Tag==0 && 
-					 match.zGlb >  m_tnpConfig.probe_minZBX && 
-					 match.zGlb <  m_tnpConfig.probe_maxZBX
+					 probeMuTk.Eta() >  m_tnpConfig.probe_minEtaBX && 
+					 probeMuTk.Eta() <  m_tnpConfig.probe_maxEtaBX
 					 ) ||
 				       ( wh0Tag==1 && 
-					 match.zGlb > -m_tnpConfig.probe_maxZBX && 
-					 match.zGlb < -m_tnpConfig.probe_minZBX
+					 probeMuTk.Eta() > -m_tnpConfig.probe_maxEtaBX && 
+					 probeMuTk.Eta() < -m_tnpConfig.probe_minEtaBX
 					 ) 
 				       )
 				    {
