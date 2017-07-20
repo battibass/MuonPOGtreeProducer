@@ -72,6 +72,7 @@ namespace muon_pog {
 
     Float_t phi; 
     Float_t eta;
+    Float_t zGlb;
 
     Float_t dXdZ; 
     Float_t dYdZ;
@@ -90,7 +91,7 @@ namespace muon_pog {
     ChambMatch(){};
     virtual ~ChambMatch(){};
     
-    ClassDef(ChambMatch,4)
+    ClassDef(ChambMatch,5)
   };
 
   class MuonSegment {
@@ -154,7 +155,7 @@ namespace muon_pog {
 
     inline Float_t phiGlb() const 
     {
-      return (phi / 4096.) + TMath::Pi() / 6. * (id_phi - 1);
+      return (phi / 4096.) + TMath::Pi() / 180. * (id_phi - 1);
     };
 
     ClassDef(TriggerPrimitive,3)
@@ -335,7 +336,7 @@ namespace muon_pog {
       return fits.at(type).ptErr;
     };
 
-    ClassDef(Muon,4)
+    ClassDef(Muon,5)
   };
 
   class MuonPair {
@@ -486,7 +487,7 @@ namespace muon_pog {
     Event(){};
     virtual ~Event(){};
 
-    ClassDef(Event,8)
+    ClassDef(Event,9)
   };
 
 }
