@@ -443,6 +443,13 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  for (Int_t iChamb = 1; iChamb<=4; ++iChamb)
 	    {
 
+	      outFile->cd(sampleTag+"/control");
+
+	      m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag] = new TH2F("sectorVsWheelMB" + chTag + completeTag, 
+										    "sectorVsWheelMB" + chTag + completeTag +
+										    "sector;wheel", 
+										    14, 0.5, 14.5, 5, -2.5, 2.5);
+
 	      outFile->cd(sampleTag+"/trigger");
 
 	      TString chTag(std::to_string(iChamb).c_str());	  
@@ -627,11 +634,14 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
   
   std::vector<const muon_pog::Muon *> probeMuons;
   
-  for (auto & muon : muons)
+  for (auto tagMuonPointer : tagMuons)
     {
-      for (auto tagMuonPointer : tagMuons)
+      const muon_pog::Muon & tagMuon = *tagMuonPointer;
+
+      bool hasGoodPair = false;
+      
+      for (auto & muon : muons)
 	{
-	  const muon_pog::Muon & tagMuon = *tagMuonPointer;
 	  
 	  if ( tagMuonPointer != &muon && 
 	       muon_pog::chargeFromTrk(tagMuon,m_tnpConfig.muon_trackType) *
@@ -684,8 +694,9 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      static_cast<TH2F*>(m_histos[CONT]["tagPtVsProbePt" + etaTag])->Fill(tagMuTk.Pt(),muTk.Pt(), weight);
 			      static_cast<TH2F*>(m_histos[CONT]["probePtVsDr" + etaTag])->Fill(muTk.Pt(), tagMuTk.DeltaR(muTk), weight);
 			      static_cast<TH2F*>(m_histos[CONT]["tagEtaVsProbeEta" + etaTag])->Fill(tagMuTk.Eta(),muTk.Eta(), weight);
-			      probeMuons.push_back(&muon);			      
-			      break; // CB If a muon is already a probe don't loo on other tags
+			      probeMuons.push_back(&muon);
+			      hasGoodPair = true;
+			      break; // CB If a muon is already a probe don't loop on other tags
 			      
 			    }
 			}
@@ -693,6 +704,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		}
 	    }
 	}
+
+      if(hasGoodPair)
+	break;
+      
     }
   
   for (auto probeMuonPointer : probeMuons)
@@ -742,7 +757,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      
 			      if (match.id_r   != dtPrim.id_r ||
 				  match.id_eta != dtPrim.id_eta ||
-				  match.id_phi != dtPrim.id_phi ||
+				  !( match.id_phi == dtPrim.id_phi ||
+				     ( match.id_phi == 13 && dtPrim.id_phi == 4 ) ||
+				     ( match.id_phi == 14 && dtPrim.id_phi == 10)
+				   ) ||
 				  match.type != muon_pog::MuonDetType::DT)
 				continue;
 
@@ -758,6 +776,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
 				{ 
 
+				  static_cast<TH2F*>(m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag])->Fill(match.id_phi, match.id_eta, weight);
 				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
 				  
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
