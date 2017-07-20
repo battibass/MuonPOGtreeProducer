@@ -132,13 +132,14 @@ for keyPlot in config:
             else :
                 histo = histograms[iHisto]
 
-            if config[keyPlot]['output']['filenamePlot'] != "all":                    
+            if histograms[iHisto].ClassName() != "TH1F" :
                 histo.GetXaxis().SetRangeUser(plotX[0], plotX[1])
                 histo.GetYaxis().SetRangeUser(plotY[0], plotY[1])
                 histo.GetXaxis().SetTitle(plotX[2])
                 histo.GetYaxis().SetTitle(plotY[2])
             else:
-                histo.GetYaxis().SetRangeUser(0, histograms[iHisto].GetMaximum() * 1.25)
+                histo.Scale(1./histo.Integral())
+                histo.GetYaxis().SetRangeUser(0, histograms[iHisto].GetMaximum() * 1.5)
                 histo.GetXaxis().SetTitle(histoName)
 
             histo.GetXaxis().SetLabelSize(22)
