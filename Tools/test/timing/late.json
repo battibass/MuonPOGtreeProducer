@@ -9,32 +9,32 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPtMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPtMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPtMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPtMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
@@ -50,7 +50,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"      : "late_bx_eff_vs_pt",
             "fileType"          : ["png", "pdf"]
         }
@@ -65,32 +65,32 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB10_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB20_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB30_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB40_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
@@ -106,7 +106,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"      : "late_bx_eff_vs_eta0",
             "fileType"          : ["png", "pdf"]
         }
@@ -121,38 +121,38 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB11_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB21_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB31_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsEtaMB41_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
         "plot"      :
         {
-            "x"                 : [-0.9, 0.9, "muon p_{T} (GeV/c)"],
+            "x"                 : [-0.9, 0.9, "muon #eta"],
             "y"                 : [0.0, 0.5, "Late BX fraction (all matched primitives)"],
             "legendTitle"       : "Late BX fraction (all matched primitives)",
             "caption"           : "Run2016FGH",
@@ -162,7 +162,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"      : "late_bx_eff_vs_eta1",
             "fileType"          : ["png", "pdf"]
         }
@@ -177,32 +177,32 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPhiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPhiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPhiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
-                "folder"            : "/Data2016/timing",
+                "filename"          : "prova/results.root",
+                "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "lateEffVsPhiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
@@ -218,7 +218,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"      : "late_bx_eff_vs_phi",
             "fileType"          : ["png", "pdf"]
         }
