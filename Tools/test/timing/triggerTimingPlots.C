@@ -443,6 +443,8 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  for (Int_t iChamb = 1; iChamb<=4; ++iChamb)
 	    {
 
+	      TString chTag(std::to_string(iChamb).c_str());	  
+
 	      outFile->cd(sampleTag+"/control");
 
 	      m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag] = new TH2F("sectorVsWheelMB" + chTag + completeTag, 
@@ -451,8 +453,6 @@ void muon_pog::Plotter::book(TFile *outFile)
 										    14, 0.5, 14.5, 5, -2.5, 2.5);
 
 	      outFile->cd(sampleTag+"/trigger");
-
-	      TString chTag(std::to_string(iChamb).c_str());	  
 
 	      m_histos[TRIG]["nTrigMB" + chTag + etaTag + IDTag]     = new TH1F("nTrigMB" + chTag + completeTag,
 										"nTrigMB" + chTag + completeTag +
