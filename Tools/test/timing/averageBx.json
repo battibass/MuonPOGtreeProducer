@@ -4,38 +4,39 @@
         "comment"   : "Average BX vs eta type 0",
         "inputs"    :
         {
-             "MB1"   :
+	     "MB1"   :
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB1VsEta0__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB10_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
-             "MB2"   :
+	     "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB2VsEta0__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB20_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB3VsEta0__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB30_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB4VsEta0__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB40_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
+
         },
         "plot"      :
         {
@@ -49,7 +50,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"     : "avg_bx_vs_eta_0",
             "fileType"          : ["png", "pdf"]
         }
@@ -64,33 +65,33 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB1VsEta1__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB11_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB2VsEta1__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB21_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB3VsEta1__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB31_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB4VsEta1__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsEtaMB41_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
         "plot"      :
@@ -105,7 +106,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"     : "avg_bx_vs_eta_1",
             "fileType"          : ["png", "pdf"]
         }
@@ -120,33 +121,33 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB1VsPt__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPtMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB2VsPt__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPtMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB3VsPt__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPtMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB4VsPt__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPtMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
         "plot"      :
@@ -161,7 +162,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"     : "avg_bx_vs_pt",
             "fileType"          : ["png", "pdf"]
         }
@@ -176,33 +177,33 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB1VsPhi__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPhiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB2"   :
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB2VsPhi__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPhiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB3"   :
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB3VsPhi__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPhiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
              "MB4"   :
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova_09/results.root",
+                "filename"          : "prova/results.root",
                 "folder"            : "/Data2016/timing",
-                "plot"		    : "bxTrigMB4VsPhi__fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+                "plot"		    : "bxTrigVsPhiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
         },
         "plot"      :
@@ -217,7 +218,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova_09/plots/",
+            "directory"         : "prova/plots/",
             "filenamePlot"     : "avg_bx_vs_phi",
             "fileType"          : ["png", "pdf"]
         }
