@@ -762,7 +762,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				     ( match.id_phi == 14 && dtPrim.id_phi == 10)
 				   ) ||
 				  match.type != muon_pog::MuonDetType::DT)
-				continue;
+				{
+				  std::cout << "CAZZO" << std::endl;
+				  continue;
+				}
 
 			      Float_t dPhi = match.phi - dtPrim.phiGlb();
 			      dPhi = dPhi >  TMath::Pi() ? dPhi - 2*TMath::Pi() :
@@ -777,6 +780,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
 				{ 
 
+				  nTrig[match.id_r - 1]++;
+				  
 				  static_cast<TH2F*>(m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag])->Fill(match.id_phi, match.id_eta, weight);
 				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
 				  
@@ -797,8 +802,6 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				       )
 				    {
 
-				      nTrig[match.id_r - 1]++;
-				      
 				      if(bx < firstBX[match.id_r - 1] &&
 					 bx >= m_tnpConfig.probe_minPrimBX )
 					firstBX[match.id_r - 1] = bx;
