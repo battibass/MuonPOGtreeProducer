@@ -740,6 +740,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      
 		      Int_t nTrig[4]    = { 0, 0, 0, 0 };
 		      Int_t firstBX[4]  = { 9, 9, 9, 9 };
+		      Int_t hasBXm1[4]  = { 0, 0, 0, 0 };
+		      Int_t hasBXm2[4]  = { 0, 0, 0, 0 };
 		      
 		      for(auto match : probeMuon.matches) 
 			{
@@ -808,7 +810,13 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				      if(bx < firstBX[match.id_r - 1] &&
 					 bx >= m_tnpConfig.probe_minPrimBX )
 					firstBX[match.id_r - 1] = bx;
-			      
+
+				      if(bx == - 1)
+					hasBXm1[match.id_r - 1] = 1;
+
+				      if(bx == - 2)
+					hasBXm2[match.id_r - 1] = 1;
+
 				      if(probeMuTk.Pt() > 400.)
 					{
 					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
@@ -818,10 +826,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				      static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsPtMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Pt(), bx);
 				      
 				      if (bx >= m_tnpConfig.probe_minPrimBX)
-					{ 
-					  m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx == -1, probeMuTk.Pt());
-					  m_effs[TIMING]["bxm2EffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx == -2, probeMuTk.Pt());
-					  
+					{ 					  
 					  m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Pt());
 					  m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Phi());
 
@@ -843,14 +848,29 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[TRIG]["nTrigMB4" + etaTag + IDTag]->Fill(nTrig[3], weight);
 		      
 		      if (firstBX[0] < 9)
-			m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill(firstBX[0] < 0,probeMuTk.Pt());
+			{
+			  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill(firstBX[0] < 0,probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Pt());
+			}
 		      if (firstBX[1] < 9)
-			m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]->Fill(firstBX[1] < 0,probeMuTk.Pt());
+			{
+			  m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]->Fill(firstBX[1] < 0,probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			}
 		      if (firstBX[2] < 9)
-			m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
+			{
+			  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			}
 		      if (firstBX[3] < 9)
-			m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
-
+			{
+			  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			}
 		    }
 		}
 	    }

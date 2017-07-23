@@ -109,6 +109,9 @@ for keyPlot in config:
         # Setup canvas with all elements
         canvas = TCanvas('canvas', 'canvas', 800, 800)
 
+        canvas.SetGridX()
+        canvas.SetGridY()
+
         pad = TPad('pad', 'pad', 0.01, 0.00, 1.00, 1.00)
         pad.Draw()
         pad.cd()
