@@ -702,11 +702,14 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			}
 		    }
 		}
+
 	    }
+
+	  if(hasGoodPair)
+	    break;
+
 	}
 
-      if(hasGoodPair)
-	break;
       
     }
   
