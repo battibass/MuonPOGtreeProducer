@@ -850,26 +850,26 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      if (firstBX[0] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill(firstBX[0] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Pt());
 			}
 		      if (firstBX[1] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]->Fill(firstBX[1] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
 			}
 		      if (firstBX[2] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
 			}
 		      if (firstBX[3] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB1" + chTag + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
 			}
 		    }
 		}
