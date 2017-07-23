@@ -862,14 +862,14 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      if (firstBX[2] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Pt());
 			}
 		      if (firstBX[3] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Pt());
 			}
 		    }
 		}
