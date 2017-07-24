@@ -436,15 +436,105 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  TString IDTag = "_" + probe_ID;
 	  
 	  const Double_t ptBins[18] = {0., 10., 20., 30., 40., 50., 60., 70., 80., 90., 100.,
-	                               120., 140, 200., 400., 600., 800., 1200.};
+	                               120., 140, 200., 300., 400., 600., 800., 1200.};
 
 	  TString completeTag = etaTag + IDTag + sampleTag;	  
 	  
-	  for (Int_t iChamb = 1; iChamb<=4; ++iChamb)
+	  for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
 	    {
 
-	      TString chTag(std::to_string(iChamb).c_str());	  
+	      TString chTag(iChamb == 5 ?"All" : std::to_string(iChamb).c_str());	  
 
+	      outFile->cd(sampleTag+"/efficiencies");
+
+	      m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPtMB" + chTag + completeTag,
+											 "bxm1EffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of muons with primitive in BX=-1",
+											 18,ptBins);
+
+	      m_effs[TIMING]["bxm2EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPtMB" + chTag + completeTag,
+											 "bxm2EffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of muons with primitive in BX=-2",
+											 18,ptBins);
+
+	      m_effs[TIMING]["bxm1EffVsEtaMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsEtaMB" + chTag + completeTag,
+											  "bxm1EffVsEtaMB" + chTag + completeTag +
+											  ";#eta; fraction of muons with primitive in BX=-1",
+											  24., -0.9, 0.9);
+
+	      m_effs[TIMING]["bxm2EffVsEtaMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsEtaMB" + chTag + completeTag,
+											  "bxm2EffVsEtaMB" + chTag + completeTag +
+											  ";#eta; fraction of muons with primitive in BX=-2",
+											  24., -0.9, 0.9);
+
+	      m_effs[TIMING]["bxm1EffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEtaMB" + chTag + "0" + completeTag,
+												"bxm1EffVsEtaMB" + chTag + "0" + completeTag +
+												";#eta; fraction of muons with primitive in BX=-1",
+												24., -0.9, 0.9);
+
+	      m_effs[TIMING]["bxm2EffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEtaMB" + chTag + "0" + completeTag,
+												"bxm2EffVsEtaMB" + chTag + "0" + completeTag +
+												";#eta; fraction of muons with primitive in BX=-2",
+												24., -0.9, 0.9);
+
+	      m_effs[TIMING]["bxm1EffVsPhiMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhiMB" + chTag + "1" + completeTag,
+												"bxm1EffVsPhiMB" + chTag + "1" + completeTag +
+												";#phi (rad); fraction of muons with primitive in BX=-1",
+												48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["bxm2EffVsPhiMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhiMB" + chTag + "1" + completeTag,
+												"bxm2EffVsPhiMB" + chTag + "1" + completeTag +
+												";#phi (rad); fraction of muons with primitive in BX=-2",
+												48,-TMath::Pi(),TMath::Pi());
+
+	      
+	      
+
+	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB" + chTag + completeTag,
+											  "earlyEffVsPtMB" + chTag + completeTag +
+											  ";p_{T} (GeV/c); fraction of primitives in BX [-2,-1]",
+											  18,ptBins);
+
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "0" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "0" + completeTag +
+												 ";#eta; fraction of primitives in BX [-2,-1]",
+												 24., -0.9, 0.9);
+
+	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "1" + completeTag,
+												 "earlyEffVsEtaMB" + chTag + "1" + completeTag +
+												 ";#eta; fraction of primitives in BX [-2,-1]",
+												 24., -0.9, 0.9);
+
+	      m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhiMB" + chTag + completeTag,
+											   "earlyEffVsPhiMB" + chTag + completeTag +
+											   ";#phi (rad); fraction of primitives in BX [-2,-1]",
+											   48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPtMB" + chTag + completeTag,
+											 "lateEffVsPtMB" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction primitives in BX +1",
+											 18,ptBins);
+
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "0" + completeTag,
+												"lateEffVsEtaMB" + chTag + "0" + completeTag +
+												";p_{T} (GeV/c); fraction of primitives in BX +1",
+												24., -0.9, 0.9);
+
+	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "1" + completeTag,
+												"lateEffVsEtaMB" + chTag + "1" + completeTag +
+												";p_{T} (GeV/c); fraction of primitives in BX +1",
+												24., -0.9, 0.9);
+	      
+	      
+	      m_effs[TIMING]["lateEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPhiMB" + chTag + completeTag,
+											  "lateEffVsPhiMB" + chTag + completeTag +
+											  "#phi (rad); fraction of prefiring",
+											  48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["firstEffVsPtMB" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB" + chTag + completeTag,
+											   "firstEffVsPtMB" + chTag + completeTag +
+											   "p_{T} (GeV/c); fraction of muons with earliest prim. in BX [-2,-1]",
+											   18,ptBins);
 	      outFile->cd(sampleTag+"/control");
 
 	      m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag] = new TH2F("sectorVsWheelMB" + chTag + completeTag, 
@@ -482,64 +572,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPtMB" + chTag + completeTag,
 										"dPhivsPtMB" + chTag + completeTag +
 										";dPhi(track,primitive);p_{T}",
-										300,-0.5,0.5, 17,ptBins);
-
-	      outFile->cd(sampleTag+"/efficiencies");
-
-	      m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPtMB" + chTag + completeTag,
-											  "earlyEffVsPtMB" + chTag + completeTag +
-											  ";p_{T} (GeV/c); fraction of prefiring",
-											  17,ptBins);
-
-	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "0" + completeTag,
-												 "earlyEffVsEtaMB" + chTag + "0" + completeTag +
-												 ";p_{T} (GeV/c); fraction of prefiring",
-												 24., -0.9, 0.9);
-
-	      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEtaMB" + chTag + "1" + completeTag,
-												 "earlyEffVsEtaMB" + chTag + "1" + completeTag +
-												 ";p_{T} (GeV/c); fraction of prefiring",
-												 24., -0.9, 0.9);
-
-	      m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPtMB" + chTag + completeTag,
-											 "lateEffVsPtMB" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction of prefiring",
-											 17,ptBins);
-
-	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "0" + completeTag,
-												"lateEffVsEtaMB" + chTag + "0" + completeTag +
-												";p_{T} (GeV/c); fraction of prefiring",
-												24., -0.9, 0.9);
-
-	      m_effs[TIMING]["lateEffVsEtaMB" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEtaMB" + chTag + "1" + completeTag,
-												"lateEffVsEtaMB" + chTag + "1" + completeTag +
-												";p_{T} (GeV/c); fraction of prefiring",
-												24., -0.9, 0.9);
-	      
-	      m_effs[TIMING]["bxm1EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPtMB" + chTag + completeTag,
-											 "bxm1EffVsPtMB" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction of prefiring (BX = -1)",
-											 17,ptBins);
-
-	      m_effs[TIMING]["bxm2EffVsPtMB" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPtMB" + chTag + completeTag,
-											 "bxm2EffVsPtMB" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction of prefiring (BX = -2)",
-											 17,ptBins);
-	      
-	      m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhiMB" + chTag + completeTag,
-											   "earlyEffVsPhiMB" + chTag + completeTag +
-											   ";p_{T} (GeV/c); fraction of prefiring",
-											   48,-TMath::Pi(),TMath::Pi());
-
-	      m_effs[TIMING]["lateEffVsPhiMB" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPhiMB" + chTag + completeTag,
-											  "lateEffVsPhiMB" + chTag + completeTag +
-											  ";p_{T} (GeV/c); fraction of prefiring",
-											  48,-TMath::Pi(),TMath::Pi());
-
-	      m_effs[TIMING]["firstEffVsPtMB" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPtMB" + chTag + completeTag,
-											   "firstEffVsPtMB" + chTag + completeTag +
-											   ";p_{T} (GeV/c); fraction of prefiring",
-											   17,ptBins);
+										300,-0.5,0.5, 18,ptBins);
 
 	      outFile->cd(sampleTag+"/timing");
 
@@ -551,7 +584,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      m_histos[TIMING]["bxTrigVsPtMB" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPtMB" + chTag + completeTag,
 										       "bxTrigVsPtMB" + chTag + completeTag +
 										       ";bxTrig(track,primitive);#eta",
-										       17,ptBins, -2.5, 2.5);
+										       18,ptBins, -2.5, 2.5);
 
 	      m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag] = new TH1F("highPtTrigVsPhiMB" + chTag + completeTag,
 											"highPtTrigVsPhiMB" + chTag + completeTag +
@@ -738,10 +771,12 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[KIN]["ProbeEta" + etaTag + IDTag]->Fill(probeMuTk.Eta(), weight);
 		      m_histos[KIN]["ProbePhi" + etaTag + IDTag]->Fill(probeMuTk.Phi(), weight);
 		      
-		      Int_t nTrig[4]    = { 0, 0, 0, 0 };
-		      Int_t firstBX[4]  = { 9, 9, 9, 9 };
-		      Int_t hasBXm1[4]  = { 0, 0, 0, 0 };
-		      Int_t hasBXm2[4]  = { 0, 0, 0, 0 };
+		      Int_t nTrig[4]     = { 0, 0, 0, 0 };
+		      Int_t firstBX[4]   = { 9, 9, 9, 9 };
+		      Int_t hasBXm1[4]   = { 0, 0, 0, 0 };
+		      Int_t hasBXm2[4]   = { 0, 0, 0, 0 };
+		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
+		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
 		      
 		      for(auto match : probeMuon.matches) 
 			{
@@ -756,7 +791,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			    {
 
 			      Int_t wh0Tag = (match.id_phi%4) < 2 ? 0 : 1;
-			      
+
  			      const auto & dtPrim = ev.dtPrimitives.at(index);
 			      Int_t bx = dtPrim.bxTrackFinder();
 			      
@@ -786,6 +821,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				{ 
 
 				  nTrig[match.id_r - 1]++;
+				  
 				  static_cast<TH2F*>(m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag])->Fill(match.id_phi, match.id_eta, weight);
 				  
 				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
@@ -811,6 +847,11 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 					 bx >= m_tnpConfig.probe_minPrimBX )
 					firstBX[match.id_r - 1] = bx;
 
+				      if(wh0Tag)
+					hasWhFEP[match.id_r - 1] = 1;
+				      else
+					hasWhFEM[match.id_r - 1] = 1;
+					
 				      if(bx == - 1)
 					hasBXm1[match.id_r - 1] = 1;
 
@@ -849,27 +890,139 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      
 		      if (firstBX[0] < 9)
 			{
-			  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill(firstBX[0] < 0,probeMuTk.Pt());
-			  m_effs[TIMING]["bxm1EffVsPtMB1" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Pt());
-			  m_effs[TIMING]["bxm2EffVsPtMB1" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Pt());
+			  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill( firstBX[0] < 0,probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsPtMB1" + etaTag + IDTag]->Fill(  hasBXm1[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtMB1" + etaTag + IDTag]->Fill(  hasBXm2[0], probeMuTk.Pt());
+			  if (hasWhFEM[0])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB10" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB10" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[0])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB11" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB11" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiMB1" + etaTag + IDTag]->Fill( hasBXm1[0], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiMB1" + etaTag + IDTag]->Fill( hasBXm2[0], probeMuTk.Phi());
+	
+			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[0], probeMuTk.Pt());
+			  if (hasWhFEM[0])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[0])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm2[0], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[0], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[0], probeMuTk.Phi());
+		  
 			}
 		      if (firstBX[1] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]->Fill(firstBX[1] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  if (hasWhFEM[1])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB20" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB20" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[1])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB21" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB21" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiMB2" + etaTag + IDTag]->Fill( hasBXm1[1], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiMB2" + etaTag + IDTag]->Fill( hasBXm2[1], probeMuTk.Phi());
+
+			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[1], probeMuTk.Pt());
+			  if (hasWhFEM[1])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[1])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[1], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[1], probeMuTk.Phi());
+
 			}
 		      if (firstBX[2] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Pt());
+			  if (hasWhFEM[2])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB30" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB30" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[2])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB31" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB31" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiMB3" + etaTag + IDTag]->Fill( hasBXm1[2], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiMB3" + etaTag + IDTag]->Fill( hasBXm2[2], probeMuTk.Phi());
+
+			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[2], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[2], probeMuTk.Pt());
+			  if (hasWhFEM[2])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[2])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[2], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[2], probeMuTk.Phi());
+
 			}
 		      if (firstBX[3] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Pt());
+			  if (hasWhFEM[3])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB40" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB40" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[3])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaMB41" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaMB41" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiMB4" + etaTag + IDTag]->Fill( hasBXm1[3], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiMB4" + etaTag + IDTag]->Fill( hasBXm2[3], probeMuTk.Phi());
+
+			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[3], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[3], probeMuTk.Pt());
+			  if (hasWhFEM[3])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Eta());
+			    }
+			  if (hasWhFEP[3])
+			    {
+			      m_effs[TIMING]["bxm1EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
+			      m_effs[TIMING]["bxm2EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Eta());
+			    }
+			  m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[3], probeMuTk.Phi());
+			  m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[3], probeMuTk.Phi());
+			  
 			}
 		    }
 		}
