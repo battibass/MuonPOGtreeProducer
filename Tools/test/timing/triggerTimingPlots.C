@@ -457,33 +457,33 @@ void muon_pog::Plotter::book(TFile *outFile)
 											 ";p_{T} (GeV/c); fraction of muons with primitive in BX=-2",
 											 18,ptBins);
 
-	      m_effs[TIMING]["bxm1EffVsEta" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + completeTag,
-											  "bxm1EffVsEta" + chTag + completeTag +
+	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "0" + completeTag,
+											  "bxm1EffVsEta" + chTag + "0" + completeTag +
 											  ";#eta; fraction of muons with primitive in BX=-1",
 											  24., -0.9, 0.9);
 
-	      m_effs[TIMING]["bxm2EffVsEta" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + completeTag,
+	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + completeTag,
 											  "bxm2EffVsEta" + chTag + completeTag +
 											  ";#eta; fraction of muons with primitive in BX=-2",
 											  24., -0.9, 0.9);
 
-	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "0" + completeTag,
-												"bxm1EffVsEta" + chTag + "0" + completeTag +
+	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + completeTag,
+												"bxm1EffVsEta" + chTag + completeTag +
 												";#eta; fraction of muons with primitive in BX=-1",
 												24., -0.9, 0.9);
 
-	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "0" + completeTag,
-												"bxm2EffVsEta" + chTag + "0" + completeTag +
+	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "1" + completeTag,
+												"bxm2EffVsEta" + chTag + "1" + completeTag +
 												";#eta; fraction of muons with primitive in BX=-2",
 												24., -0.9, 0.9);
 
-	      m_effs[TIMING]["bxm1EffVsPhi" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhi" + chTag + "1" + completeTag,
-												"bxm1EffVsPhi" + chTag + "1" + completeTag +
+	      m_effs[TIMING]["bxm1EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhi" + chTag + completeTag,
+												"bxm1EffVsPhi" + chTag + ompleteTag +
 												";#phi (rad); fraction of muons with primitive in BX=-1",
 												48,-TMath::Pi(),TMath::Pi());
 
-	      m_effs[TIMING]["bxm2EffVsPhi" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhi" + chTag + "1" + completeTag,
-												"bxm2EffVsPhi" + chTag + "1" + completeTag +
+	      m_effs[TIMING]["bxm2EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhi" + chTag + completeTag,
+												"bxm2EffVsPhi" + chTag + completeTag +
 												";#phi (rad); fraction of muons with primitive in BX=-2",
 												48,-TMath::Pi(),TMath::Pi());
 
