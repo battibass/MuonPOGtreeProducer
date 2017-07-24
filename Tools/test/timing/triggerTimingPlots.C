@@ -478,7 +478,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 												24., -0.9, 0.9);
 
 	      m_effs[TIMING]["bxm1EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhi" + chTag + completeTag,
-												"bxm1EffVsPhi" + chTag + completeTag +
+												"bxm1EffVsPhi" + chTag  + completeTag +
 												";#phi (rad); fraction of muons with primitive in BX=-1",
 												48,-TMath::Pi(),TMath::Pi());
 
