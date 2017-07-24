@@ -435,7 +435,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 	{
 	  TString IDTag = "_" + probe_ID;
 	  
-	  const Double_t ptBins[18] = {0., 10., 20., 30., 40., 50., 60., 70., 80., 90., 100.,
+	  const Double_t ptBins[19] = {0., 10., 20., 30., 40., 50., 60., 70., 80., 90., 100.,
 	                               120., 140, 200., 300., 400., 600., 800., 1200.};
 
 	  TString completeTag = etaTag + IDTag + sampleTag;	  
