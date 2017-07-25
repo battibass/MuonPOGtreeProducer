@@ -448,163 +448,163 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      outFile->cd(sampleTag+"/efficiencies");
 
 	      m_effs[TIMING]["bxm1EffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPt" + chTag + completeTag,
-											 "bxm1EffVsPt" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction of muons with primitive in BX=-1",
-											 18,ptBins);
+										       "bxm1EffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction of muons with primitive in BX=-1",
+										       18,ptBins);
 
 	      m_effs[TIMING]["bxm2EffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPt" + chTag + completeTag,
-											 "bxm2EffVsPt" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction of muons with primitive in BX=-2",
-											 18,ptBins);
-
+										       "bxm2EffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction of muons with primitive in BX=-2",
+										       18,ptBins);
+	      
 	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "0" + completeTag,
-											  "bxm1EffVsEta" + chTag + "0" + completeTag +
-											  ";#eta; fraction of muons with primitive in BX=-1",
-											  24., -0.9, 0.9);
-
-	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + completeTag,
-											  "bxm2EffVsEta" + chTag + completeTag +
-											  ";#eta; fraction of muons with primitive in BX=-2",
-											  24., -0.9, 0.9);
-
-	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + completeTag,
-											      "bxm1EffVsEta" + chTag + completeTag +
+											      "bxm1EffVsEta" + chTag + "0" + completeTag +
 											      ";#eta; fraction of muons with primitive in BX=-1",
 											      24., -0.9, 0.9);
-
+	      
+	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "0" + completeTag,
+											      "bxm2EffVsEta" + chTag + "0" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-2",
+											  24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "1" + completeTag,
+											      "bxm1EffVsEta" + chTag + "1" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-1",
+											      24., -0.9, 0.9);
+	      
 	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "1" + completeTag,
 											      "bxm2EffVsEta" + chTag + "1" + completeTag +
 											      ";#eta; fraction of muons with primitive in BX=-2",
 											      24., -0.9, 0.9);
-
+	      
 	      m_effs[TIMING]["bxm1EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhi" + chTag + completeTag,
 											"bxm1EffVsPhi" + chTag  + completeTag +
 											";#phi (rad); fraction of muons with primitive in BX=-1",
 											48,-TMath::Pi(),TMath::Pi());
-
+	      
 	      m_effs[TIMING]["bxm2EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhi" + chTag + completeTag,
 											"bxm2EffVsPhi" + chTag + completeTag +
 											";#phi (rad); fraction of muons with primitive in BX=-2",
 											48,-TMath::Pi(),TMath::Pi());
-
+	      
 	      
 	      
 
 	      m_effs[TIMING]["earlyEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPt" + chTag + completeTag,
-											  "earlyEffVsPt" + chTag + completeTag +
-											  ";p_{T} (GeV/c); fraction of primitives in BX [-2,-1]",
-											  18,ptBins);
+											"earlyEffVsPt" + chTag + completeTag +
+											";p_{T} (GeV/c); fraction of primitives in BX [-2,-1]",
+											18,ptBins);
 
 	      m_effs[TIMING]["earlyEffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEta" + chTag + "0" + completeTag,
-												 "earlyEffVsEta" + chTag + "0" + completeTag +
-												 ";#eta; fraction of primitives in BX [-2,-1]",
-												 24., -0.9, 0.9);
+											       "earlyEffVsEta" + chTag + "0" + completeTag +
+											       ";#eta; fraction of primitives in BX [-2,-1]",
+											       24., -0.9, 0.9);
 
 	      m_effs[TIMING]["earlyEffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEta" + chTag + "1" + completeTag,
-												 "earlyEffVsEta" + chTag + "1" + completeTag +
-												 ";#eta; fraction of primitives in BX [-2,-1]",
-												 24., -0.9, 0.9);
-
+											       "earlyEffVsEta" + chTag + "1" + completeTag +
+											       ";#eta; fraction of primitives in BX [-2,-1]",
+											       24., -0.9, 0.9);
+	      
 	      m_effs[TIMING]["earlyEffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhi" + chTag + completeTag,
-											   "earlyEffVsPhi" + chTag + completeTag +
-											   ";#phi (rad); fraction of primitives in BX [-2,-1]",
-											   48,-TMath::Pi(),TMath::Pi());
+											 "earlyEffVsPhi" + chTag + completeTag +
+											 ";#phi (rad); fraction of primitives in BX [-2,-1]",
+											 48,-TMath::Pi(),TMath::Pi());
 
 	      m_effs[TIMING]["lateEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPt" + chTag + completeTag,
-											 "lateEffVsPt" + chTag + completeTag +
-											 ";p_{T} (GeV/c); fraction primitives in BX +1",
-											 18,ptBins);
+										       "lateEffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction primitives in BX +1",
+										       18,ptBins);
 
 	      m_effs[TIMING]["lateEffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEta" + chTag + "0" + completeTag,
-												"lateEffVsEta" + chTag + "0" + completeTag +
-												";p_{T} (GeV/c); fraction of primitives in BX +1",
-												24., -0.9, 0.9);
+											      "lateEffVsEta" + chTag + "0" + completeTag +
+											      ";p_{T} (GeV/c); fraction of primitives in BX +1",
+											      24., -0.9, 0.9);
 
 	      m_effs[TIMING]["lateEffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEta" + chTag + "1" + completeTag,
-												"lateEffVsEta" + chTag + "1" + completeTag +
-												";p_{T} (GeV/c); fraction of primitives in BX +1",
-												24., -0.9, 0.9);
+											      "lateEffVsEta" + chTag + "1" + completeTag +
+											      ";p_{T} (GeV/c); fraction of primitives in BX +1",
+											      24., -0.9, 0.9);
 	      
 	      
 	      m_effs[TIMING]["lateEffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPhi" + chTag + completeTag,
-											  "lateEffVsPhi" + chTag + completeTag +
-											  "#phi (rad); fraction of prefiring",
-											  48,-TMath::Pi(),TMath::Pi());
+											"lateEffVsPhi" + chTag + completeTag +
+											"#phi (rad); fraction of prefiring",
+											48,-TMath::Pi(),TMath::Pi());
 
 	      m_effs[TIMING]["firstEffVsPt" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPt" + chTag + completeTag,
-											   "firstEffVsPt" + chTag + completeTag +
-											   "p_{T} (GeV/c); fraction of muons with earliest prim. in BX [-2,-1]",
-											   18,ptBins);
+											 "firstEffVsPt" + chTag + completeTag +
+											 "p_{T} (GeV/c); fraction of muons with earliest prim. in BX [-2,-1]",
+											 18,ptBins);
 	      outFile->cd(sampleTag+"/control");
 
 	      m_histos[CONT]["sectorVsWheel" + chTag + etaTag + IDTag] = new TH2F("sectorVsWheel" + chTag + completeTag, 
-										    "sectorVsWheel" + chTag + completeTag +
-										    "sector;wheel", 
-										    14, 0.5, 14.5, 5, -2.5, 2.5);
+										  "sectorVsWheel" + chTag + completeTag +
+										  "sector;wheel", 
+										  14, 0.5, 14.5, 5, -2.5, 2.5);
 
 	      outFile->cd(sampleTag+"/trigger");
 
 	      m_histos[TRIG]["nTrig" + chTag + etaTag + IDTag]     = new TH1F("nTrig" + chTag + completeTag,
-										"nTrig" + chTag + completeTag +
-										";# matched primitives ;# entries",
-										15,-.5,14.5);
+									      "nTrig" + chTag + completeTag +
+									      ";# matched primitives ;# entries",
+									      15,-.5,14.5);
 
 	      m_histos[TRIG]["qualTrig" + chTag + etaTag + IDTag]  = new TH1F("qualTrig" + chTag + completeTag,
-										"qualTrig" + chTag + completeTag +
-										";quality;# entries",
-										7,-.5,6.5);
+									      "qualTrig" + chTag + completeTag +
+									      ";quality;# entries",
+									      7,-.5,6.5);
 	      
 	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
-										"dPhi" + chTag + completeTag +
-										";dPhi(track,primitive);# entries",
-										300,-0.5,0.5);
+									      "dPhi" + chTag + completeTag +
+									      ";dPhi(track,primitive);# entries",
+									      300,-0.5,0.5);
 
 	      m_histos[TRIG]["dPhiVsEta" + chTag + etaTag + IDTag] = new TH2F("dPhiVsEta" + chTag + completeTag,
-										"dPhiVsEta" + chTag + completeTag +
-										";dPhi(track,primitive);#eta",
-										300,-0.5,0.5, 24., -1.2, 1.2);
+									      "dPhiVsEta" + chTag + completeTag +
+									      ";dPhi(track,primitive);#eta",
+									      300,-0.5,0.5, 24., -1.2, 1.2);
 
 	      m_histos[TRIG]["dPhiVsPhi" + chTag + etaTag + IDTag] = new TH2F("dPhiVsPhi" + chTag + completeTag,
-										"dPhiVsPhi" + chTag + completeTag +
-										";dPhi(track,primitive);#phi",
-										300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
-
+									      "dPhiVsPhi" + chTag + completeTag +
+									      ";dPhi(track,primitive);#phi",
+									      300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
+	      
 	      m_histos[TRIG]["dPhiVsPt" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPt" + chTag + completeTag,
-										"dPhivsPt" + chTag + completeTag +
-										";dPhi(track,primitive);p_{T}",
-										300,-0.5,0.5, 18,ptBins);
+									      "dPhivsPt" + chTag + completeTag +
+									      ";dPhi(track,primitive);p_{T}",
+									      300,-0.5,0.5, 18,ptBins);
 
 	      outFile->cd(sampleTag+"/timing");
 
 	      m_histos[TIMING]["bxTrig" + chTag + etaTag + IDTag] = new TH1F("bxTrig" + chTag + completeTag,
-									       "bxTrig" + chTag + completeTag +
-									       ";bxTrig(track,primitive);# entries",
-									       5,-2.5,2.5);
+									     "bxTrig" + chTag + completeTag +
+									     ";bxTrig(track,primitive);# entries",
+									     5,-2.5,2.5);
 
 	      m_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
-										       "bxTrigVsPt" + chTag + completeTag +
-										       ";bxTrig(track,primitive);#eta",
-										       18,ptBins, -2.5, 2.5);
+										     "bxTrigVsPt" + chTag + completeTag +
+										     ";bxTrig(track,primitive);#eta",
+										     18,ptBins, -2.5, 2.5);
 
 	      m_histos[TIMING]["highPtTrigVsPhi" + chTag + etaTag + IDTag] = new TH1F("highPtTrigVsPhi" + chTag + completeTag,
-											"highPtTrigVsPhi" + chTag + completeTag +
-											";earlyTrig(track,primitive);#phi",
-											48, -TMath::Pi(),TMath::Pi());
+										      "highPtTrigVsPhi" + chTag + completeTag +
+										      ";earlyTrig(track,primitive);#phi",
+										      48, -TMath::Pi(),TMath::Pi());
 
 	      m_histos[TIMING]["highPtTrigBx" + chTag + etaTag + IDTag]  = new TH1F("highPtTrigBx" + chTag + completeTag,
-										      "highPtTrigBx" + chTag + completeTag +
-										      ";BX;# entries",
-										      5, -2.5, 2.5);
+										    "highPtTrigBx" + chTag + completeTag +
+										    ";BX;# entries",
+										    5, -2.5, 2.5);
 
 	      m_histos[TIMING]["bxTrigVsEta" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigVsEta" + chTag + "0" + completeTag,
-												"bxTrigVsEta" + chTag + "0" + completeTag +
-												";#eta;<BX>",
-												36, -0.9, 0.9, -2.5, 2.5);
+											     "bxTrigVsEta" + chTag + "0" + completeTag +
+											     ";#eta;<BX>",
+											     36, -0.9, 0.9, -2.5, 2.5);
 
 	      m_histos[TIMING]["bxTrigVsEta" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigVsEta" + chTag + "1" + completeTag,
-												"bxTrigVsEta" + chTag + "1" + completeTag +
-												";#eta;<BX>",
-												36, -0.9, 0.9, -2.5, 2.5);
+											     "bxTrigVsEta" + chTag + "1" + completeTag +
+											     ";#eta;<BX>",
+											     36, -0.9, 0.9, -2.5, 2.5);
 	    }
 
 	  outFile->cd(sampleTag+"/kinematical_variables");
