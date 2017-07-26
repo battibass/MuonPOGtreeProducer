@@ -103,16 +103,18 @@ for keyPlot in config:
         for iHisto in range(len(histograms)):
 
             histograms[iHisto].SetLineColor(colorMap[iHisto])
+            histograms[iHisto].SetLineWidth(2)
             histograms[iHisto].SetMarkerStyle(markerMap[iHisto])
             histograms[iHisto].SetMarkerColor(colorMap[iHisto])
 
         # Setup canvas with all elements
         canvas = TCanvas('canvas', 'canvas', 800, 800)
 
-        canvas.SetGridX()
-        canvas.SetGridY()
 
         pad = TPad('pad', 'pad', 0.01, 0.00, 1.00, 1.00)
+ 
+        pad.SetGrid()
+        #pad.SetLogy()
         pad.Draw()
         pad.cd()
 
@@ -122,6 +124,7 @@ for keyPlot in config:
 
     
         for iHisto in range(len(histograms)):
+
 
             if iHisto == 0 :
                 histograms[iHisto].Draw('')
@@ -142,8 +145,10 @@ for keyPlot in config:
                 histo.GetYaxis().SetTitle(plotY[2])
             else:
                 histo.Scale(1./histo.Integral())
-                histo.GetYaxis().SetRangeUser(0, histograms[iHisto].GetMaximum() * 1.5)
+                histo.GetYaxis().SetRangeUser(0.0, histograms[iHisto].GetMaximum() * 1.5)
                 histo.GetXaxis().SetTitle(histoName)
+                histo.GetXaxis().SetTitle(plotX[2])
+
 
             histo.GetXaxis().SetLabelSize(22)
             histo.GetXaxis().SetTitleFont(63)
@@ -159,18 +164,18 @@ for keyPlot in config:
             histo.GetYaxis().SetLabelSize(20)
             histo.GetYaxis().SetTitleOffset(1.5)
             
+            canvas.Update()
+
+
+        canvas.Update()
+
         canvas.cd()
-        leg = TLegend(0.37, 0.75, 0.75, 0.87)
-        leg.SetHeader(config[keyPlot]['plot']['legendTitle'])
-        header = leg.GetListOfPrimitives().First()
-        header.SetTextColor(1)
-        header.SetTextFont(43)
-        header.SetTextSize(20)
+        leg = TLegend(0.49, 0.67, 0.75+0.1, 0.80)
 
         for iHisto in range(len(histograms)):
             leg.AddEntry(histograms[iHisto], inputLegendEntries[iHisto], 'LP')
 
-        leg.SetBorderSize(0)
+        leg.SetBorderSize(1)
         leg.SetTextFont(43)
         leg.SetTextSize(20)
         leg.Draw()
@@ -189,6 +194,11 @@ for keyPlot in config:
         latex.SetTextSize(0.038)
         latex.SetTextAlign(31);
         latex.DrawLatex(0.90, 0.91, config[keyPlot]['plot']['caption'])
+        latex.SetTextAlign(11);
+        latex.SetTextColor(1)
+        latex.SetTextFont(43)
+        latex.SetTextSize(20)
+        latex.DrawLatex(0.49, 0.82, config[keyPlot]['plot']['legendTitle'])
         canvas.Update()
     
         # Save plot
