@@ -667,6 +667,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
   if (m_sampleConfig.runs.at(0) == 0 ||
       (ev.runNumber >= m_sampleConfig.runs.at(0) &&
        ev.runNumber <  m_sampleConfig.runs.at(1) )
+      )
     {
       isGoodRun = true;
     }
