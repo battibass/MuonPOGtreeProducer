@@ -193,7 +193,7 @@ int main(int argc, char* argv[]){
   TRint* app = new TRint("CMS Root Application", &argc, argv);
 
   setTDRStyle();
- 
+
   TagAndProbeConfig tnpConfig;
   std::vector<SampleConfig> sampleConfigs;
   
@@ -420,7 +420,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 						    200, 0.,1000.);
       m_histos[CONT]["dZ" + etaTag] = new TH1F("dZ" + etaTag + sampleTag , 
 					       "dZ" + etaTag + sampleTag+ ";dZ(tag,probe); # entries", 
-						    200, -1.,1.);
+					       200, -1.,1.);
       m_histos[CONT]["tagPtVsProbePt" + etaTag] = new TH2F("tagPtVsProbePt_" + etaTag, 
 							   "tagPtVsProbePt_" + etaTag +";p_{T} tag (GeV/c);p_{T} probe (GeV/c)", 
 							   300, 0., 1500., 300, 0., 1500.);
@@ -430,7 +430,7 @@ void muon_pog::Plotter::book(TFile *outFile)
       m_histos[CONT]["tagEtaVsProbeEta" + etaTag] = new TH2F("tagEtaVsProbeEta_" + etaTag, 
 							     "tagEtaVsProbeEta_" + etaTag +";#eta_{tag};#eta_{probe}", 
 							     48., -2.4, 2.4, 24., -1.2, 1.2);
-
+      
       for ( auto & probe_ID : m_tnpConfig.probe_IDs)
 	{
 	  TString IDTag = "_" + probe_ID;
@@ -465,7 +465,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "0" + completeTag,
 											      "bxm2EffVsEta" + chTag + "0" + completeTag +
 											      ";#eta; fraction of muons with primitive in BX=-2",
-											  24., -0.9, 0.9);
+											      24., -0.9, 0.9);
 	      
 	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "1" + completeTag,
 											      "bxm1EffVsEta" + chTag + "1" + completeTag +
@@ -481,15 +481,13 @@ void muon_pog::Plotter::book(TFile *outFile)
 											"bxm1EffVsPhi" + chTag  + completeTag +
 											";#phi (rad); fraction of muons with primitive in BX=-1",
 											48,-TMath::Pi(),TMath::Pi());
-	      
+
 	      m_effs[TIMING]["bxm2EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhi" + chTag + completeTag,
 											"bxm2EffVsPhi" + chTag + completeTag +
 											";#phi (rad); fraction of muons with primitive in BX=-2",
 											48,-TMath::Pi(),TMath::Pi());
+	      if (iChamb == 5) continue;
 	      
-	      
-	      
-
 	      m_effs[TIMING]["earlyEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPt" + chTag + completeTag,
 											"earlyEffVsPt" + chTag + completeTag +
 											";p_{T} (GeV/c); fraction of primitives in BX [-2,-1]",
@@ -553,7 +551,22 @@ void muon_pog::Plotter::book(TFile *outFile)
 									      "qualTrig" + chTag + completeTag +
 									      ";quality;# entries",
 									      7,-.5,6.5);
-	      
+
+	      m_histos[TRIG]["phibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBX0" + chTag + completeTag,
+										 "phibTrigBX0" + chTag + completeTag +
+										 ";phi_{bending}# entries",
+										 1025,-512.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm1" + chTag + completeTag,
+										  "phibTrigBXm1" + chTag + completeTag +
+										  ";phi_{bending}# entries",
+										  1025,-512.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm2" + chTag + completeTag,
+										  "phibTrigBXm2" + chTag + completeTag +
+										  ";phi_{bending}# entries",
+										  1025,-512.5,512.5);
+
 	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
 									      "dPhi" + chTag + completeTag +
 									      ";dPhi(track,primitive);# entries",
@@ -573,6 +586,8 @@ void muon_pog::Plotter::book(TFile *outFile)
 									      "dPhivsPt" + chTag + completeTag +
 									      ";dPhi(track,primitive);p_{T}",
 									      300,-0.5,0.5, 18,ptBins);
+
+	      
 
 	      outFile->cd(sampleTag+"/timing");
 
@@ -853,11 +868,21 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 					hasWhFEM[match.id_r - 1] = 1;
 					
 				      if(bx == - 1)
-					hasBXm1[match.id_r - 1] = 1;
-
+					{
+					  hasBXm1[match.id_r - 1] = 1;
+					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					}
 				      if(bx == - 2)
-					hasBXm2[match.id_r - 1] = 1;
-
+					{
+					  hasBXm2[match.id_r - 1] = 1;
+					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					}
+				      if(bx == 0)
+					{
+					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					}
+				      
+				      
 				      if(probeMuTk.Pt() > 400.)
 					{
 					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
@@ -876,7 +901,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 					}
 				      
 				      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag]->Fill(bx, weight);
-				      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]->Fill(dtPrim.quality, weight);
+ 				      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]->Fill(dtPrim.quality, weight);
 				  
 				    }
 				}
