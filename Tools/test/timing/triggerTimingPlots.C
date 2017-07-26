@@ -567,6 +567,21 @@ void muon_pog::Plotter::book(TFile *outFile)
 										  ";phi_{bending}# entries",
 										  1025,-512.5,512.5);
 
+	      m_histos[TRIG]["highPtPhibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBX0" + chTag + completeTag,
+										       "highPtPhibTrigBX0" + chTag + completeTag +
+										       ";phi_{bending}# entries",
+										       1025,-512.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm1" + chTag + completeTag,
+											"highPtPhibTrigBXm1" + chTag + completeTag +
+											";phi_{bending}# entries",
+											1025,-512.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm2" + chTag + completeTag,
+											"highPtPhibTrigBXm2" + chTag + completeTag +
+											";phi_{bending}# entries",
+											1025,-512.5,512.5);
+
 	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
 									      "dPhi" + chTag + completeTag +
 									      ";dPhi(track,primitive);# entries",
@@ -871,15 +886,21 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 					{
 					  hasBXm1[match.id_r - 1] = 1;
 					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  if(probeMuTk.Pt() > 400.)
+					    m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
 					}
 				      if(bx == - 2)
 					{
 					  hasBXm2[match.id_r - 1] = 1;
-					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  m_histos[TRIG]["phibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  if(probeMuTk.Pt() > 400.)
+					    m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
 					}
 				      if(bx == 0)
 					{
 					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  if(probeMuTk.Pt() > 400.)
+					    m_histos[TRIG]["highPtPhibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
 					}
 				      
 				      
