@@ -922,7 +922,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				  
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
 				    {
-				      M_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
 				      m_effs[TIMING]["lateEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Eta());
 				    }
 				  
