@@ -884,7 +884,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				      if(bx == - 1)
 					{
 					  hasBXm1[match.id_r - 1] = 1;
-					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::bas(dtPrim.phiB), weight);
+					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					  if(probeMuTk.Pt() > 400.)
 					    m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					}

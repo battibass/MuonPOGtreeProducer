@@ -70,7 +70,7 @@ namespace muon_pog
     {
         
       std::array<Int_t,4> nExtraSegPerCh = {0, 0, 0, 0};
-      std::map<Int_t,muon_pog::MuonSegment> dtSegmentPerCh;
+      std::map<Int_t,std::vector<muon_pog::MuonSegment> > dtSegmentPerCh;
         
         
       for (const auto & match : muon.matches)
@@ -90,8 +90,8 @@ namespace muon_pog
 	  for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++ qualIt)
             {
 	      
-	      std::bitset<4> mask(st::string("0010"));
-	      if( !((*qualIt)&=mask).count() &&
+	      std::bitset<4> mask(std::string("0010"));
+	      if( !(mask &= (*qualIt)).count() &&
 		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
 		dtSegmentPerCh[ch].push_back(dtSegments.at((*indexIt)));
             }
@@ -110,15 +110,15 @@ namespace muon_pog
 	      for (; seg2It != pair.second.end(); ++seg2It)
 		{
 		  
-		  if(segIt1->id_eta == segIt2->id_eta &&
-		     segIt1->id_phi == segIt2->id_phi &&
-		     segIt1->id_r   == segIt2->id_r   &&
-		     ( std::abs(segIt1->x - segIt2->x)       < 0.01 ||
-		       std::abs(segIt1->errx - segIt2->errx) < 0.01
+		  if(seg1It->id_eta == seg2It->id_eta &&
+		     seg1It->id_phi == seg2It->id_phi &&
+		     seg1It->id_r   == seg2It->id_r   &&
+		     ( std::abs(seg1It->x - seg2It->x)       < 0.01 ||
+		       std::abs(seg1It->errx - seg2It->errx) < 0.01
 		       ) &&
-		     segIt1->nHitsX == segIt2->nHitsX)
+		     seg1It->nHitsX == seg2It->nHitsX)
 		    {
-		      pair.second.remove(seg2It);
+		      pair.second.erase(seg2It);
 		    }
 		}
 	    }
@@ -127,7 +127,7 @@ namespace muon_pog
       
       for (const auto & pair : dtSegmentPerCh)
         {
-	  nExtraSegPerCh[pair.first](pair.second.size());
+	  nExtraSegPerCh[pair.first] = pair.second.size();
         }
 
       return nExtraSegPerCh;
