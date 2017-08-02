@@ -445,10 +445,15 @@ void muon_pog::Plotter::book(TFile *outFile)
 
 	  TString completeTag = etaTag + IDTag + sampleTag;	  
 	  
-	  m_histos[CONT]["nShowers" + etaTag + IDTag] = new TH1F("nShowers" + completeTag, 
+ 	  m_histos[CONT]["nShowers" + etaTag + IDTag] = new TH1F("nShowers" + completeTag, 
 								 "nShowers" + completeTag +
 								 ";# stations with showers; # entries", 
 								 5, -0.5, 4.5);
+ 	  m_histos[CONT]["nShowersDigi" + etaTag + IDTag] = new TH1F("nShowersDigi" + completeTag, 
+								     "nShowersDigi" + completeTag +
+								     ";# stations with showers; # entries", 
+								     5, -0.5, 4.5);
+
 
       for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
 	    {
@@ -508,12 +513,12 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsNSeg" + chTag + completeTag,
 											 "bxm1EffVsNSeg" + chTag + completeTag +
 											 ";# of segments; fraction of muons with primitive in BX=-1",
-											 5,-0.5,4.5);
+											 11,-0.5,10.5);
 
 	      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsNSeg" + chTag + completeTag,
 											 "bxm2EffVsNSeg" + chTag + completeTag +
 											 ";# of segments; fraction of muons with primitive in BX=-2",
-											 5,-0.5,4.5);
+											 11,-0.5,10.5);
 
 	      if (iChamb == 5) continue;
 	      
@@ -854,7 +859,9 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
 		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
 
-		      auto showers = showersPerCh(probeMuon, ev.dtSegments, 100.3);
+		      auto showers = showersPerCh(probeMuon, ev.dtSegments, 0.3);
+		      auto showersAndDigi = hasShowersPerCh(probeMuon, ev.dtSegments,
+							    ev.dtDigis,0.3,m_tnpConfig.probe_minNSeg);
 			
 		      m_histos[CONT]["nSegPerChMB1"+ etaTag + IDTag]->Fill(showers[0]);
 		      m_histos[CONT]["nSegPerChMB2"+ etaTag + IDTag]->Fill(showers[1]);
@@ -871,7 +878,13 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 									 (showers[1] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
 									 (showers[2] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
 									 (showers[3] >= m_tnpConfig.probe_minNSeg ? 1 : 0));
-		      
+
+		      m_histos[CONT]["nShowersDigi" + etaTag + IDTag]->Fill( 0 +
+									 (showersAndDigi[0] ? 1 : 0) +
+									 (showersAndDigi[1] ? 1 : 0) +
+									 (showersAndDigi[2] ? 1 : 0) +
+									 (showersAndDigi[3] ? 1 : 0));
+
 		      for(auto match : probeMuon.matches) 
 			{
 
