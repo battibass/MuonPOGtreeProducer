@@ -813,7 +813,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
 		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
 
-		      auto showers = showersPerCh(probeMuon, ev.tSegments, 0.3);
+		      auto showers = showersPerCh(probeMuon, ev.dtSegments, 100.3);
 			
 		      m_histos[CONT]["nSegPerChMB1"+ etaTag + IDTag]->Fill(showers[0]);
 		      m_histos[CONT]["nSegPerChMB2"+ etaTag + IDTag]->Fill(showers[1]);

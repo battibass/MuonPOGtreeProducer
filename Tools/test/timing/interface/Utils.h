@@ -65,7 +65,7 @@ namespace muon_pog
   };
 
   std::array<Int_t,4> showersPerCh(const muon_pog::Muon & muon,
-				   std::vector<muon_pog::MuonSegment> & dtSegments,
+				   const std::vector<muon_pog::MuonSegment> & dtSegments,
 				   Float_t deltaPhi)
     {
         
@@ -91,39 +91,44 @@ namespace muon_pog
             {
 	      
 	      std::bitset<4> mask(std::string("0010"));
-	      if( !(mask &= (*qualIt)).count() &&
-		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
-		dtSegmentPerCh[ch].push_back(dtSegments.at((*indexIt)));
-            }
-        }
-        
-      for (auto & pair : dtSegmentPerCh)
-        {
+	      std::bitset<4> mask1(std::string("0010"));
 
-	  std::vector<muon_pog::MuonSegment>::iterator seg1It  = pair.second.begin();
-            
-	  for (; seg1It != pair.second.end(); ++seg1It)
-	    {
-	      std::vector<muon_pog::MuonSegment>::iterator seg2It  = seg1It;
-	      seg2It++;
-                    
-	      for (; seg2It != pair.second.end(); ++seg2It)
-		{
-		  
-		  if(seg1It->id_eta == seg2It->id_eta &&
-		     seg1It->id_phi == seg2It->id_phi &&
-		     seg1It->id_r   == seg2It->id_r   &&
-		     ( std::abs(seg1It->x - seg2It->x)       < 0.01 ||
-		       std::abs(seg1It->errx - seg2It->errx) < 0.01
-		       ) &&
-		     seg1It->nHitsX == seg2It->nHitsX)
-		    {
-		      pair.second.erase(seg2It);
-		    }
-		}
-	    }
- 
+		if( !(mask & (*qualIt)).count() &&
+		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
+		dtSegmentPerCh[ch - 1].push_back(dtSegments.at((*indexIt)));
+            }
+
         }
+     
+      for (auto & pair : dtSegmentPerCh)
+	{ 
+
+      	  std::vector<muon_pog::MuonSegment>::iterator seg1It  = pair.second.begin();
+            
+      	  for (; seg1It != pair.second.end(); ++seg1It)
+       	    {
+       	      std::vector<muon_pog::MuonSegment>::iterator seg2It  = seg1It;
+       	      seg2It++;
+                    
+       	      for (; seg2It != pair.second.end(); ++seg2It)
+       		{
+		  
+       		  if(seg1It->id_eta == seg2It->id_eta &&
+       		     seg1It->id_phi == seg2It->id_phi &&
+       		     seg1It->id_r   == seg2It->id_r   &&
+       		     ( std::abs(seg1It->x - seg2It->x)       < 0.01 ||
+       		       std::abs(seg1It->errx - seg2It->errx) < 0.01
+       		       ) &&
+       		     seg1It->nHitsX == seg2It->nHitsX)
+       		    {
+       		      auto copy = seg2It;
+		      pair.second.erase(copy);
+		      --seg2It;
+       		    }
+       		}
+       	    }
+ 
+	}
       
       for (const auto & pair : dtSegmentPerCh)
         {
