@@ -98,6 +98,8 @@ namespace muon_pog {
     Float_t probe_isoCutAbs;
     Float_t probe_maxPrimDphi;      
     Int_t   probe_minPrimBX;      
+    Float_t probe_minHighPt;      
+    Int_t   probe_minNSeg;      
 
     Float_t probe_minEtaBX;      
     Float_t probe_maxEtaBX;      
@@ -309,6 +311,9 @@ muon_pog::TagAndProbeConfig::TagAndProbeConfig(boost::property_tree::ptree::valu
       probe_maxPrimDphi = vt.second.get<Float_t>("probe_maxPrimDphi");
       probe_minPrimBX   = vt.second.get<Int_t>("probe_minPrimBX");
 
+      probe_minNSeg   = vt.second.get<Int_t>("probe_minNSeg");
+      probe_minHighPt = vt.second.get<Float_t>("probe_minHighPt");
+
       probe_IDs    = toArray(vt.second.get<std::string>("probe_muonIDs"));
       probe_fEtaBins = toPairArray(toArray(vt.second.get<std::string>("probe_fEtaMin")),
 				   toArray(vt.second.get<std::string>("probe_fEtaMax")));
@@ -499,6 +504,17 @@ void muon_pog::Plotter::book(TFile *outFile)
 											"bxm2EffVsPhi" + chTag + completeTag +
 											";#phi (rad); fraction of muons with primitive in BX=-2",
 											48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsNSeg" + chTag + completeTag,
+											 "bxm1EffVsNSeg" + chTag + completeTag +
+											 ";# of segments; fraction of muons with primitive in BX=-1",
+											 5,-0.5,4.5);
+
+	      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsNSeg" + chTag + completeTag,
+											 "bxm2EffVsNSeg" + chTag + completeTag +
+											 ";# of segments; fraction of muons with primitive in BX=-2",
+											 5,-0.5,4.5);
+
 	      if (iChamb == 5) continue;
 	      
 	      m_effs[TIMING]["earlyEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPt" + chTag + completeTag,
@@ -580,6 +596,16 @@ void muon_pog::Plotter::book(TFile *outFile)
 										  ";phi_{bending}# entries",
 										  513,-0.5,512.5);
 
+	      m_histos[TRIG]["phibTrigBXm1Shower" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm1Shower" + chTag + completeTag,
+											"phibTrigBXm1Shower" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm2Shower" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm2Shower" + chTag + completeTag,
+											"phibTrigBXm2Shower" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
 	      m_histos[TRIG]["highPtPhibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBX0" + chTag + completeTag,
 										       "highPtPhibTrigBX0" + chTag + completeTag +
 										       ";phi_{bending}# entries",
@@ -594,6 +620,16 @@ void muon_pog::Plotter::book(TFile *outFile)
 											"highPtPhibTrigBXm2" + chTag + completeTag +
 											";phi_{bending}# entries",
 											513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm1Shower" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm1Shower" + chTag + completeTag,
+											      "highPtPhibTrigBXm1Shower" + chTag + completeTag +
+											      ";phi_{bending}# entries",
+											      513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm2Shower" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm2Shower" + chTag + completeTag,
+											      "highPtPhibTrigBXm2Shower" + chTag + completeTag +
+											      ";phi_{bending}# entries",
+											      513,-0.5,512.5);
 
 	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
 									      "dPhi" + chTag + completeTag +
@@ -831,10 +867,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 									   showers[3]);
 
 		      m_histos[CONT]["nShowers" + etaTag + IDTag]->Fill( 0 +
-									 (showers[0] > 1 ? 1 : 0) +
-									 (showers[1] > 1 ? 1 : 0) +
-									 (showers[2] > 1 ? 1 : 0) +
-									 (showers[3] > 1 ? 1 : 0));
+									 (showers[0] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[1] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[2] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[3] >= m_tnpConfig.probe_minNSeg ? 1 : 0));
 		      
 		      for(auto match : probeMuon.matches) 
 			{
@@ -886,7 +922,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				  
 				  if (bx >= m_tnpConfig.probe_minPrimBX)
 				    {
-				      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				      M_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
 				      m_effs[TIMING]["lateEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Eta());
 				    }
 				  
@@ -914,25 +950,37 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 					{
 					  hasBXm1[match.id_r - 1] = 1;
 					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
-					  if(probeMuTk.Pt() > 400.)
-					    m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(showers[match.id_r - 1])
+					    m_histos[TRIG]["phibTrigBXm1ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					    {
+					      m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					      if(showers[match.id_r - 1])
+						m_histos[TRIG]["highPtPhibTrigBXm1ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					    }
 					}
 				      if(bx == - 2)
 					{
 					  hasBXm2[match.id_r - 1] = 1;
 					  m_histos[TRIG]["phibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
-					  if(probeMuTk.Pt() > 400.)
-					    m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(showers[match.id_r - 1])
+					    m_histos[TRIG]["phibTrigBXm2ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					    {
+					      m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					      if(showers[match.id_r - 1])
+						m_histos[TRIG]["highPtPhibTrigBXm2ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					    }
 					}
 				      if(bx == 0)
 					{
 					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
-					  if(probeMuTk.Pt() > 400.)
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
 					    m_histos[TRIG]["highPtPhibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					}
 				      
 				      
-				      if(probeMuTk.Pt() > 400.)
+				      if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
 					{
 					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
 					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigBxMB" + chTag + etaTag + IDTag])->Fill(bx, weight);					  
@@ -967,6 +1015,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  m_effs[TIMING]["firstEffVsPtMB1" + etaTag + IDTag]->Fill( firstBX[0] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB1" + etaTag + IDTag]->Fill(  hasBXm1[0], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB1" + etaTag + IDTag]->Fill(  hasBXm2[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegMB1" + etaTag + IDTag]->Fill(  hasBXm1[0], showers[0]);
+			  m_effs[TIMING]["bxm2EffVsNSegMB1" + etaTag + IDTag]->Fill(  hasBXm2[0], showers[0]);
 			  if (hasWhFEM[0])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaMB10" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
@@ -982,6 +1032,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 	
 			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[0], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[0], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[0], showers[0]);
+			  m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[0], showers[0]);
 			  if (hasWhFEM[0])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[0], probeMuTk.Eta());
@@ -1001,6 +1053,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  m_effs[TIMING]["firstEffVsPtMB2" + etaTag + IDTag]->Fill(firstBX[1] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB2" + etaTag + IDTag]->Fill(hasBXm2[1], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegMB2" + etaTag + IDTag]->Fill(  hasBXm1[1], showers[1]);
+			  m_effs[TIMING]["bxm2EffVsNSegMB2" + etaTag + IDTag]->Fill(  hasBXm2[1], showers[1]);
 			  if (hasWhFEM[1])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaMB20" + etaTag + IDTag]->Fill(hasBXm1[1], probeMuTk.Eta());
@@ -1035,6 +1089,9 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  m_effs[TIMING]["firstEffVsPtMB3" + etaTag + IDTag]->Fill(firstBX[2] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB3" + etaTag + IDTag]->Fill(hasBXm2[2], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegMB3" + etaTag + IDTag]->Fill(  hasBXm1[2], showers[2]);
+			  m_effs[TIMING]["bxm2EffVsNSegMB3" + etaTag + IDTag]->Fill(  hasBXm2[2], showers[2]);
+
 			  if (hasWhFEM[2])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaMB30" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
@@ -1050,6 +1107,9 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 
 			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[2], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[2], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[1], showers[1]);
+			  m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[1], showers[1]);
+
 			  if (hasWhFEM[2])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[2], probeMuTk.Eta());
@@ -1062,13 +1122,17 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			    }
 			  m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[2], probeMuTk.Phi());
 			  m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[2], probeMuTk.Phi());
-
+			  m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[2], showers[2]);
+			  m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[2], showers[2]);
 			}
 		      if (firstBX[3] < 9)
 			{
 			  m_effs[TIMING]["firstEffVsPtMB4" + etaTag + IDTag]->Fill(firstBX[3] < 0,probeMuTk.Pt());
 			  m_effs[TIMING]["bxm1EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtMB4" + etaTag + IDTag]->Fill(hasBXm2[3], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegMB4" + etaTag + IDTag]->Fill(  hasBXm1[3], showers[3]);
+			  m_effs[TIMING]["bxm2EffVsNSegMB4" + etaTag + IDTag]->Fill(  hasBXm2[3], showers[3]);
+
 			  if (hasWhFEM[3])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaMB40" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
@@ -1084,6 +1148,8 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 
 			  m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[3], probeMuTk.Pt());
 			  m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[3], probeMuTk.Pt());
+			  m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[3], showers[3]);
+			  m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[3], showers[3]);
 			  if (hasWhFEM[3])
 			    {
 			      m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[3], probeMuTk.Eta());
