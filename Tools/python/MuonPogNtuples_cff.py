@@ -25,8 +25,14 @@ def appendMuonPogNtuple(process, runOnMC, \
     if hasRaw :
         process.load("EventFilter.L1TXRawToDigi.twinMuxStage2Digis_cfi")
         process.MuonPogTree.dtTrigPhiTag = cms.untracked.InputTag("twinMuxStage2Digis","PhIn")
+
+        process.load("EventFilter.DTRawToDigi.dtunpacker_cfi")
+        process.muonDTDigis.inputLabel = cms.InputTag('rawDataCollector')
+        process.MuonPogTree.dtDigiTag = cms.untracked.InputTag("muonDTDigis")
         
-        process.muonPogNtuple.replace(process.MuonPogTree, process.twinMuxStage2Digis + process.MuonPogTree)
+        process.muonPogNtuple.replace(process.MuonPogTree, process.twinMuxStage2Digis + \
+                                                           process.muonDTDigis + \
+                                                           process.MuonPogTree)
         
     if hasMuonTagger :
         process.load("RecoMET.METFilters.badGlobalMuonTaggersAOD_cff")
@@ -49,7 +55,7 @@ def appendMuonPogNtuple(process, runOnMC, \
         process.AOutput.replace(process.reconstruction_step, process.reconstruction_step + process.goodOfflinePrimaryVertices)
     else :
         print "[MuonPogNtuples]: Creating FastFilter path to host goodOfflinePrimaryVertices"
-        process.FastFilters = cms.Path(process.goodOfflinePrimaryVertices)
+        #process.FastFilters = cms.Path(process.goodOfflinePrimaryVertices)
     
     if hasattr(process,"AOutput") :
         print "[MuonPogNtuples]: EndPath AOutput found, appending ntuples"

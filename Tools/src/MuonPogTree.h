@@ -64,7 +64,7 @@ namespace muon_pog {
     Int_t id_r;   // station/disk
     Int_t id_phi; // sector
     Int_t id_eta; // ring/wheel
-    
+
     MuonDetType type;
 
     Float_t x; 
@@ -92,6 +92,25 @@ namespace muon_pog {
     virtual ~ChambMatch(){};
     
     ClassDef(ChambMatch,5)
+  };
+
+  class DtDigiSummary {
+
+  public:
+
+    Int_t id_r;   // station/disk
+    Int_t id_phi; // sector
+    Int_t id_eta; // ring/wheel
+
+    Int_t n_phi1; 
+    Int_t n_theta;
+    Int_t n_phi2;
+
+    DtDigiSummary(){};
+    virtual ~DtDigiSummary(){};
+
+    ClassDef(DtDigiSummary,1)
+
   };
 
   class MuonSegment {
@@ -477,6 +496,7 @@ namespace muon_pog {
     std::vector<muon_pog::GenParticle> genParticles; // venctor of genParticles size=0 in data
     std::vector<muon_pog::Muon> muons; // vector of muons
     std::vector<muon_pog::MuonPair> pairs; // vector of muon pairs
+    std::vector<muon_pog::DtDigiSummary> dtDigis; // vector of DT digi counters
     std::vector<muon_pog::MuonSegment> dtSegments; // vector of DT segments
     std::vector<muon_pog::MuonSegment> cscSegments; // vector of CSC segments
     std::vector<muon_pog::TriggerPrimitive> dtPrimitives; // vector of DT trigger primitives
@@ -487,7 +507,7 @@ namespace muon_pog {
     Event(){};
     virtual ~Event(){};
 
-    ClassDef(Event,9)
+    ClassDef(Event,11)
   };
 
 }

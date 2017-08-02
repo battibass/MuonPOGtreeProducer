@@ -30,6 +30,9 @@
 #include "DataFormats/MuonDetId/interface/DTChamberId.h"
 #include "DataFormats/MuonDetId/interface/CSCDetId.h"
 
+#include "DataFormats/DTDigi/interface/DTDigi.h"
+#include "DataFormats/DTDigi/interface/DTDigiCollection.h"
+
 #include "DataFormats/DTRecHit/interface/DTRecSegment4DCollection.h"
 #include "DataFormats/CSCRecHit/interface/CSCSegmentCollection.h"
 
@@ -116,6 +119,8 @@ private:
 
   void fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer> &);
 
+  void fillDtDigis(const edm::Handle<DTDigiCollection> &);
+
   void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
 			    const edm::ESHandle<TransientTrackBuilder> &);
      
@@ -164,11 +169,13 @@ private:
   edm::EDGetTokenT<reco::GenParticleCollection> genToken_;
   edm::EDGetTokenT<std::vector<PileupSummaryInfo> > pileUpInfoToken_;
   edm::EDGetTokenT<GenEventInfoProduct> genInfoToken_;
-
   edm::EDGetTokenT<LumiScalersCollection> scalersToken_;
+
     
   edm::EDGetTokenT<L1MuDTChambPhContainer> dtTrigPhiToken_;
   edm::EDGetTokenT<l1t::MuonBxCollection> l1Token_;
+  edm::EDGetTokenT<DTDigiCollection> dtDigiToken_;
+
 
   Float_t m_minMuPtCut;
   Int_t m_minNMuCut;
@@ -234,6 +241,9 @@ MuonPogTreeProducer::MuonPogTreeProducer( const edm::ParameterSet & cfg )
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("ScalersTag", edm::InputTag("scalersRawToDigi"));
   if (tag.label() != "none") scalersToken_ = consumes<LumiScalersCollection>(tag);
+
+  tag = cfg.getUntrackedParameter<edm::InputTag>("dtDigiTag", edm::InputTag("none"));
+  if (tag.label() != "none") dtDigiToken_ = consumes<DTDigiCollection>(tag);
     
   tag = cfg.getUntrackedParameter<edm::InputTag>("dtTrigPhiTag", edm::InputTag("none"));
   if (tag.label() != "none") dtTrigPhiToken_ = consumes<L1MuDTChambPhContainer>(tag);
@@ -298,6 +308,8 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 
   event_.dtSegments.clear();
   event_.dtPrimitives.clear();
+  event_.dtDigis.clear();
+
   event_.cscSegments.clear();
   
   event_.mets.pfMet   = -999; 
@@ -385,6 +397,17 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 	edm::LogError("") << "[MuonPogTreeProducer]: Trigger collections do not exist !!!";
     }
   
+  //Fill DT trigger phi information
+  edm::Handle<DTDigiCollection> dtDigis;
+  if (!dtDigiToken_.isUninitialized() )
+    {
+        if (!ev.getByToken(dtDigiToken_,dtDigis))
+	  edm::LogError("") << "[MuonPogTreeProducer] DT digis collection does not exist !!!";
+        else {
+            fillDtDigis(dtDigis);
+        }
+    }
+
   // Fill DT segment information
   if (!dtSegmentToken_.isUninitialized() && dtGeom.isValid()) 
     {     
@@ -718,6 +741,50 @@ void MuonPogTreeProducer::fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer
     }
 
 }
+void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDigis)
+{
+
+  std::map<uint32_t,muon_pog::DtDigiSummary> ntupleDigiMap;
+
+  DTDigiCollection::DigiRangeIterator dtLayerIdIt  = dtDigis->begin();
+  DTDigiCollection::DigiRangeIterator dtLayerIdEnd = dtDigis->end();
+
+  for (; dtLayerIdIt!=dtLayerIdEnd; ++dtLayerIdIt)
+    {
+
+      uint32_t rawId = (*dtLayerIdIt).first.chamberId().rawId();
+
+      if (ntupleDigiMap.find(rawId) == ntupleDigiMap.end())
+	{
+
+	  muon_pog::DtDigiSummary ntupleDigi;
+
+	  ntupleDigi.n_phi1  = 0;
+	  ntupleDigi.n_phi2  = 0;
+	  ntupleDigi.n_theta = 0;
+	  
+	  ntupleDigi.id_r   = (*dtLayerIdIt).first.station();
+	  ntupleDigi.id_eta = (*dtLayerIdIt).first.wheel();
+	  ntupleDigi.id_phi = (*dtLayerIdIt).first.sector();
+
+	  ntupleDigiMap[rawId] = ntupleDigi;
+	  
+	}
+
+      DTDigiCollection::const_iterator digiIt = (*dtLayerIdIt).second.first;
+
+	for (;digiIt!=(*dtLayerIdIt).second.second; ++digiIt)
+	  {
+	    (*dtLayerIdIt).first.superLayer() == 1 && ntupleDigiMap[rawId].n_phi1++;
+	    (*dtLayerIdIt).first.superLayer() == 2 && ntupleDigiMap[rawId].n_theta++;
+	    (*dtLayerIdIt).first.superLayer() == 3 && ntupleDigiMap[rawId].n_phi2++;
+	  }
+    }
+
+  for (const auto & ntupleDigiMapPair : ntupleDigiMap)
+    event_.dtDigis.push_back(ntupleDigiMapPair.second);
+
+}
 
 
 void MuonPogTreeProducer::fillPV(const edm::Handle<std::vector<reco::Vertex> > & vertexes)
@@ -958,6 +1025,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		      
 		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
 		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
+		      ntupleMatch.zGlb = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).z();
 
 		      matchTkMuSeg(match, ntupleMatch);
 
