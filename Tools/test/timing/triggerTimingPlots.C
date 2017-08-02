@@ -449,7 +449,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      outFile->cd(sampleTag+"/control");
 
 	      m_histos[CONT]["nSegPerCh" + chTag + etaTag + IDTag] = new TH1F("nSegPerCh" + chTag + completeTag, 
-									      "nSegPerCh" + + chTag + completeTag +
+									      "nSegPerCh" + chTag + completeTag +
 									      ";# sehments per station layer; # entries", 
 									      21, -0.5,20.5);
 	      
@@ -617,7 +617,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 									     ";bxTrig(track,primitive);# entries",
 									     5,-2.5,2.5);
 
-	      M_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
+	      m_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
 										     "bxTrigVsPt" + chTag + completeTag +
 										     ";bxTrig(track,primitive);#eta",
 										     18,ptBins, -2.5, 2.5);
@@ -813,7 +813,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
 		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
 
-		      auto showers showersPerCh(probeMuon, ev.tSegments, 0.3);
+		      auto showers = showersPerCh(probeMuon, ev.tSegments, 0.3);
 			
 		      m_histos[CONT]["nSegPerChMB1"+ etaTag + IDTag]->Fill(showers[0]);
 		      m_histos[CONT]["nSegPerChMB2"+ etaTag + IDTag]->Fill(showers[1]);
