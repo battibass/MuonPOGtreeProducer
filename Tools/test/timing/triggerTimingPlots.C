@@ -445,6 +445,14 @@ void muon_pog::Plotter::book(TFile *outFile)
 
 	      TString chTag(iChamb == 5 ?"All" : (std::string("MB") + std::to_string(iChamb)).c_str());	  
 
+	      
+	      outFile->cd(sampleTag+"/control");
+
+	      m_histos[CONT]["nSegPerCh" + chTag + etaTag + IDTag] = new TH1F("nSegPerCh" + chTag + completeTag, 
+									      "nSegPerCh" + + chTag + completeTag +
+									      ";# sehments per station layer; # entries", 
+									      21, -0.5,20.5);
+	      
 	      outFile->cd(sampleTag+"/efficiencies");
 
 	      m_effs[TIMING]["bxm1EffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPt" + chTag + completeTag,
@@ -602,8 +610,6 @@ void muon_pog::Plotter::book(TFile *outFile)
 									      ";dPhi(track,primitive);p_{T}",
 									      300,-0.5,0.5, 18,ptBins);
 
-	      
-
 	      outFile->cd(sampleTag+"/timing");
 
 	      m_histos[TIMING]["bxTrig" + chTag + etaTag + IDTag] = new TH1F("bxTrig" + chTag + completeTag,
@@ -611,7 +617,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 									     ";bxTrig(track,primitive);# entries",
 									     5,-2.5,2.5);
 
-	      m_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
+	      M_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
 										     "bxTrigVsPt" + chTag + completeTag +
 										     ";bxTrig(track,primitive);#eta",
 										     18,ptBins, -2.5, 2.5);
@@ -806,6 +812,19 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      Int_t hasBXm2[4]   = { 0, 0, 0, 0 };
 		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
 		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
+
+		      auto showers showersPerCh(probeMuon, ev.tSegments, 0.3);
+			
+		      m_histos[CONT]["nSegPerChMB1"+ etaTag + IDTag]->Fill(showers[0]);
+		      m_histos[CONT]["nSegPerChMB2"+ etaTag + IDTag]->Fill(showers[1]);
+		      m_histos[CONT]["nSegPerChMB3"+ etaTag + IDTag]->Fill(showers[2]);
+		      m_histos[CONT]["nSegPerChMB4"+ etaTag + IDTag]->Fill(showers[3]);
+
+		      m_histos[CONT]["nSegPerChAll"+ etaTag + IDTag]->Fill(showers[0] +
+									   showers[1] +
+									   showers[2] +
+									   showers[3]);
+		      
 		      
 		      for(auto match : probeMuon.matches) 
 			{
