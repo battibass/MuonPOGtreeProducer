@@ -14,6 +14,7 @@
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <array>
 
 namespace muon_pog
 {
@@ -63,6 +64,76 @@ namespace muon_pog
  
   };
 
+  std::array<Int_t,4> showersPerCh(const muon_pog::Muon & muon,
+				   std::vector<muon_pog::MuonSegment> & dtSegments,
+				   Float_t deltaPhi)
+    {
+        
+      std::array<Int_t,4> nExtraSegPerCh = {0, 0, 0, 0};
+      std::map<Int_t,muon_pog::MuonSegment> dtSegmentPerCh;
+        
+        
+      for (const auto & match : muon.matches)
+        {
+	  
+	  Int_t ch = match.id_r;
+            
+	  if (match.type != muon_pog::MuonDetType::DT)
+	    continue;
+            
+	  std::vector<std::size_t>::const_iterator indexIt  = match.indexes.begin();
+	  std::vector<std::size_t>::const_iterator indexEnd = match.indexes.end();
+        
+	  std::vector<std::bitset<4> >::const_iterator qualIt  = match.matchQuals.begin();
+	  std::vector<std::bitset<4> >::const_iterator qualEnd = match.matchQuals.end();
+            
+	  for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++ qualIt)
+            {
+	      
+	      std::bitset<4> mask(st::string("0010"));
+	      if( !((*qualIt)&=mask).count() &&
+		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
+		dtSegmentPerCh[ch].push_back(dtSegments.at((*indexIt)));
+            }
+        }
+        
+      for (auto & pair : dtSegmentPerCh)
+        {
+
+	  std::vector<muon_pog::MuonSegment>::iterator seg1It  = pair.second.begin();
+            
+	  for (; seg1It != pair.second.end(); ++seg1It)
+	    {
+	      std::vector<muon_pog::MuonSegment>::iterator seg2It  = seg1It;
+	      seg2It++;
+                    
+	      for (; seg2It != pair.second.end(); ++seg2It)
+		{
+		  
+		  if(segIt1->id_eta == segIt2->id_eta &&
+		     segIt1->id_phi == segIt2->id_phi &&
+		     segIt1->id_r   == segIt2->id_r   &&
+		     ( std::abs(segIt1->x - segIt2->x)       < 0.01 ||
+		       std::abs(segIt1->errx - segIt2->errx) < 0.01
+		       ) &&
+		     segIt1->nHitsX == segIt2->nHitsX)
+		    {
+		      pair.second.remove(seg2It);
+		    }
+		}
+	    }
+ 
+        }
+      
+      for (const auto & pair : dtSegmentPerCh)
+        {
+	  nExtraSegPerCh[pair.first](pair.second.size());
+        }
+
+      return nExtraSegPerCh;
+
+    };
+    
 
   // Returns the charge muon_pog::Muon for a given fit 
   // Valid track fits are: PF, TUNEP, GLB, INNER, PICKY, DYT, TPFMS
