@@ -555,32 +555,32 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      m_histos[TRIG]["phibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBX0" + chTag + completeTag,
 										 "phibTrigBX0" + chTag + completeTag +
 										 ";phi_{bending}# entries",
-										 1025,-512.5,512.5);
+										 513,-0.5,512.5);
 
 	      m_histos[TRIG]["phibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm1" + chTag + completeTag,
 										  "phibTrigBXm1" + chTag + completeTag +
 										  ";phi_{bending}# entries",
-										  1025,-512.5,512.5);
+										  513,-0.5,512.5);
 
 	      m_histos[TRIG]["phibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm2" + chTag + completeTag,
 										  "phibTrigBXm2" + chTag + completeTag +
 										  ";phi_{bending}# entries",
-										  1025,-512.5,512.5);
+										  513,-0.5,512.5);
 
 	      m_histos[TRIG]["highPtPhibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBX0" + chTag + completeTag,
 										       "highPtPhibTrigBX0" + chTag + completeTag +
 										       ";phi_{bending}# entries",
-										       1025,-512.5,512.5);
+										       513,-0.5,512.5);
 
 	      m_histos[TRIG]["highPtPhibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm1" + chTag + completeTag,
 											"highPtPhibTrigBXm1" + chTag + completeTag +
 											";phi_{bending}# entries",
-											1025,-512.5,512.5);
+											513,-0.5,512.5);
 
 	      m_histos[TRIG]["highPtPhibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm2" + chTag + completeTag,
 											"highPtPhibTrigBXm2" + chTag + completeTag +
 											";phi_{bending}# entries",
-											1025,-512.5,512.5);
+											513,-0.5,512.5);
 
 	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
 									      "dPhi" + chTag + completeTag +
@@ -884,22 +884,22 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 				      if(bx == - 1)
 					{
 					  hasBXm1[match.id_r - 1] = 1;
-					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::bas(dtPrim.phiB), weight);
 					  if(probeMuTk.Pt() > 400.)
-					    m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					    m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					}
 				      if(bx == - 2)
 					{
 					  hasBXm2[match.id_r - 1] = 1;
-					  m_histos[TRIG]["phibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  m_histos[TRIG]["phibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					  if(probeMuTk.Pt() > 400.)
-					    m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					    m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					}
 				      if(bx == 0)
 					{
-					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					  if(probeMuTk.Pt() > 400.)
-					    m_histos[TRIG]["highPtPhibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(dtPrim.phiB, weight);
+					    m_histos[TRIG]["highPtPhibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
 					}
 				      
 				      
