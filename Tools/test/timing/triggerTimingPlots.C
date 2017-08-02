@@ -440,7 +440,12 @@ void muon_pog::Plotter::book(TFile *outFile)
 
 	  TString completeTag = etaTag + IDTag + sampleTag;	  
 	  
-	  for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
+	  m_histos[CONT]["nShowers" + + etaTag + IDTag] = new TH1F("nShowers" + completeTag, 
+								   "nShowers" + completeTag +
+								   ";# stations with showers; # entries", 
+								   5, 0.5, 4.5);
+
+      for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
 	    {
 
 	      TString chTag(iChamb == 5 ?"All" : (std::string("MB") + std::to_string(iChamb)).c_str());	  
@@ -821,10 +826,15 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[CONT]["nSegPerChMB4"+ etaTag + IDTag]->Fill(showers[3]);
 
 		      m_histos[CONT]["nSegPerChAll"+ etaTag + IDTag]->Fill(showers[0] +
-									   showers[1] +
+									   Showers[1] +
 									   showers[2] +
 									   showers[3]);
-		      
+
+		      m_histos[CONT]["nShowers" + + etaTag + IDTag]->Fill( 0 +
+									   (showers[0] > 2 ? 1 : 0) +
+									   (showers[1] > 2 ? 1 : 0) +
+									   (showers[2] > 2 ? 1 : 0) +
+									   (showers[3] > 2 ? 1 : 0));
 		      
 		      for(auto match : probeMuon.matches) 
 			{
