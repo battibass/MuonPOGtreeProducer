@@ -449,11 +449,17 @@ void muon_pog::Plotter::book(TFile *outFile)
 								 "nShowers" + completeTag +
 								 ";# stations with showers; # entries", 
 								 5, -0.5, 4.5);
+	  
  	  m_histos[CONT]["nShowersDigi" + etaTag + IDTag] = new TH1F("nShowersDigi" + completeTag, 
 								     "nShowersDigi" + completeTag +
 								     ";# stations with showers; # entries", 
 								     5, -0.5, 4.5);
 
+	  m_histos[CONT]["nShowersPiotr" + etaTag + IDTag] = new TH1F("nShowersPiotr" + completeTag, 
+								      "nShowersPiotr" + completeTag +
+								      ";# stations with showers; # entries", 
+								      5, -0.5, 4.5);
+	  
 	  outFile->cd(sampleTag+"/efficiencies");
 
   	  m_effs[EFF]["showerPerCh" + etaTag + IDTag] = new TEfficiency("showerPerCh" + completeTag,
@@ -465,6 +471,12 @@ void muon_pog::Plotter::book(TFile *outFile)
 									    "showerPerChDigi" + completeTag +
 									    ";station number;fraction of \"showers\"",
 									    4, 0.5, 4.5);
+
+  	  m_effs[EFF]["showerPerChPiotr" + etaTag + IDTag] = new TEfficiency("showerPerChPiotr" + completeTag,
+									     "showerPerChPiotr" + completeTag +
+									     ";station number;fraction of \"showers\"",
+									     4, 0.5, 4.5);
+
 
 	  for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
 	    {
@@ -531,6 +543,11 @@ void muon_pog::Plotter::book(TFile *outFile)
 											     ";p_{T} (GeV/c); fraction of muons with \"showers\"",
 											     18,ptBins);
 
+	      m_effs[TIMING]["showerEffVsPtPiotr" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPtPiotr" + chTag + completeTag,
+											      "showerEffVsPtPiotr" + chTag + completeTag +
+											      ";p_{T} (GeV/c); fraction of muons with \"showers\"",
+											      18,ptBins);
+
 	      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsNSeg" + chTag + completeTag,
 											 "bxm1EffVsNSeg" + chTag + completeTag +
 											 ";# of segments; fraction of muons with primitive in BX=-1",
@@ -560,6 +577,17 @@ void muon_pog::Plotter::book(TFile *outFile)
 											       "bxm2EffVsShowerDigi" + chTag + completeTag +
 											       ";has shower; fraction of muons with primitive in BX=-2",
 											       2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm1EffVsShowerPiotr" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsShowerPiotr" + chTag + completeTag,
+												"bxm1EffVsShowerPiotr" + chTag + completeTag +
+												";has shower; fraction of muons with primitive in BX=-1",
+												2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm2EffVsShowerPiotr" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsShowerPiotr" + chTag + completeTag,
+												"bxm2EffVsShowerPiotr" + chTag + completeTag +
+												";has shower; fraction of muons with primitive in BX=-2",
+												2,-0.5,1.5);
+	      
 
 	      if (iChamb == 5) continue;
 	      
@@ -903,11 +931,15 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      auto showers = showersPerCh(probeMuon, ev.dtSegments, 0.3);
 
 		      auto showersAndDigi = hasShowerPerCh(probeMuon, ev.dtSegments,
-							   ev.dtDigis, 0.3, m_tnpConfig.probe_minNSeg);
+							   ev.dtDigis, 0.3, m_tnpConfig.probe_minNSeg, 12, 16);
+
+		      auto showersPiotr = hasShowerPerCh(probeMuon, ev.dtSegments,
+							 ev.dtDigis, 0.3, 999, 9, 9);
 
 		      for (Int_t iChamb = 1; iChamb<5; ++iChamb)
 			{
 			  m_effs[EFF]["showerPerCh" + etaTag + IDTag]->Fill(showers[iChamb - 1] >= m_tnpConfig.probe_minNSeg, iChamb);
+			  m_effs[EFF]["showerPerChPiotr" + etaTag + IDTag]->Fill(showersPiotr[iChamb - 1],  iChamb);
 			  m_effs[EFF]["showerPerChDigi" + etaTag + IDTag]->Fill(showersAndDigi[iChamb - 1], iChamb);
 			}
 
@@ -933,6 +965,12 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 									     (showersAndDigi[1] ? 1 : 0) +
 									     (showersAndDigi[2] ? 1 : 0) +
 									     (showersAndDigi[3] ? 1 : 0));
+
+		      m_histos[CONT]["nShowersPiotr" + etaTag + IDTag]->Fill( 0 +
+									      (showersPiotr[0] ? 1 : 0) +
+									      (showersPiotr[1] ? 1 : 0) +
+									      (showersPiotr[2] ? 1 : 0) +
+									      (showersPiotr[3] ? 1 : 0));
 
 
 
@@ -1084,17 +1122,22 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      m_effs[TIMING]["bxm1EffVsPt"  + chTag+ etaTag + IDTag]->Fill(  hasBXm1[iChamb], probeMuTk.Pt());
 			      m_effs[TIMING]["bxm2EffVsPt"  + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], probeMuTk.Pt());
 			      
+			      m_effs[TIMING]["bxm1EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
+			      m_effs[TIMING]["bxm2EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
+
 			      m_effs[TIMING]["bxm1EffVsShowerDigi" + chTag + etaTag + IDTag]->Fill( hasBXm1[iChamb], showersAndDigi[iChamb]);
 			      m_effs[TIMING]["bxm2EffVsShowerDigi" + chTag + etaTag + IDTag]->Fill( hasBXm2[iChamb], showersAndDigi[iChamb]);
 
+			      m_effs[TIMING]["bxm1EffVsShowerPiotr" + chTag + etaTag + IDTag]->Fill( hasBXm1[iChamb], showersPiotr[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsShowerPiotr" + chTag + etaTag + IDTag]->Fill( hasBXm2[iChamb], showersPiotr[iChamb]);
+
 			      m_effs[TIMING]["showerEffVsPt"  + chTag+ etaTag + IDTag]->Fill( showers[iChamb] >= m_tnpConfig.probe_minNSeg, probeMuTk.Pt());
 			      m_effs[TIMING]["showerEffVsPtDigi"  + chTag+ etaTag + IDTag]->Fill( showersAndDigi[iChamb] , probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtPiotr"  + chTag+ etaTag + IDTag]->Fill( showersPiotr[iChamb]  , probeMuTk.Pt());
 			      
 			      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
 			      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
 
-			      m_effs[TIMING]["bxm1EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
-			      m_effs[TIMING]["bxm2EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
 			       
 			      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
 			      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
@@ -1116,6 +1159,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[iChamb], probeMuTk.Pt());
 			      m_effs[TIMING]["showerEffVsPtAll" + etaTag + IDTag]->Fill(  showers[iChamb] >= m_tnpConfig.probe_minNSeg, probeMuTk.Pt());
 			      m_effs[TIMING]["showerEffVsPtDigiAll" + etaTag + IDTag]->Fill( showersAndDigi[iChamb], probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtPiotrAll" + etaTag + IDTag]->Fill( showersPiotr[iChamb],  probeMuTk.Pt());
 			      m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
 			      m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
 			      if (hasWhFEM[iChamb])

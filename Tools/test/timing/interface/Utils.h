@@ -141,7 +141,7 @@ namespace muon_pog
   std::array<bool,4> hasShowerPerCh(const muon_pog::Muon & muon,
 				    const std::vector<muon_pog::MuonSegment> & dtSegments,
 				    const std::vector<muon_pog::DtDigiSummary> & dtDigis,
-				    Float_t deltaPhi, Int_t nSeg)
+				    Float_t deltaPhi, Int_t nSeg, Int_t nDigiAND, Int_t nDigiOR)
     {
         
       std::array<bool,4> showerPerCh = {false, false, false, false};
@@ -167,8 +167,8 @@ namespace muon_pog
 		if(digiSummary.id_phi == match.id_phi &&
 		   digiSummary.id_eta == match.id_eta &&
 		   digiSummary.id_r   == match.id_r   &&
-		   ( ( digiSummary.n_phi1 >= 12 && digiSummary.n_phi2 >= 12 ) ||
-		     ( digiSummary.n_phi1 >= 16 || digiSummary.n_phi2 >= 16 ) )
+		   ( ( digiSummary.n_phi1 >= nDigiAND && digiSummary.n_phi2 >= nDigiAND ) ||
+		     ( digiSummary.n_phi1 >= nDigiOR  || digiSummary.n_phi2 >= nDigiOR  ) )
 		  {
 		    showerPerCh[ch - 1] = true;
 		    continue;
