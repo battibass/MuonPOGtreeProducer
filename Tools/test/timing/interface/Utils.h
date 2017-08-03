@@ -138,7 +138,50 @@ namespace muon_pog
       return nExtraSegPerCh;
 
     };
-    
+
+  std::array<bool,4> hasShowerPerCh(const muon_pog::Muon & muon,
+				    const std::vector<muon_pog::MuonSegment> & dtSegments,
+				    const std::vector<muon_pog::DtDigiSummary> & dtDigis;
+				    Float_t deltaPhi, Int_t nSeg)
+    {
+        
+      std::array<bool,4> showerPerCh = {false, false, false, false};
+      
+      auto nExtraSegPerCh = showersPerCh(muon,dtSegments,deltaPhi)
+	
+	for (const auto & match : muon.matches)
+	  {
+	    
+	    Int_t ch = match.id_r;
+            
+	    if (match.type != muon_pog::MuonDetType::DT)
+	      continue;
+	    
+	    if (nExtraSegPerCh[ch - 1] >= nSeg)
+	      {
+		showersPerCh[ch - 1] = true;
+		continue;
+	      }
+	    
+	    for (const auto & digiSummary : dtDigis)
+	      {
+		if(digiSummary.id_phi == match.id_phi &&
+		   digiSummary.id_eta == match.id_eta &&
+		   digiSummary.id_r   == match.id_r   &&
+		   ( digiSummary.n_phi1 >= 50 ||
+		     digiSummary.n_phi2 >= 50 )
+		   )
+		  {
+		    showersPerCh[ch - 1] = true;
+		    continue;
+		  }
+	      }
+	    
+	  }
+      
+      return showerPerCh;
+      
+    };
 
   // Returns the charge muon_pog::Muon for a given fit 
   // Valid track fits are: PF, TUNEP, GLB, INNER, PICKY, DYT, TPFMS
