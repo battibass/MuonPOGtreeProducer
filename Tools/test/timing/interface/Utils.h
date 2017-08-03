@@ -91,7 +91,6 @@ namespace muon_pog
             {
 	      
 	      std::bitset<4> mask(std::string("0010"));
-	      std::bitset<4> mask1(std::string("0010"));
 
 		if( !(mask & (*qualIt)).count() &&
 		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
@@ -141,13 +140,13 @@ namespace muon_pog
 
   std::array<bool,4> hasShowerPerCh(const muon_pog::Muon & muon,
 				    const std::vector<muon_pog::MuonSegment> & dtSegments,
-				    const std::vector<muon_pog::DtDigiSummary> & dtDigis;
+				    const std::vector<muon_pog::DtDigiSummary> & dtDigis,
 				    Float_t deltaPhi, Int_t nSeg)
     {
         
       std::array<bool,4> showerPerCh = {false, false, false, false};
       
-      auto nExtraSegPerCh = showersPerCh(muon,dtSegments,deltaPhi)
+      auto nExtraSegPerCh = showersPerCh(muon,dtSegments,deltaPhi);
 	
 	for (const auto & match : muon.matches)
 	  {
@@ -159,7 +158,7 @@ namespace muon_pog
 	    
 	    if (nExtraSegPerCh[ch - 1] >= nSeg)
 	      {
-		showersPerCh[ch - 1] = true;
+		showerPerCh[ch - 1] = true;
 		continue;
 	      }
 	    
@@ -168,11 +167,10 @@ namespace muon_pog
 		if(digiSummary.id_phi == match.id_phi &&
 		   digiSummary.id_eta == match.id_eta &&
 		   digiSummary.id_r   == match.id_r   &&
-		   ( digiSummary.n_phi1 >= 50 ||
-		     digiSummary.n_phi2 >= 50 )
-		   )
+		   ( ( digiSummary.n_phi1 >= 12 && digiSummary.n_phi2 >= 12 ) ||
+		     ( digiSummary.n_phi1 >= 16 || digiSummary.n_phi2 >= 16 ) )
 		  {
-		    showersPerCh[ch - 1] = true;
+		    showerPerCh[ch - 1] = true;
 		    continue;
 		  }
 	      }
