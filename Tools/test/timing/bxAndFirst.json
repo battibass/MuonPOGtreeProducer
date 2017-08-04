@@ -107,7 +107,7 @@
         {
             "directory"         : "barrel/plots/bx_and_first/",
             "filenamePlot"      : "bxm1_bx_eff_vs_pt",
-            "fileType"          : ["png", " pdf"]
+            "fileType"          : ["png", "pdf"]
         }
     },
 
