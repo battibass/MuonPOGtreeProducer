@@ -9,7 +9,7 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPtMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -17,7 +17,7 @@
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPtMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -25,7 +25,7 @@
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPtMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -33,7 +33,7 @@
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPtMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
@@ -50,7 +50,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova/plots/",
+            "directory"         : "barrel/plots/early/",
             "filenamePlot"      : "early_bx_eff_vs_pt",
             "fileType"          : ["png", "pdf"]
         }
@@ -65,7 +65,7 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB10_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -73,7 +73,7 @@
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB20_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -81,7 +81,7 @@
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB30_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -89,7 +89,7 @@
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB40_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
@@ -106,7 +106,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova/plots/",
+            "directory"         : "barrel/plots/early/",
             "filenamePlot"      : "early_bx_eff_vs_eta0",
             "fileType"          : ["png", "pdf"]
         }
@@ -121,7 +121,7 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB11_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -129,7 +129,7 @@
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB21_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -137,7 +137,7 @@
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB31_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -145,7 +145,7 @@
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsEtaMB41_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
@@ -162,7 +162,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova/plots/",
+            "directory"         : "barrel/plots/early/",
             "filenamePlot"      : "early_bx_eff_vs_eta1",
             "fileType"          : ["png", "pdf"]
         }
@@ -177,7 +177,7 @@
             {
                 "label"             : "MB1",
                 "legendEntry"       : "MB1",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPhiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -185,7 +185,7 @@
             {
                 "label"             : "MB2",
                 "legendEntry"       : "MB2",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPhiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -193,7 +193,7 @@
             {
                 "label"             : "MB3",
                 "legendEntry"       : "MB3",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPhiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             },
@@ -201,7 +201,7 @@
             {
                 "label"             : "MB4",
                 "legendEntry"       : "MB4",
-                "filename"          : "prova/results.root",
+                "filename"          : "barrel/results.root",
                 "folder"            : "/Data2016/efficiencies",
                 "plot"		    : "earlyEffVsPhiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
             }
@@ -218,7 +218,7 @@
         },
         "output"    :
         {
-            "directory"         : "prova/plots/",
+            "directory"         : "barrel/plots/early/",
             "filenamePlot"      : "early_bx_eff_vs_phi",
             "fileType"          : ["png", "pdf"]
         }
