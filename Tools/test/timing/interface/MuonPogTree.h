@@ -174,7 +174,7 @@ namespace muon_pog {
 
     inline Float_t phiGlb() const 
     {
-      return (phi / 4096.) + TMath::Pi() / 180. * (id_phi - 1);
+      return (phi / 4096.) + TMath::Pi() / 6. * (id_phi - 1);
     };
 
     ClassDef(TriggerPrimitive,3)
