@@ -1,0 +1,451 @@
+{
+    "BX-1 eff vs shower"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -1 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm1_eff_vs_shower",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+
+    "BX-1 eff vs shower digi"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerDigiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerDigiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerDigiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerDigiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -1 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment + digi definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm1_eff_vs_shower_digi",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-1 eff vs shower piotr"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerPiotrMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerPiotrMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerPiotrMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsShowerPiotrMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -1 fraction (one prim. per muon)"],
+            "legendTitle"       : "Digi only definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm1_eff_vs_shower_piotr",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-2 eff vs shower"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -2 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm2_eff_vs_shower",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-2 eff vs shower digi"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerDigiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerDigiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerDigiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerDigiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -2 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment + digi definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm2_eff_vs_shower_digi",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-2 eff vs shower piotr"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerPiotrMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerPiotrMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerPiotrMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsShowerPiotrMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 1.5, "has shower"],
+            "y"                 : [0.0, 0.7, "BX -2 fraction (one prim. per muon)"],
+            "legendTitle"       : "Digi only definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm2_eff_vs_shower_piotr",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-1 eff vs number of segments"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsNSegMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsNSegMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsNSegMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm1EffVsNSegMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 7.5, "# additional segments"],
+            "y"                 : [0.0, 1.0, "BX -1 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm1_eff_vs_nseg",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "BX-2 eff vs number of segments"   :
+    {
+        "comment"   : "shower probability vs pt",
+        "inputs"    :
+        {
+             "MB1"   :
+            {
+                "label"             : "MB1",
+                "legendEntry"       : "MB1",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsNSegMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2"   :
+            {
+                "label"             : "MB2",
+                "legendEntry"       : "MB2",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsNSegMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3"   :
+            {
+                "label"             : "MB3",
+                "legendEntry"       : "MB3",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsNSegMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4"   :
+            {
+                "label"             : "MB4",
+                "legendEntry"       : "MB4",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "bxm2EffVsNSegMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 7.5, "# additional segments"],
+            "y"                 : [0.0, 1.0, "BX -2 fraction (one prim. per muon)"],
+            "legendTitle"       : "Segment definition",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/showers/",
+            "filenamePlot"      : "bxm2_eff_vs_nseg",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   
