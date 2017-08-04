@@ -168,7 +168,7 @@ namespace muon_pog
 		   digiSummary.id_eta == match.id_eta &&
 		   digiSummary.id_r   == match.id_r   &&
 		   ( ( digiSummary.n_phi1 >= nDigiAND && digiSummary.n_phi2 >= nDigiAND ) ||
-		     ( digiSummary.n_phi1 >= nDigiOR  || digiSummary.n_phi2 >= nDigiOR  ) )
+		     ( digiSummary.n_phi1 >= nDigiOR  || digiSummary.n_phi2 >= nDigiOR  ) ) )
 		  {
 		    showerPerCh[ch - 1] = true;
 		    continue;
