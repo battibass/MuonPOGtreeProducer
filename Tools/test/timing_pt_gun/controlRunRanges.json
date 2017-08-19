@@ -1,0 +1,482 @@
+{
+    "n trigger MB1"   :
+    {
+        "comment"   : "n trigger",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0, 10, "#  matched primitives"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+	    "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "n_trigger_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+    
+    "qual trigger MB1"   :
+    {
+        "comment"   : "qual trigger",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 6.5, "primitive quality"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "qual_trigger_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "BX trigger MB1"   :
+    {
+        "comment"   : "BX trigger",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-1.5, 1.5, "primitive BX (all matched primitives)"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "bx_trigger_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "n trigger MB2"   :
+    {
+        "comment"   : "n trigger",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0, 10, "#  matched primitives"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "n_trigger_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+    
+    "qual trigger MB2"   :
+    {
+        "comment"   : "qual trigger",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 6.5, "primitive quality"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "qual_trigger_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "BX trigger MB2"   :
+    {
+        "comment"   : "BX trigger",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-1.5, 1.5, "primitive BX (all matched primitives)"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "bx_trigger_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "n trigger MB3"   :
+    {
+        "comment"   : "n trigger",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0, 10, "#  matched primitives"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "n_trigger_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+    
+    "qual trigger MB3"   :
+    {
+        "comment"   : "qual trigger",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 6.5, "primitive quality"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "qual_trigger_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "BX trigger MB3"   :
+    {
+        "comment"   : "BX trigger",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-1.5, 1.5, "primitive BX (all matched primitives)"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "bx_trigger_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "n trigger MB4"   :
+    {
+        "comment"   : "n trigger",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "nTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0, 10, "#  matched primitives"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "n_trigger_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+    
+    "qual trigger MB4"   :
+    {
+        "comment"   : "qual trigger",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/trigger",
+                "plot"		    : "qualTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 6.5, "primitive quality"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "qual_trigger_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "BX trigger MB4"   :
+    {
+        "comment"   : "BX trigger",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-1.5, 1.5, "primitive BX (all matched primitives)"],
+            "y"                 : [0.0, 0.5, "# enties"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/control/",
+            "filenamePlot"      : "bx_trigger_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   

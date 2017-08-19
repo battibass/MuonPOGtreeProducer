@@ -1,0 +1,146 @@
+{
+    "L1 GMT prefire vs pt"   :
+    {
+        "comment"   : "prefire efficiency vs pt",
+        "inputs"    :
+        {
+             "1 BX0"   :
+            {
+                "label"             : "GMT BX 0",
+                "legendEntry"       : "GMT BX 0",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffBX0VsPt_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "2 NoPrefire"   :
+            {
+                "label"             : "GMT BX 0 AND ![-1,-2]",
+                "legendEntry"       : "GMT BX 0 AND ![-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffNoPrefireVsPt_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "3Prefire"   :
+            {
+                "label"             : "GMT BX [-1,-2]",
+                "legendEntry"       : "GMT BX [-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffPrefireVsPt_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 1200.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [0.0, 1.35, "GMT efficiency"],
+            "legendTitle"       : "L1 GMT cand p_{T} >=22 && qual >= 12",
+            "caption"           : "Flat p_{T} gun simulation",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 860, 807],
+            "markerMap"         : [24,   25,  26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/gmt/",
+            "filenamePlot"      : "trigger_eff_vs_pt",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "L1 GMT prefire vs eta"   :
+    {
+        "comment"   : "prefire efficiency vs eta",
+        "inputs"    :
+        {
+             "1 BX0"   :
+            {
+                "label"             : "GMT BX 0",
+                "legendEntry"       : "GMT BX 0",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffBX0VsEta_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "2 NoPrefire"   :
+            {
+                "label"             : "GMT BX 0 AND ![-1,-2]",
+                "legendEntry"       : "GMT BX 0 AND ![-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffNoPrefireVsEta_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "3Prefire"   :
+            {
+                "label"             : "GMT BX [-1,-2]",
+                "legendEntry"       : "GMT BX [-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffPrefireVsEta_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 1200.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [0.0, 1.35, "GMT efficiency"],
+            "legendTitle"       : "L1 GMT cand p_{T} >=22 && qual >= 12",
+            "caption"           : "Flat p_{T} gun simulation",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 860, 807],
+            "markerMap"         : [24,   25,  26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/gmt/",
+            "filenamePlot"      : "trigger_eff_vs_eta",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "L1 GMT prefire vs phi"   :
+    {
+        "comment"   : "prefire efficiency vs phi",
+        "inputs"    :
+        {
+             "1 BX0"   :
+            {
+                "label"             : "GMT BX 0",
+                "legendEntry"       : "GMT BX 0",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffBX0VsPhi_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "2 NoPrefire"   :
+            {
+                "label"             : "GMT BX 0 AND ![-1,-2]",
+                "legendEntry"       : "GMT BX 0 AND ![-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffNoPrefireVsPhi_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "3Prefire"   :
+            {
+                "label"             : "GMT BX [-1,-2]",
+                "legendEntry"       : "GMT BX [-1,-2]",
+                "filename"          : "barrel/results.root",
+                "folder"            : "/Data2016/efficiencies",
+                "plot"		    : "gmtEffPrefireVsPhi_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 1200.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [0.0, 1.35, "GMT efficiency"],
+            "legendTitle"       : "L1 GMT cand p_{T} >=22 && qual >= 12",
+            "caption"           : "Flat p_{T} gun simulation",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 860, 807],
+            "markerMap"         : [24,   25,  26]
+        },
+        "output"    :
+        {
+            "directory"         : "barrel/plots/gmt/",
+            "filenamePlot"      : "trigger_eff_vs_phi",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   

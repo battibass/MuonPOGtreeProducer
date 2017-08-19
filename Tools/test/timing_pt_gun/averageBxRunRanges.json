@@ -1,0 +1,642 @@
+{
+    "Average BX vs eta type 0 MB1"   :
+    {
+        "comment"   : "Average BX vs eta type 0",
+        "inputs"    :
+        {
+	     "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB10_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	     "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB10_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_0_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 1 MB1"   :
+    {
+        "comment"   : "Average BX vs eta type 1",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB11_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB11_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_1_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs pt MB1"   :
+    {
+        "comment"   : "Average BX vs pt",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	    "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 800.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_pt_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs phi MB1"   :
+    {
+        "comment"   : "Average BX vs phi",
+        "inputs"    :
+        {
+             "MB1 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB1 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB1_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.14159, 3.14159, "muon #phi"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+	    "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_phi_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 0 MB2"   :
+    {
+        "comment"   : "Average BX vs eta type 0",
+        "inputs"    :
+        {
+	     "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB20_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	     "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB20_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+	    "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_0_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 1 MB2"   :
+    {
+        "comment"   : "Average BX vs eta type 1",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB21_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB21_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+	    "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_1_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs pt MB2"   :
+    {
+        "comment"   : "Average BX vs pt",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	    "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 800.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_pt_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs phi MB2"   :
+    {
+        "comment"   : "Average BX vs phi",
+        "inputs"    :
+        {
+             "MB2 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB2 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB2_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.14159, 3.14159, "muon #phi"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_phi_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 0 MB3"   :
+    {
+        "comment"   : "Average BX vs eta type 0",
+        "inputs"    :
+        {
+	     "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB30_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	     "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB30_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_0_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 1 MB3"   :
+    {
+        "comment"   : "Average BX vs eta type 1",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB31_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB31_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_1_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs pt MB3"   :
+    {
+        "comment"   : "Average BX vs pt",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	    "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 800.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_pt_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs phi MB3"   :
+    {
+        "comment"   : "Average BX vs phi",
+        "inputs"    :
+        {
+             "MB3 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB3 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB3_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.14159, 3.14159, "muon #phi"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_phi_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 0 MB4"   :
+    {
+        "comment"   : "Average BX vs eta type 0",
+        "inputs"    :
+        {
+	     "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB40_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	     "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB40_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_0_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "Average BX vs eta type 1 MB4"   :
+    {
+        "comment"   : "Average BX vs eta type 1",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB41_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsEtaMB41_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.9, 0.9, "muon #eta"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_eta_1_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs pt MB4"   :
+    {
+        "comment"   : "Average BX vs pt",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+	    "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPtMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [50.0, 800.0, "muon p_{T} (GeV/c)"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_pt_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+        "Average BX vs phi MB4"   :
+    {
+        "comment"   : "Average BX vs phi",
+        "inputs"    :
+        {
+             "MB4 beginning"   :
+            {
+                "label"             : "beginning of run",
+                "legendEntry"       : "beginning of run",
+                "filename"          : "barrel_beginningOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            },
+             "MB4 end"   :
+            {
+                "label"             : "end of run",
+                "legendEntry"       : "end of run",
+                "filename"          : "barrel_endOfRun/results.root",
+                "folder"            : "/Data2016/timing",
+                "plot"		    : "bxTrigVsPhiMB4_fEtaMin0.0_fEtaMax0.9_HIGHPTData2016"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.14159, 3.14159, "muon #phi"],
+            "y"                 : [-0.35, 0.2, "<BX> (all matched primitives)"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2016CDEFGH",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [418, 807],
+            "markerMap"         : [21, 25]
+        },
+        "output"    :
+        {
+            "directory"         : "runs/plots/avg_bx/",
+            "filenamePlot"     : "avg_bx_vs_phi_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   

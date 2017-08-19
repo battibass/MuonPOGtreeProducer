@@ -1,0 +1,1209 @@
+#include "TROOT.h"
+#include "TRint.h"
+#include "TStyle.h"
+#include "TFile.h"
+#include "TCanvas.h"
+#include "TLine.h"
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TProfile.h"
+#include "TEfficiency.h"
+#include "TGraphAsymmErrors.h"
+#include "THStack.h"
+#include "TLegend.h"
+#include "TTree.h"
+#include "TBranch.h"
+#include "TLorentzVector.h"
+
+#include "interface/MuonPogTree.h"
+#include "interface/Utils.h"
+#include "tdrstyle.C"
+
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <sstream>
+#include <iostream>
+#include <fstream> 
+#include <vector>
+#include <regex>
+#include <map>
+
+#include <boost/filesystem.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/exceptions.hpp>
+#include <boost/lexical_cast.hpp>
+
+// Helper classes defintion *****
+// 1. SampleConfig : configuration class containing sample information
+// 2. TagAndProbeConfig : configuration class containing TnP cuts information
+// 3. Plotter : class containing the plot definition and defining the plot filling 
+//              for a given sample <= CB modify this to add new variables
+// ******************************
+
+namespace muon_pog {
+ 
+  class SampleConfig {
+
+  public :
+
+    // config parameters (public for direct access)
+
+    TString fileName;  
+    TString sampleName;  
+    Float_t cSection;
+    Float_t nEvents;
+    Bool_t applyReweighting;
+    std::vector<int> runs;
+        
+    SampleConfig() {};
+    
+#ifndef __MAKECINT__ // CB CINT doesn't like boost :'-(    
+    SampleConfig(boost::property_tree::ptree::value_type & vt); 
+#endif
+
+    ~SampleConfig() {};
+
+  private:
+    std::vector<int> toArray(const std::string & entries); 
+    
+  };
+
+  class TagAndProbeConfig {
+
+  public :
+    
+    // config parameters (public for direct access)
+    
+    Float_t pair_minInvMass;
+    Float_t pair_maxInvMass;
+    Float_t pair_minCosAngle;      
+    Float_t pair_maxPtBalance;      
+    Float_t pair_maxDz;      
+    Float_t pair_minDr;      
+
+    Float_t tag_minPt;      
+
+    TString     tag_ID;
+    Float_t     tag_isoCut;
+    Float_t     tag_isoCutAbs;
+    Float_t     tag_hltDrCut;
+    std::string tag_hltFilter;
+    
+    std::string muon_trackType; // applies to both, tag and probe     
+  
+    Float_t probe_minPt;      
+    Float_t probe_isoCut;
+    Float_t probe_isoCutAbs;
+    Float_t probe_maxPrimDphi;      
+    Int_t   probe_minPrimBX;      
+    Float_t probe_minHighPt;      
+    Int_t   probe_minNSeg;      
+
+    Float_t probe_minEtaBX;      
+    Float_t probe_maxEtaBX;      
+
+
+    std::vector<TString> probe_IDs;
+    std::vector<std::pair<TString,TString> > probe_fEtaBins;
+     
+    std::string hlt_path; 
+   
+    TagAndProbeConfig() {};
+    
+#ifndef __MAKECINT__ // CB CINT doesn't like boost :'-(    
+    TagAndProbeConfig(boost::property_tree::ptree::value_type & vt); 
+#endif
+
+    ~TagAndProbeConfig() {};
+    
+  private:
+    std::vector<TString> toArray(const std::string & entries); 
+    std::vector<std::pair<TString,TString> > toPairArray(const std::vector<TString> &,
+							 const std::vector<TString> &); 
+  
+  };
+
+  class Plotter {
+
+  public :
+
+    enum HistoType { KIN=0, CONT, TRIG, TIMING, EFF};
+      
+    Plotter(muon_pog::TagAndProbeConfig tnpConfig, muon_pog::SampleConfig & sampleConfig) :
+      m_tnpConfig(tnpConfig) , m_sampleConfig(sampleConfig) {};
+    ~Plotter() {};
+    
+    void book(TFile *outFile);
+    void fill(const std::vector<muon_pog::Muon> & muons, const muon_pog::HLT & hlt, const muon_pog::Event & ev, float weight);
+
+    std::map<Plotter::HistoType, std::map<TString, TH1* > > m_histos;
+    std::map<Plotter::HistoType, std::map<TString, TEfficiency *> > m_effs;
+    TagAndProbeConfig m_tnpConfig;
+    SampleConfig m_sampleConfig;
+        
+  };
+  
+}
+
+// Helper classes defintion *****
+// 1. parseConfig : parse the full cfg file
+// 1. comparisonPlot : make a plot overlayng data and MC for a given plot
+// ******************************
+
+namespace muon_pog {
+  void parseConfig(const std::string configFile, TagAndProbeConfig & tpConfig,
+		   std::vector<SampleConfig> & sampleConfigs);
+  
+  void addUnderFlow(TH1 &hist);
+  void addOverFlow(TH1 &hist);
+}
+
+
+
+// The main program******** *****
+// 1. Get configuration file and produces configurations
+// 2. Create Plotters and loop on the event to fill them
+// 3. Writes results in cnfigurable outuput file
+// ******************************
+
+int main(int argc, char* argv[]){
+  using namespace muon_pog;
+
+
+  if (argc != 3) 
+    {
+      std::cout << "Usage : "
+		<< argv[0] << " PATH_TO_CONFIG_FILE PATH_TO_OUTPUT_DIR\n";
+      exit(100);
+    }
+
+  std::string configFile(argv[1]);
+  
+  std::cout << "[" << argv[0] << "] Using config file " << configFile << std::endl;
+
+  // Output directory
+  TString dirName = argv[2];
+  system("mkdir -p " + dirName);
+  TFile* outputFile = TFile::Open(dirName + "/results.root","RECREATE"); // CB find a better name for output file  
+
+  // Set it to kTRUE if you do not run interactively
+  gROOT->SetBatch(kTRUE); 
+
+  // Initialize Root application
+  TRint* app = new TRint("CMS Root Application", &argc, argv);
+
+  setTDRStyle();
+
+  TagAndProbeConfig tnpConfig;
+  std::vector<SampleConfig> sampleConfigs;
+  
+  parseConfig(configFile,tnpConfig,sampleConfigs);
+
+  std::vector<Plotter> plotters;
+
+  for (auto sampleConfig : sampleConfigs)
+    {
+
+      Plotter plotter(tnpConfig, sampleConfig);
+      plotter.book(outputFile);
+      
+      plotters.push_back(plotter);
+    }
+ 
+  for (auto plotter : plotters)
+    {
+
+      TString fileName = plotter.m_sampleConfig.fileName;
+      std::cout << "[" << argv[0] << "] Processing file "
+		<< fileName.Data() << std::endl;  
+  
+      // Initialize pointers to summary and full event structure
+
+      muon_pog::Event*   ev   = new muon_pog::Event();
+
+      TTree* tree;
+      TBranch* evBranch;
+
+      // Open file, get tree, set branches
+
+      TFile* inputFile = TFile::Open(fileName,"READONLY");
+      tree = (TTree*)inputFile->Get("MUONPOGTREE");
+      if (!tree) inputFile->GetObject("MuonPogTree/MUONPOGTREE",tree);
+
+      evBranch = tree->GetBranch("event");
+      evBranch->SetAddress(&ev);
+
+      // Watch number of entries
+      int nEntries = plotter.m_sampleConfig.nEvents > 0 ? plotter.m_sampleConfig.nEvents : tree->GetEntriesFast();
+      std::cout << "[" << argv[0] << "] Number of entries = " << nEntries << std::endl;
+
+      int nFilteredEvents = 0;
+
+      for (Long64_t iEvent=0; iEvent<nEntries; ++iEvent) 
+	{
+	  if (tree->LoadTree(iEvent)<0) break;
+
+	  if (iEvent % 25000 == 0 )
+	    std::cout << "[" << argv[0] << "] processing event : " << iEvent << "\r" << std::flush;
+	    
+	  evBranch->GetEntry(iEvent);
+	  float weight = ev->genInfos.size() > 0 ?
+	    ev->genInfos[0].genWeight/fabs(ev->genInfos[0].genWeight) : 1.;
+	 
+	  // CB to be fixed when kown what to do for MC !!!
+
+	  //	  if(plotter.m_sampleConfig.applyReweighting==true)
+	  //  weight *= ev->nVtx < 60 ? PUweight[ev->nVtx] : 0;
+	  
+	  plotter.fill(ev->muons, ev->hlt, (*ev), weight);
+	}
+      
+      delete ev;
+      inputFile->Close();
+      std::cout << std::endl;
+	   
+    }
+  
+  outputFile->Write();
+  
+  if (!gROOT->IsBatch()) app->Run();
+
+  return 0;
+
+}
+
+
+muon_pog::TagAndProbeConfig::TagAndProbeConfig(boost::property_tree::ptree::value_type & vt)
+{
+
+  try
+    {
+
+      hlt_path = vt.second.get<std::string>("hlt_path");
+
+      pair_minInvMass  = vt.second.get<Float_t>("pair_minInvMass");
+      pair_maxInvMass  = vt.second.get<Float_t>("pair_maxInvMass");
+      
+      pair_minCosAngle  = vt.second.get<Float_t>("pair_minCosAngle");
+      pair_maxPtBalance = vt.second.get<Float_t>("pair_maxPtBalance");
+      pair_minDr  = vt.second.get<Float_t>("pair_minDr");
+      pair_maxDz  = vt.second.get<Float_t>("pair_maxDz");
+
+      tag_minPt     = vt.second.get<Float_t>("tag_minPt");
+      tag_ID        = vt.second.get<std::string>("tag_muonID");
+      tag_isoCutAbs = vt.second.get<Float_t>("tag_isoCutAbs");
+      tag_isoCut    = vt.second.get<Float_t>("tag_isoCut");
+
+      tag_hltFilter = vt.second.get<std::string>("tag_hltFilter");
+      tag_hltDrCut  = vt.second.get<Float_t>("tag_hltDrCut");
+      
+      muon_trackType = vt.second.get<std::string>("muon_trackType");
+
+      probe_minPt     = vt.second.get<Float_t>("probe_minPt");
+      probe_isoCut    = vt.second.get<Float_t>("probe_isoCut");
+      probe_isoCutAbs = vt.second.get<Float_t>("probe_isoCutAbs");
+
+      probe_minEtaBX  = vt.second.get<Float_t>("probe_minEtaBX");
+      probe_maxEtaBX  = vt.second.get<Float_t>("probe_maxEtaBX");
+        
+      probe_maxPrimDphi = vt.second.get<Float_t>("probe_maxPrimDphi");
+      probe_minPrimBX   = vt.second.get<Int_t>("probe_minPrimBX");
+
+      probe_minNSeg   = vt.second.get<Int_t>("probe_minNSeg");
+      probe_minHighPt = vt.second.get<Float_t>("probe_minHighPt");
+
+      probe_IDs    = toArray(vt.second.get<std::string>("probe_muonIDs"));
+      probe_fEtaBins = toPairArray(toArray(vt.second.get<std::string>("probe_fEtaMin")),
+				   toArray(vt.second.get<std::string>("probe_fEtaMax")));
+  
+    }
+
+  catch (boost::property_tree::ptree_bad_data bd)
+    {
+      std::cout << "[TagAndProbeConfig] Can't get data : has error : "
+		<< bd.what() << std::endl;
+      throw std::runtime_error("Bad INI variables");
+    }
+
+}
+
+muon_pog::SampleConfig::SampleConfig(boost::property_tree::ptree::value_type & vt)
+{
+ 
+ try
+    {
+      fileName     = TString(vt.second.get<std::string>("fileName").c_str());
+      sampleName   = TString(vt.first.c_str());
+      cSection = vt.second.get<Float_t>("cSection");
+      nEvents = vt.second.get<Float_t>("nEvents");
+      applyReweighting = vt.second.get<Bool_t>("applyReweighting");
+      runs = toArray(vt.second.get<std::string>("runs"));
+    }
+  
+  catch (boost::property_tree::ptree_bad_data bd)
+    {
+      std::cout << "[TagAndProbeConfig] Can't get data : has error : "
+		<< bd.what() << std::endl;
+      throw std::runtime_error("Bad INI variables");
+    }
+  
+}
+
+std::vector<int> muon_pog::SampleConfig::toArray(const std::string& entries)
+{
+  
+  std::vector<int> result;
+  std::stringstream sentries(entries);
+  std::string item;
+  while(std::getline(sentries, item, ','))
+    result.push_back(atoi(item.c_str()));
+  return result;
+
+}
+
+
+std::vector<TString> muon_pog::TagAndProbeConfig::toArray(const std::string& entries)
+{
+  
+  std::vector<TString> result;
+  std::stringstream sentries(entries);
+  std::string item;
+  while(std::getline(sentries, item, ','))
+    result.push_back(TString(item));
+  return result;
+
+}
+
+std::vector<std::pair<TString,TString> > muon_pog::TagAndProbeConfig::toPairArray(const std::vector<TString> & fEtaMin,
+										  const std::vector<TString> & fEtaMax)
+{
+
+  std::vector<std::pair<TString,TString> > result;
+
+  std::vector<TString>::const_iterator fEtaMinIt  = fEtaMin.begin();
+  std::vector<TString>::const_iterator fEtaMinEnd = fEtaMin.end();
+
+  std::vector<TString>::const_iterator fEtaMaxIt  = fEtaMax.begin();
+  std::vector<TString>::const_iterator fEtaMaxEnd = fEtaMax.end();
+  
+  for (; fEtaMinIt != fEtaMinEnd || fEtaMaxIt != fEtaMaxEnd; ++fEtaMinIt, ++fEtaMaxIt)
+    {
+      result.push_back(std::make_pair((*fEtaMinIt),
+				      (*fEtaMaxIt)));
+    }
+
+  return result;
+
+}
+
+
+void muon_pog::Plotter::book(TFile *outFile)
+{
+
+  TString sampleTag = m_sampleConfig.sampleName;
+  
+  outFile->cd("/");
+  outFile->mkdir(sampleTag);
+  outFile->cd(sampleTag);
+
+  outFile->mkdir(sampleTag+"/efficiencies");      
+  outFile->mkdir(sampleTag+"/kinematical_variables");
+  outFile->mkdir(sampleTag+"/control");
+  outFile->mkdir(sampleTag+"/trigger");
+  outFile->mkdir(sampleTag+"/timing");
+  
+  for (auto fEtaBin : m_tnpConfig.probe_fEtaBins)
+    {
+      TString etaTag = "_fEtaMin" + fEtaBin.first + "_fEtaMax" + fEtaBin.second;
+      
+       outFile->cd(sampleTag+"/control");
+      
+      for ( auto & probe_ID : m_tnpConfig.probe_IDs)
+	{
+	  TString IDTag = "_" + probe_ID;
+	  
+	  const Double_t ptBins[12] = {0., 50., 100., 150., 200., 300., 400., 500., 600., 700., 800., 1200.};
+
+	  TString completeTag = etaTag + IDTag + sampleTag;	  
+	  
+ 	  m_histos[CONT]["nShowers" + etaTag + IDTag] = new TH1F("nShowers" + completeTag, 
+								 "nShowers" + completeTag +
+								 ";# stations with showers; # entries", 
+								 5, -0.5, 4.5);
+	  
+ 	  m_histos[CONT]["nShowersDigi" + etaTag + IDTag] = new TH1F("nShowersDigi" + completeTag, 
+								     "nShowersDigi" + completeTag +
+								     ";# stations with showers; # entries", 
+								     5, -0.5, 4.5);
+
+	  m_histos[CONT]["nShowersPiotr" + etaTag + IDTag] = new TH1F("nShowersPiotr" + completeTag, 
+								      "nShowersPiotr" + completeTag +
+								      ";# stations with showers; # entries", 
+								      5, -0.5, 4.5);
+	  
+	  outFile->cd(sampleTag+"/efficiencies");
+
+  	  m_effs[EFF]["showerPerCh" + etaTag + IDTag] = new TEfficiency("showerPerCh" + completeTag,
+									"showerPerCh" + completeTag +
+									";station number;fraction of \"showers\"",
+									4, 0.5, 4.5);
+
+  	  m_effs[EFF]["showerPerChDigi" + etaTag + IDTag] = new TEfficiency("showerPerChDigi" + completeTag,
+									    "showerPerChDigi" + completeTag +
+									    ";station number;fraction of \"showers\"",
+									    4, 0.5, 4.5);
+
+  	  m_effs[EFF]["showerPerChPiotr" + etaTag + IDTag] = new TEfficiency("showerPerChPiotr" + completeTag,
+									     "showerPerChPiotr" + completeTag +
+									     ";station number;fraction of \"showers\"",
+									     4, 0.5, 4.5);
+
+  	  m_effs[EFF]["gmtEffBX0VsPt" + etaTag + IDTag] = new TEfficiency("gmtEffBX0VsPt" + completeTag,
+									  "gmtEffBX0VsPt" + completeTag +
+									  ";muon p_{T} (GeV/c); Efficiency",
+									  11, ptBins);
+
+  	  m_effs[EFF]["gmtEffPrefireVsPt" + etaTag + IDTag] = new TEfficiency("gmtEffPrefireVsPt" + completeTag,
+									      "gmtEffPrefireVsPt" + completeTag +
+									      ";muon p_{T} (GeV/c); Efficiency",
+									      11, ptBins);
+
+  	  m_effs[EFF]["gmtEffNoPrefireVsPt" + etaTag + IDTag] = new TEfficiency("gmtEffNoPrefireVsPt" + completeTag,
+										"gmtEffNoPrefireVsPt" + completeTag +
+										";muon p_{T} (GeV/c); Efficiency",
+										11, ptBins);
+
+
+	  m_effs[EFF]["gmtEffBX0VsEta" + etaTag + IDTag] = new TEfficiency("gmtEffBX0VsEta" + completeTag,
+									   "gmtEffBX0VsEta" + completeTag +
+									   ";muon #eta; Efficiency",
+									   24., -0.9, 0.9);
+	  
+  	  m_effs[EFF]["gmtEffPrefireVsEta" + etaTag + IDTag] = new TEfficiency("gmtEffPrefireVsEta" + completeTag,
+									       "gmtEffPrefireVsEta" + completeTag +
+									       ";muon #eta; Efficiency",
+									       24., -0.9, 0.9);
+	  
+  	  m_effs[EFF]["gmtEffNoPrefireVsEta" + etaTag + IDTag] = new TEfficiency("gmtEffNoPrefireVsEta" + completeTag,
+										 "gmtEffNoPrefireVsEta" + completeTag +
+										 ";muon #eta; Efficiency",
+										 24., -0.9, 0.9);
+
+  	  m_effs[EFF]["gmtEffBX0VsPhi" + etaTag + IDTag] = new TEfficiency("gmtEffBX0VsPhi" + completeTag,
+									   "gmtEffBX0VsPhi" + completeTag +
+									   ";muon #phi; Efficiency",
+									   48,-TMath::Pi(),TMath::Pi());
+	  
+  	  m_effs[EFF]["gmtEffPrefireVsPhi" + etaTag + IDTag] = new TEfficiency("gmtEffPrefireVsPhi" + completeTag,
+									       "gmtEffPrefireVsPhi" + completeTag +
+									       ";muon #phi; Efficiency",
+									       48,-TMath::Pi(),TMath::Pi());
+	  
+  	  m_effs[EFF]["gmtEffNoPrefireVsPhi" + etaTag + IDTag] = new TEfficiency("gmtEffNoPrefireVsPhi" + completeTag,
+										 "gmtEffNoPrefireVsPhi" + completeTag +
+										 ";muon #phi; Efficiency",
+										 48, -TMath::Pi(),TMath::Pi());
+
+	  for (Int_t iChamb = 1; iChamb<=5; ++iChamb)
+	    {
+
+	      TString chTag(iChamb == 5 ?"All" : (std::string("MB") + std::to_string(iChamb)).c_str());	  
+
+	      
+	      outFile->cd(sampleTag+"/control");
+
+	      m_histos[CONT]["nSegPerCh" + chTag + etaTag + IDTag] = new TH1F("nSegPerCh" + chTag + completeTag, 
+									      "nSegPerCh" + chTag + completeTag +
+									      ";# sehments per station layer; # entries", 
+									      21, -0.5,20.5);
+	      
+	      outFile->cd(sampleTag+"/efficiencies");
+
+	      m_effs[TIMING]["bxm1EffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPt" + chTag + completeTag,
+										       "bxm1EffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction of muons with primitive in BX=-1",
+										       11,ptBins);
+
+	      m_effs[TIMING]["bxm2EffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPt" + chTag + completeTag,
+										       "bxm2EffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction of muons with primitive in BX=-2",
+										       11,ptBins);
+	      
+	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "0" + completeTag,
+											      "bxm1EffVsEta" + chTag + "0" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-1",
+											      24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "0" + completeTag,
+											      "bxm2EffVsEta" + chTag + "0" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-2",
+											      24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm1EffVsEta" + chTag + "1" + completeTag,
+											      "bxm1EffVsEta" + chTag + "1" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-1",
+											      24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm2EffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("bxm2EffVsEta" + chTag + "1" + completeTag,
+											      "bxm2EffVsEta" + chTag + "1" + completeTag +
+											      ";#eta; fraction of muons with primitive in BX=-2",
+											      24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["bxm1EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsPhi" + chTag + completeTag,
+											"bxm1EffVsPhi" + chTag  + completeTag +
+											";#phi (rad); fraction of muons with primitive in BX=-1",
+											48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["bxm2EffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsPhi" + chTag + completeTag,
+											"bxm2EffVsPhi" + chTag + completeTag +
+											";#phi (rad); fraction of muons with primitive in BX=-2",
+											48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["showerEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPt" + chTag + completeTag,
+											 "showerEffVsPt" + chTag + completeTag +
+											 ";p_{T} (GeV/c); fraction of muons with \"showers\"",
+											 11,ptBins);
+
+	      m_effs[TIMING]["showerEffVsPtDigi" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPtDigi" + chTag + completeTag,
+											     "showerEffVsPtDigi" + chTag + completeTag +
+											     ";p_{T} (GeV/c); fraction of muons with \"showers\"",
+											     11,ptBins);
+
+	      m_effs[TIMING]["showerEffVsPtPiotr" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPtPiotr" + chTag + completeTag,
+											      "showerEffVsPtPiotr" + chTag + completeTag +
+											      ";p_{T} (GeV/c); fraction of muons with \"showers\"",
+											      11,ptBins);
+
+	      m_effs[TIMING]["showerEffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPhi" + chTag + completeTag,
+											  "showerEffVsPhi" + chTag + completeTag +
+											  ";#phi (rad); fraction of muons with \"showers\"",
+											  48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["showerEffVsPhiDigi" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPhiDigi" + chTag + completeTag,
+											      "showerEffVsPhiDigi" + chTag + completeTag +
+											      ";#phi (rad); fraction of muons with \"showers\"",
+											      48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["showerEffVsPhiPiotr" + chTag + etaTag + IDTag] = new TEfficiency("showerEffVsPhiPiotr" + chTag + completeTag,
+											       "showerEffVsPhiPiotr" + chTag + completeTag +
+											      ";#phi (rad); fraction of muons with \"showers\"",
+											       48,-TMath::Pi(),TMath::Pi());
+
+
+	      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsNSeg" + chTag + completeTag,
+											 "bxm1EffVsNSeg" + chTag + completeTag +
+											 ";# of segments; fraction of muons with primitive in BX=-1",
+											 11,-0.5,10.5);
+
+	      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsNSeg" + chTag + completeTag,
+											 "bxm2EffVsNSeg" + chTag + completeTag +
+											 ";# of segments; fraction of muons with primitive in BX=-2",
+											 11,-0.5,10.5);
+
+	      m_effs[TIMING]["bxm1EffVsShower" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsShower" + chTag + completeTag,
+											   "bxm1EffVsShower" + chTag + completeTag +
+											   ";has shower; fraction of muons with primitive in BX=-1",
+											   2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm2EffVsShower" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsShower" + chTag + completeTag,
+											   "bxm2EffVsShower" + chTag + completeTag +
+											   ";has shower; fraction of muons with primitive in BX=-2",
+											   2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm1EffVsShowerDigi" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsShowerDigi" + chTag + completeTag,
+											       "bxm1EffVsShowerDigi" + chTag + completeTag +
+											       ";has shower; fraction of muons with primitive in BX=-1",
+											       2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm2EffVsShowerDigi" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsShowerDigi" + chTag + completeTag,
+											       "bxm2EffVsShowerDigi" + chTag + completeTag +
+											       ";has shower; fraction of muons with primitive in BX=-2",
+											       2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm1EffVsShowerPiotr" + chTag + etaTag + IDTag] = new TEfficiency("bxm1EffVsShowerPiotr" + chTag + completeTag,
+												"bxm1EffVsShowerPiotr" + chTag + completeTag +
+												";has shower; fraction of muons with primitive in BX=-1",
+												2,-0.5,1.5);
+
+	      m_effs[TIMING]["bxm2EffVsShowerPiotr" + chTag + etaTag + IDTag] = new TEfficiency("bxm2EffVsShowerPiotr" + chTag + completeTag,
+												"bxm2EffVsShowerPiotr" + chTag + completeTag +
+												";has shower; fraction of muons with primitive in BX=-2",
+												2,-0.5,1.5);
+	      
+
+	      if (iChamb == 5) continue;
+	      
+	      m_effs[TIMING]["earlyEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPt" + chTag + completeTag,
+											"earlyEffVsPt" + chTag + completeTag +
+											";p_{T} (GeV/c); fraction of primitives in BX [-2,-1]",
+											11,ptBins);
+
+	      m_effs[TIMING]["earlyEffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("earlyEffVsEta" + chTag + "0" + completeTag,
+											       "earlyEffVsEta" + chTag + "0" + completeTag +
+											       ";#eta; fraction of primitives in BX [-2,-1]",
+											       24., -0.9, 0.9);
+
+	      m_effs[TIMING]["earlyEffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("earlyEffVsEta" + chTag + "1" + completeTag,
+											       "earlyEffVsEta" + chTag + "1" + completeTag +
+											       ";#eta; fraction of primitives in BX [-2,-1]",
+											       24., -0.9, 0.9);
+	      
+	      m_effs[TIMING]["earlyEffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("earlyEffVsPhi" + chTag + completeTag,
+											 "earlyEffVsPhi" + chTag + completeTag +
+											 ";#phi (rad); fraction of primitives in BX [-2,-1]",
+											 48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["lateEffVsPt" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPt" + chTag + completeTag,
+										       "lateEffVsPt" + chTag + completeTag +
+										       ";p_{T} (GeV/c); fraction primitives in BX +1",
+										       11,ptBins);
+
+	      m_effs[TIMING]["lateEffVsEta" + chTag + "0" + etaTag + IDTag] = new TEfficiency("lateEffVsEta" + chTag + "0" + completeTag,
+											      "lateEffVsEta" + chTag + "0" + completeTag +
+											      ";p_{T} (GeV/c); fraction of primitives in BX +1",
+											      24., -0.9, 0.9);
+
+	      m_effs[TIMING]["lateEffVsEta" + chTag + "1" + etaTag + IDTag] = new TEfficiency("lateEffVsEta" + chTag + "1" + completeTag,
+											      "lateEffVsEta" + chTag + "1" + completeTag +
+											      ";p_{T} (GeV/c); fraction of primitives in BX +1",
+											      24., -0.9, 0.9);
+	      
+	      
+	      m_effs[TIMING]["lateEffVsPhi" + chTag + etaTag + IDTag] = new TEfficiency("lateEffVsPhi" + chTag + completeTag,
+											"lateEffVsPhi" + chTag + completeTag +
+											"#phi (rad); fraction of prefiring",
+											48,-TMath::Pi(),TMath::Pi());
+
+	      m_effs[TIMING]["firstEffVsPt" + chTag + etaTag + IDTag]  = new TEfficiency("firstEffVsPt" + chTag + completeTag,
+											 "firstEffVsPt" + chTag + completeTag +
+											 "p_{T} (GeV/c); fraction of muons with earliest prim. in BX [-2,-1]",
+											 11,ptBins);
+	      outFile->cd(sampleTag+"/control");
+
+	      m_histos[CONT]["sectorVsWheel" + chTag + etaTag + IDTag] = new TH2F("sectorVsWheel" + chTag + completeTag, 
+										  "sectorVsWheel" + chTag + completeTag +
+										  "sector;wheel", 
+										  14, 0.5, 14.5, 5, -2.5, 2.5);
+
+	      outFile->cd(sampleTag+"/trigger");
+
+	      m_histos[TRIG]["nTrig" + chTag + etaTag + IDTag]     = new TH1F("nTrig" + chTag + completeTag,
+									      "nTrig" + chTag + completeTag +
+									      ";# matched primitives ;# entries",
+									      15,-.5,14.5);
+
+	      m_histos[TRIG]["qualTrig" + chTag + etaTag + IDTag]  = new TH1F("qualTrig" + chTag + completeTag,
+									      "qualTrig" + chTag + completeTag +
+									      ";quality;# entries",
+									      7,-.5,6.5);
+
+	      m_histos[TRIG]["phibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBX0" + chTag + completeTag,
+										 "phibTrigBX0" + chTag + completeTag +
+										 ";phi_{bending}# entries",
+										 513,-0.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm1" + chTag + completeTag,
+										  "phibTrigBXm1" + chTag + completeTag +
+										  ";phi_{bending}# entries",
+										  513,-0.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm2" + chTag + completeTag,
+										  "phibTrigBXm2" + chTag + completeTag +
+										  ";phi_{bending}# entries",
+										  513,-0.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm1Shower" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm1Shower" + chTag + completeTag,
+											"phibTrigBXm1Shower" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
+	      m_histos[TRIG]["phibTrigBXm2Shower" + chTag + etaTag + IDTag]  = new TH1F("phibTrigBXm2Shower" + chTag + completeTag,
+											"phibTrigBXm2Shower" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBX0" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBX0" + chTag + completeTag,
+										       "highPtPhibTrigBX0" + chTag + completeTag +
+										       ";phi_{bending}# entries",
+										       513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm1" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm1" + chTag + completeTag,
+											"highPtPhibTrigBXm1" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm2" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm2" + chTag + completeTag,
+											"highPtPhibTrigBXm2" + chTag + completeTag +
+											";phi_{bending}# entries",
+											513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm1Shower" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm1Shower" + chTag + completeTag,
+											      "highPtPhibTrigBXm1Shower" + chTag + completeTag +
+											      ";phi_{bending}# entries",
+											      513,-0.5,512.5);
+
+	      m_histos[TRIG]["highPtPhibTrigBXm2Shower" + chTag + etaTag + IDTag]  = new TH1F("highPtPhibTrigBXm2Shower" + chTag + completeTag,
+											      "highPtPhibTrigBXm2Shower" + chTag + completeTag +
+											      ";phi_{bending}# entries",
+											      513,-0.5,512.5);
+
+	      m_histos[TRIG]["dPhi" + chTag + etaTag + IDTag]      = new TH1F("dPhi" + chTag + completeTag,
+									      "dPhi" + chTag + completeTag +
+									      ";dPhi(track,primitive);# entries",
+									      300,-0.5,0.5);
+
+	      m_histos[TRIG]["dPhiVsEta" + chTag + etaTag + IDTag] = new TH2F("dPhiVsEta" + chTag + completeTag,
+									      "dPhiVsEta" + chTag + completeTag +
+									      ";dPhi(track,primitive);#eta",
+									      300,-0.5,0.5, 24., -1.2, 1.2);
+
+	      m_histos[TRIG]["dPhiVsPhi" + chTag + etaTag + IDTag] = new TH2F("dPhiVsPhi" + chTag + completeTag,
+									      "dPhiVsPhi" + chTag + completeTag +
+									      ";dPhi(track,primitive);#phi",
+									      300,-0.5,0.5, 48,-TMath::Pi(),TMath::Pi());
+	      
+	      m_histos[TRIG]["dPhiVsPt" + chTag + etaTag + IDTag]  = new TH2F("dPhiVsPt" + chTag + completeTag,
+									      "dPhivsPt" + chTag + completeTag +
+									      ";dPhi(track,primitive);p_{T}",
+									      300,-0.5,0.5, 11,ptBins);
+
+	      outFile->cd(sampleTag+"/timing");
+
+	      m_histos[TIMING]["bxTrig" + chTag + etaTag + IDTag] = new TH1F("bxTrig" + chTag + completeTag,
+									     "bxTrig" + chTag + completeTag +
+									     ";bxTrig(track,primitive);# entries",
+									     5,-2.5,2.5);
+
+	      m_histos[TIMING]["bxTrigVsPt" + chTag + etaTag + IDTag] = new TProfile("bxTrigVsPt" + chTag + completeTag,
+										     "bxTrigVsPt" + chTag + completeTag +
+										     ";bxTrig(track,primitive);#eta",
+										     11,ptBins, -2.5, 2.5);
+
+	      m_histos[TIMING]["highPtTrigVsPhi" + chTag + etaTag + IDTag] = new TH1F("highPtTrigVsPhi" + chTag + completeTag,
+										      "highPtTrigVsPhi" + chTag + completeTag +
+										      ";earlyTrig(track,primitive);#phi",
+										      48, -TMath::Pi(),TMath::Pi());
+
+	      m_histos[TIMING]["highPtTrigBx" + chTag + etaTag + IDTag]  = new TH1F("highPtTrigBx" + chTag + completeTag,
+										    "highPtTrigBx" + chTag + completeTag +
+										    ";BX;# entries",
+										    5, -2.5, 2.5);
+
+	      m_histos[TIMING]["bxTrigVsEta" + chTag + "0" + etaTag + IDTag]  = new TProfile("bxTrigVsEta" + chTag + "0" + completeTag,
+											     "bxTrigVsEta" + chTag + "0" + completeTag +
+											     ";#eta;<BX>",
+											     36, -0.9, 0.9, -2.5, 2.5);
+
+	      m_histos[TIMING]["bxTrigVsEta" + chTag + "1" + etaTag + IDTag]  = new TProfile("bxTrigVsEta" + chTag + "1" + completeTag,
+											     "bxTrigVsEta" + chTag + "1" + completeTag +
+											     ";#eta;<BX>",
+											     36, -0.9, 0.9, -2.5, 2.5);
+	    }
+
+	  outFile->cd(sampleTag+"/kinematical_variables");
+
+	  m_histos[KIN]["ProbePt" + etaTag + IDTag]  = new TH1F("hProbePt" + completeTag,
+								"hProbePt" + completeTag +
+								";p_{T} (GeV);# entries",
+								300,0.,1500.);
+	  m_histos[KIN]["ProbeEta" + etaTag + IDTag] = new TH1F("hProbeEta" + completeTag,
+								"hProbeEta" + completeTag +
+								";#eta;# entries",
+								48,-2.4, 2.4);
+	  m_histos[KIN]["ProbePhi" + etaTag + IDTag] = new TH1F("hProbePhi" + completeTag,
+								"hProbePhi" + completeTag +
+								";#phi;# entries",
+								48,-TMath::Pi(),TMath::Pi()); 
+	  
+	}
+
+    }
+  
+}
+
+void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
+			     const muon_pog::HLT & hlt, const muon_pog::Event & ev, float weight)
+{
+
+  bool isGoodRun = false;
+
+  if (m_sampleConfig.runs.at(0) == 0 ||
+      (ev.runNumber >= m_sampleConfig.runs.at(0) &&
+       ev.runNumber <  m_sampleConfig.runs.at(1) )
+      )
+    {
+      isGoodRun = true;
+    }
+
+  if (!isGoodRun) return;
+  
+  std::vector<const muon_pog::Muon *> probeMuons;
+  
+  for (auto & muon : muons)
+    {
+      
+      TLorentzVector muTk(muon_pog::muonTk(muon,m_tnpConfig.muon_trackType));
+    
+      bool hasGoodId = false;
+	      
+      for (auto & probe_ID : m_tnpConfig.probe_IDs)
+	{		  
+	  if(muon_pog::hasGoodId(muon,probe_ID)) 
+	    {
+	      hasGoodId = true;
+	      break;		      
+	    }
+	}
+    
+      // General Probe Muons	      
+      if(hasGoodId                            && 
+	 muTk.Pt() > m_tnpConfig.probe_minPt  &&
+	 muon.trackerIso < m_tnpConfig.probe_isoCutAbs &&
+	 muon.trackerIso / muTk.Pt() < m_tnpConfig.probe_isoCut)
+	{
+	  probeMuons.push_back(&muon);
+	}
+	 
+    }
+  
+  for (auto probeMuonPointer : probeMuons)
+    {
+      const muon_pog::Muon & probeMuon = *probeMuonPointer;
+      
+      TLorentzVector probeMuTk(muonTk(probeMuon,m_tnpConfig.muon_trackType));
+
+      for (auto fEtaBin : m_tnpConfig.probe_fEtaBins)
+	{
+	  
+	  if (fabs(probeMuTk.Eta()) > fEtaBin.first.Atof() &&
+	      fabs(probeMuTk.Eta()) < fEtaBin.second.Atof() )
+	    {
+	      
+	      TString etaTag = "_fEtaMin" + fEtaBin.first + "_fEtaMax" + fEtaBin.second;
+	      
+	      for (auto & probe_ID : m_tnpConfig.probe_IDs)
+		{
+		  TString IDTag = "_" + probe_ID;
+		  
+		  if(muon_pog::hasGoodId(probeMuon,probe_ID)) 
+		    {	 
+		      m_histos[KIN]["ProbePt" + etaTag + IDTag]->Fill(probeMuTk.Pt(), weight);
+		      m_histos[KIN]["ProbeEta" + etaTag + IDTag]->Fill(probeMuTk.Eta(), weight);
+		      m_histos[KIN]["ProbePhi" + etaTag + IDTag]->Fill(probeMuTk.Phi(), weight);
+
+		      bool hasGmtBX0 = hasGmtMatch(probeMuon, ev.l1muons, 22,12,0,0.3,0.5);
+		      bool hasGmtPrefire = 
+			hasGmtMatch(probeMuon, ev.l1muons, 22,12,-1,0.3,0.5) ||
+			hasGmtMatch(probeMuon, ev.l1muons, 22,12,-2,0.3,0.5);
+
+		      m_effs[EFF]["gmtEffBX0VsPt" + etaTag + IDTag]->Fill(hasGmtBX0,probeMuTk.Pt());
+		      m_effs[EFF]["gmtEffNoPrefireVsPt" + etaTag + IDTag]->Fill(hasGmtBX0 && !hasGmtPrefire,probeMuTk.Pt());
+		      m_effs[EFF]["gmtEffPrefireVsPt" + etaTag + IDTag]->Fill(hasGmtPrefire,probeMuTk.Pt());
+
+		      m_effs[EFF]["gmtEffBX0VsEta" + etaTag + IDTag]->Fill(hasGmtBX0,probeMuTk.Eta());
+		      m_effs[EFF]["gmtEffNoPrefireVsEta" + etaTag + IDTag]->Fill(hasGmtBX0 && !hasGmtPrefire,probeMuTk.Eta());
+		      m_effs[EFF]["gmtEffPrefireVsEta" + etaTag + IDTag]->Fill(hasGmtPrefire,probeMuTk.Eta());
+
+		      m_effs[EFF]["gmtEffBX0VsPhi" + etaTag + IDTag]->Fill(hasGmtBX0,probeMuTk.Phi());
+		      m_effs[EFF]["gmtEffNoPrefireVsPhi" + etaTag + IDTag]->Fill(hasGmtBX0 && !hasGmtPrefire,probeMuTk.Phi());
+		      m_effs[EFF]["gmtEffPrefireVsPhi" + etaTag + IDTag]->Fill(hasGmtPrefire,probeMuTk.Phi());
+		      
+		      Int_t nTrig[4]     = { 0, 0, 0, 0 };
+		      Int_t firstBX[4]   = { 9, 9, 9, 9 };
+		      Int_t hasBXm1[4]   = { 0, 0, 0, 0 };
+		      Int_t hasBXm2[4]   = { 0, 0, 0, 0 };
+		      Int_t hasWhFEP[4]  = { 0, 0, 0, 0 };
+		      Int_t hasWhFEM[4]  = { 0, 0, 0, 0 };
+
+		      auto showers = showersPerCh(probeMuon, ev.dtSegments, 0.3);
+
+		      auto showersAndDigi = hasShowerPerCh(probeMuon, ev.dtSegments,
+							   ev.dtDigis, 0.3, m_tnpConfig.probe_minNSeg, 12, 16);
+
+		      auto showersPiotr = hasShowerPerCh(probeMuon, ev.dtSegments,
+							 ev.dtDigis, 0.3, 999, 9, 9);
+
+		      for (Int_t iChamb = 1; iChamb<5; ++iChamb)
+			{
+			  m_effs[EFF]["showerPerCh" + etaTag + IDTag]->Fill(showers[iChamb - 1] >= m_tnpConfig.probe_minNSeg, iChamb);
+			  m_effs[EFF]["showerPerChPiotr" + etaTag + IDTag]->Fill(showersPiotr[iChamb - 1],  iChamb);
+			  m_effs[EFF]["showerPerChDigi" + etaTag + IDTag]->Fill(showersAndDigi[iChamb - 1], iChamb);
+			}
+
+		      
+		      m_histos[CONT]["nSegPerChMB1"+ etaTag + IDTag]->Fill(showers[0]);
+		      m_histos[CONT]["nSegPerChMB2"+ etaTag + IDTag]->Fill(showers[1]);
+		      m_histos[CONT]["nSegPerChMB3"+ etaTag + IDTag]->Fill(showers[2]);
+		      m_histos[CONT]["nSegPerChMB4"+ etaTag + IDTag]->Fill(showers[3]);
+
+		      m_histos[CONT]["nSegPerChAll"+ etaTag + IDTag]->Fill(showers[0] +
+									   showers[1] +
+									   showers[2] +
+									   showers[3]);
+
+		      m_histos[CONT]["nShowers" + etaTag + IDTag]->Fill( 0 +
+									 (showers[0] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[1] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[2] >= m_tnpConfig.probe_minNSeg ? 1 : 0) +
+									 (showers[3] >= m_tnpConfig.probe_minNSeg ? 1 : 0));
+
+		      m_histos[CONT]["nShowersDigi" + etaTag + IDTag]->Fill( 0 +
+									     (showersAndDigi[0] ? 1 : 0) +
+									     (showersAndDigi[1] ? 1 : 0) +
+									     (showersAndDigi[2] ? 1 : 0) +
+									     (showersAndDigi[3] ? 1 : 0));
+
+		      m_histos[CONT]["nShowersPiotr" + etaTag + IDTag]->Fill( 0 +
+									      (showersPiotr[0] ? 1 : 0) +
+									      (showersPiotr[1] ? 1 : 0) +
+									      (showersPiotr[2] ? 1 : 0) +
+									      (showersPiotr[3] ? 1 : 0));
+
+
+
+		      for(auto match : probeMuon.matches) 
+			{
+
+			  // CB protetction to avoid standalone induced matchings
+			  if (match.errx < 0)
+			    continue;
+			  
+			  TString chTag(std::to_string(match.id_r));
+			  
+			  for (auto index : match.trigIndexes)
+			    {
+
+			      Int_t wh0Tag = (match.id_phi%4) < 2 ? 0 : 1;
+
+ 			      const auto & dtPrim = ev.dtPrimitives.at(index);
+			      Int_t bx = dtPrim.bxTrackFinder();
+			      
+			      if (match.id_r   != dtPrim.id_r ||
+				  match.id_eta != dtPrim.id_eta ||
+				  !( match.id_phi == dtPrim.id_phi ||
+				     ( match.id_phi == 13 && dtPrim.id_phi == 4 ) ||
+				     ( match.id_phi == 14 && dtPrim.id_phi == 10)
+				   ) ||
+				  match.type != muon_pog::MuonDetType::DT)
+				{
+				  std::cout << "CAZZO" << std::endl;
+				  continue;
+				}
+
+			      Float_t dPhi = match.phi - dtPrim.phiGlb();
+			      dPhi = dPhi >  TMath::Pi() ? dPhi - 2*TMath::Pi() :
+				     dPhi < -TMath::Pi() ? dPhi + 2*TMath::Pi() :  dPhi;
+			    
+			      m_histos[TRIG]["dPhiMB" + chTag + etaTag + IDTag]->Fill(dPhi, weight);
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsEtaMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Eta(), weight);
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPhiMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Phi(), weight);
+			      static_cast<TH2F*>(m_histos[TRIG]["dPhiVsPtMB" + chTag + etaTag + IDTag])->Fill(dPhi, probeMuTk.Pt(),  weight);
+
+
+			      if (std::abs(dPhi) < m_tnpConfig.probe_maxPrimDphi)
+				{ 
+
+				  nTrig[match.id_r - 1]++;
+				  
+				  static_cast<TH2F*>(m_histos[CONT]["sectorVsWheelMB" + chTag + etaTag + IDTag])->Fill(match.id_phi, match.id_eta, weight);
+				  
+				  static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag])->Fill(probeMuTk.Eta(), dtPrim.bxTrackFinder());
+				  
+				  if (bx >= m_tnpConfig.probe_minPrimBX)
+				    {
+				      m_effs[TIMING]["earlyEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Eta());
+				      m_effs[TIMING]["lateEffVsEtaMB" + chTag + std::to_string(wh0Tag) + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Eta());
+				    }
+				  
+				  if ( ( wh0Tag==0 && 
+					 probeMuTk.Eta() >  m_tnpConfig.probe_minEtaBX && 
+					 probeMuTk.Eta() <  m_tnpConfig.probe_maxEtaBX
+					 ) ||
+				       ( wh0Tag==1 && 
+					 probeMuTk.Eta() > -m_tnpConfig.probe_maxEtaBX && 
+					 probeMuTk.Eta() < -m_tnpConfig.probe_minEtaBX
+					 ) 
+				       )
+				    {
+
+				      if(bx < firstBX[match.id_r - 1] &&
+					 bx >= m_tnpConfig.probe_minPrimBX )
+					firstBX[match.id_r - 1] = bx;
+
+				      if(wh0Tag)
+					hasWhFEP[match.id_r - 1] = 1;
+				      else
+					hasWhFEM[match.id_r - 1] = 1;
+					
+				      if(bx == - 1)
+					{
+					  hasBXm1[match.id_r - 1] = 1;
+					  m_histos[TRIG]["phibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(showers[match.id_r - 1])
+					    m_histos[TRIG]["phibTrigBXm1ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					    {
+					      m_histos[TRIG]["highPtPhibTrigBXm1MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					      if(showers[match.id_r - 1])
+						m_histos[TRIG]["highPtPhibTrigBXm1ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					    }
+					}
+				      if(bx == - 2)
+					{
+					  hasBXm2[match.id_r - 1] = 1;
+					  m_histos[TRIG]["phibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(showers[match.id_r - 1])
+					    m_histos[TRIG]["phibTrigBXm2ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					    {
+					      m_histos[TRIG]["highPtPhibTrigBXm2MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					      if(showers[match.id_r - 1])
+						m_histos[TRIG]["highPtPhibTrigBXm2ShowerMB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					    }
+					}
+				      if(bx == 0)
+					{
+					  m_histos[TRIG]["phibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					  if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					    m_histos[TRIG]["highPtPhibTrigBX0MB" + chTag + etaTag + IDTag]->Fill(std::abs(dtPrim.phiB), weight);
+					}
+				      
+				      
+				      if(probeMuTk.Pt() > m_tnpConfig.probe_minHighPt)
+					{
+					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigVsPhiMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Phi(), weight);
+					  static_cast<TH1F*>(m_histos[TIMING]["highPtTrigBxMB" + chTag + etaTag + IDTag])->Fill(bx, weight);					  
+					}
+				      
+				      static_cast<TProfile*>(m_histos[TIMING]["bxTrigVsPtMB" + chTag + etaTag + IDTag])->Fill(probeMuTk.Pt(), bx);
+				      
+				      if (bx >= m_tnpConfig.probe_minPrimBX)
+					{ 					  
+					  m_effs[TIMING]["earlyEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Pt());
+					  m_effs[TIMING]["earlyEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx < 0, probeMuTk.Phi());
+
+					  m_effs[TIMING]["lateEffVsPtMB" + chTag + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Pt());
+					  m_effs[TIMING]["lateEffVsPhiMB" + chTag + etaTag + IDTag]->Fill(bx > 0, probeMuTk.Phi());
+					}
+				      
+				      m_histos[TIMING]["bxTrigMB" + chTag + etaTag + IDTag]->Fill(bx, weight);
+ 				      m_histos[TRIG]["qualTrigMB" + chTag + etaTag + IDTag]->Fill(dtPrim.quality, weight);
+				  
+				    }
+				}
+			    }
+			}
+
+		      m_histos[TRIG]["nTrigMB1" + etaTag + IDTag]->Fill(nTrig[0], weight);
+		      m_histos[TRIG]["nTrigMB2" + etaTag + IDTag]->Fill(nTrig[1], weight);
+		      m_histos[TRIG]["nTrigMB3" + etaTag + IDTag]->Fill(nTrig[2], weight);
+		      m_histos[TRIG]["nTrigMB4" + etaTag + IDTag]->Fill(nTrig[3], weight);
+		      
+		      for (Int_t iChamb = 0; iChamb<4; ++iChamb)
+			{
+			  TString chTag((std::string("MB") + std::to_string(iChamb+1)).c_str());	
+
+			  if (firstBX[iChamb] < 9)
+			    {
+			      m_effs[TIMING]["firstEffVsPt" + chTag + etaTag + IDTag]->Fill( firstBX[iChamb] < 0,probeMuTk.Pt());
+			      m_effs[TIMING]["bxm1EffVsPt"  + chTag+ etaTag + IDTag]->Fill(  hasBXm1[iChamb], probeMuTk.Pt());
+			      m_effs[TIMING]["bxm2EffVsPt"  + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], probeMuTk.Pt());
+			      
+			      m_effs[TIMING]["bxm1EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
+			      m_effs[TIMING]["bxm2EffVsShower" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb] >= m_tnpConfig.probe_minNSeg);
+
+			      m_effs[TIMING]["bxm1EffVsShowerDigi" + chTag + etaTag + IDTag]->Fill( hasBXm1[iChamb], showersAndDigi[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsShowerDigi" + chTag + etaTag + IDTag]->Fill( hasBXm2[iChamb], showersAndDigi[iChamb]);
+
+			      m_effs[TIMING]["bxm1EffVsShowerPiotr" + chTag + etaTag + IDTag]->Fill( hasBXm1[iChamb], showersPiotr[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsShowerPiotr" + chTag + etaTag + IDTag]->Fill( hasBXm2[iChamb], showersPiotr[iChamb]);
+
+			      m_effs[TIMING]["showerEffVsPt"  + chTag+ etaTag + IDTag]->Fill( showers[iChamb] >= m_tnpConfig.probe_minNSeg, probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtDigi"  + chTag+ etaTag + IDTag]->Fill( showersAndDigi[iChamb] , probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtPiotr"  + chTag+ etaTag + IDTag]->Fill( showersPiotr[iChamb]  , probeMuTk.Pt());
+
+			      m_effs[TIMING]["showerEffVsPhi"  + chTag+ etaTag + IDTag]->Fill( showers[iChamb] >= m_tnpConfig.probe_minNSeg, probeMuTk.Phi());
+			      m_effs[TIMING]["showerEffVsPhiDigi"  + chTag+ etaTag + IDTag]->Fill( showersAndDigi[iChamb] , probeMuTk.Phi());
+			      m_effs[TIMING]["showerEffVsPhiPiotr"  + chTag+ etaTag + IDTag]->Fill( showersPiotr[iChamb]  , probeMuTk.Phi());
+
+			      
+			      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
+
+			       
+			      m_effs[TIMING]["bxm1EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsNSeg" + chTag + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
+
+			      if (hasWhFEM[iChamb])
+				{
+				  m_effs[TIMING]["bxm1EffVsEta" + chTag + "0" + etaTag + IDTag]->Fill(hasBXm1[iChamb], probeMuTk.Eta());
+				  m_effs[TIMING]["bxm2EffVsEta" + chTag + "0" + etaTag + IDTag]->Fill(hasBXm2[iChamb], probeMuTk.Eta());
+				}
+			      if (hasWhFEP[iChamb])
+				{
+				  m_effs[TIMING]["bxm1EffVsEta" + chTag + "1" + etaTag + IDTag]->Fill(hasBXm1[iChamb], probeMuTk.Eta());
+				  m_effs[TIMING]["bxm2EffVsEta" + chTag + "1" + etaTag + IDTag]->Fill(hasBXm2[iChamb], probeMuTk.Eta());
+				}
+			      m_effs[TIMING]["bxm1EffVsPhi" + chTag + etaTag + IDTag]->Fill( hasBXm1[iChamb], probeMuTk.Phi());
+			      m_effs[TIMING]["bxm2EffVsPhi" + chTag + etaTag + IDTag]->Fill( hasBXm2[iChamb], probeMuTk.Phi());
+			      
+			      m_effs[TIMING]["bxm1EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm1[iChamb], probeMuTk.Pt());
+			      m_effs[TIMING]["bxm2EffVsPtAll" + etaTag + IDTag]->Fill(  hasBXm2[iChamb], probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtAll" + etaTag + IDTag]->Fill(  showers[iChamb] >= m_tnpConfig.probe_minNSeg, probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtDigiAll" + etaTag + IDTag]->Fill( showersAndDigi[iChamb], probeMuTk.Pt());
+			      m_effs[TIMING]["showerEffVsPtPiotrAll" + etaTag + IDTag]->Fill( showersPiotr[iChamb],  probeMuTk.Pt());
+			      m_effs[TIMING]["bxm1EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm1[iChamb], showers[iChamb]);
+			      m_effs[TIMING]["bxm2EffVsNSegAll" + etaTag + IDTag]->Fill(  hasBXm2[iChamb], showers[iChamb]);
+			      if (hasWhFEM[iChamb])
+				{
+				  m_effs[TIMING]["bxm1EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm1[iChamb], probeMuTk.Eta());
+				  m_effs[TIMING]["bxm2EffVsEtaAll0" + etaTag + IDTag]->Fill(hasBXm2[iChamb], probeMuTk.Eta());
+				}
+			      if (hasWhFEP[iChamb])
+				{
+				  m_effs[TIMING]["bxm1EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm1[iChamb], probeMuTk.Eta());
+				  m_effs[TIMING]["bxm2EffVsEtaAll1" + etaTag + IDTag]->Fill(hasBXm2[iChamb], probeMuTk.Eta());
+				}
+			      m_effs[TIMING]["bxm1EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm1[iChamb], probeMuTk.Phi());
+			      m_effs[TIMING]["bxm2EffVsPhiAll" + etaTag + IDTag]->Fill( hasBXm2[iChamb], probeMuTk.Phi());
+			      
+			    }
+			}
+		    }
+		}
+	    }
+	}
+    }
+}
+
+
+//Functions
+void muon_pog::parseConfig(const std::string configFile, muon_pog::TagAndProbeConfig & tpConfig,
+			   std::vector<muon_pog::SampleConfig> & sampleConfigs)
+{
+
+  boost::property_tree::ptree pt;
+  
+  try
+    {
+      boost::property_tree::ini_parser::read_ini(configFile, pt);
+    }
+  catch (boost::property_tree::ini_parser::ini_parser_error iniParseErr)
+    {
+      std::cout << "[TagAndProbeConfig] Can't open : " << iniParseErr.filename()
+		<< "\n\tin line : " << iniParseErr.line()
+		<< "\n\thas error :" << iniParseErr.message()
+		<< std::endl;
+      throw std::runtime_error("Bad INI parsing");
+    }
+
+  for( auto vt : pt )
+    {
+      if (vt.first.find("TagAndProbe") != std::string::npos)
+	tpConfig = muon_pog::TagAndProbeConfig(vt);
+      else
+	sampleConfigs.push_back(muon_pog::SampleConfig(vt));
+    }
+}
