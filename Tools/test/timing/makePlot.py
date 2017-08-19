@@ -145,7 +145,8 @@ for keyPlot in config:
                 histo.GetYaxis().SetTitle(plotY[2])
             else:
                 histo.Scale(1./histo.Integral())
-                histo.GetYaxis().SetRangeUser(0.0, histograms[iHisto].GetMaximum() * 1.5)
+                histo.GetYaxis().SetRangeUser(0.0, histograms[iHisto].GetMaximum() * 2.5)
+                #histo.GetYaxis().SetRangeUser(0.0, 0.25)
                 histo.GetXaxis().SetTitle(histoName)
                 histo.GetXaxis().SetTitle(plotX[2])
 
