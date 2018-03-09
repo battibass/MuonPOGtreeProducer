@@ -57,6 +57,30 @@ namespace muon_pog {
     ClassDef(METs,1)
   };
 
+  class DtDigiSummary {
+
+  public:
+
+    Int_t n_phi1[4];  // all chamber, 50 cm, 25 cm, 15 cm distance of wire position w.r.t. muon
+    Int_t n_theta[4];
+    Int_t n_phi2[4];
+
+    DtDigiSummary()
+      { 
+	for (int iType =0; iType < 4; ++iType) 
+	  {
+	    n_phi1[iType]  = 0;
+	    n_theta[iType] = 0;
+	    n_phi2[iType]  = 0;
+	  }
+      };
+
+    virtual ~DtDigiSummary(){};
+
+    ClassDef(DtDigiSummary,1)
+
+  };
+
   enum MuonDetType { DT=0, CSC, RPC };
 
   class ChambMatch {
@@ -88,29 +112,12 @@ namespace muon_pog {
 
     std::vector<std::size_t> trigIndexes;
 
+    DtDigiSummary dtDigi;
+
     ChambMatch(){};
     virtual ~ChambMatch(){};
     
-    ClassDef(ChambMatch,5)
-  };
-
-  class DtDigiSummary {
-
-  public:
-
-    Int_t id_r;   // station/disk
-    Int_t id_phi; // sector
-    Int_t id_eta; // ring/wheel
-
-    Int_t n_phi1; 
-    Int_t n_theta;
-    Int_t n_phi2;
-
-    DtDigiSummary(){};
-    virtual ~DtDigiSummary(){};
-
-    ClassDef(DtDigiSummary,1)
-
+    ClassDef(ChambMatch,10)
   };
 
   class MuonSegment {
@@ -355,7 +362,7 @@ namespace muon_pog {
       return fits.at(type).ptErr;
     };
 
-    ClassDef(Muon,5)
+    ClassDef(Muon,7)
   };
 
   class MuonPair {
@@ -496,7 +503,6 @@ namespace muon_pog {
     std::vector<muon_pog::GenParticle> genParticles; // venctor of genParticles size=0 in data
     std::vector<muon_pog::Muon> muons; // vector of muons
     std::vector<muon_pog::MuonPair> pairs; // vector of muon pairs
-    std::vector<muon_pog::DtDigiSummary> dtDigis; // vector of DT digi counters
     std::vector<muon_pog::MuonSegment> dtSegments; // vector of DT segments
     std::vector<muon_pog::MuonSegment> cscSegments; // vector of CSC segments
     std::vector<muon_pog::TriggerPrimitive> dtPrimitives; // vector of DT trigger primitives
@@ -507,7 +513,7 @@ namespace muon_pog {
     Event(){};
     virtual ~Event(){};
 
-    ClassDef(Event,11)
+    ClassDef(Event,12)
   };
 
 }

@@ -119,7 +119,9 @@ private:
 
   void fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer> &);
 
-  void fillDtDigis(const edm::Handle<DTDigiCollection> &);
+  void fillDtDigis(const edm::Handle<DTDigiCollection> &,
+		   const edm::ESHandle<DTGeometry> &,
+		   std::vector<muon_pog::Muon> &);
 
   void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
 			    const edm::ESHandle<TransientTrackBuilder> &);
@@ -308,7 +310,6 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 
   event_.dtSegments.clear();
   event_.dtPrimitives.clear();
-  event_.dtDigis.clear();
 
   event_.cscSegments.clear();
   
@@ -397,17 +398,6 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 	edm::LogError("") << "[MuonPogTreeProducer]: Trigger collections do not exist !!!";
     }
   
-  //Fill DT trigger phi information
-  edm::Handle<DTDigiCollection> dtDigis;
-  if (!dtDigiToken_.isUninitialized() )
-    {
-        if (!ev.getByToken(dtDigiToken_,dtDigis))
-	  edm::LogError("") << "[MuonPogTreeProducer] DT digis collection does not exist !!!";
-        else {
-            fillDtDigis(dtDigis);
-        }
-    }
-
   // Fill DT segment information
   if (!dtSegmentToken_.isUninitialized() && dtGeom.isValid()) 
     {     
@@ -531,6 +521,18 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
       dtGeom.isValid()  && cscGeom.isValid() ) 
     {
       nGoodMuons = fillMuons(muons,vertexes,beamSpot,dtGeom,cscGeom,badMuons,cloneMuons);
+
+      //Fill DT trigger phi information
+      edm::Handle<DTDigiCollection> dtDigis;
+      if (!dtDigiToken_.isUninitialized() )
+	{
+	  if (!ev.getByToken(dtDigiToken_,dtDigis))
+	    edm::LogError("") << "[MuonPogTreeProducer] DT digis collection does not exist !!!";
+	  else {
+            fillDtDigis(dtDigis,dtGeom,event_.muons);
+	  }
+	}
+
     }
   eventId_.nMuons = nGoodMuons;
 
@@ -741,10 +743,10 @@ void MuonPogTreeProducer::fillDtTrigPhi(const edm::Handle<L1MuDTChambPhContainer
     }
 
 }
-void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDigis)
+void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDigis,
+				      const edm::ESHandle<DTGeometry> & dtGeom,
+				      std::vector<muon_pog::Muon> & ntupleMuons)
 {
-
-  std::map<uint32_t,muon_pog::DtDigiSummary> ntupleDigiMap;
 
   DTDigiCollection::DigiRangeIterator dtLayerIdIt  = dtDigis->begin();
   DTDigiCollection::DigiRangeIterator dtLayerIdEnd = dtDigis->end();
@@ -752,37 +754,54 @@ void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDi
   for (; dtLayerIdIt!=dtLayerIdEnd; ++dtLayerIdIt)
     {
 
-      uint32_t rawId = (*dtLayerIdIt).first.chamberId().rawId();
-
-      if (ntupleDigiMap.find(rawId) == ntupleDigiMap.end())
+      for (auto & ntupleMuon : ntupleMuons)
 	{
 
-	  muon_pog::DtDigiSummary ntupleDigi;
+	  for (auto & ntupleMatch : ntupleMuon.matches)
+	    {
 
-	  ntupleDigi.n_phi1  = 0;
-	  ntupleDigi.n_phi2  = 0;
-	  ntupleDigi.n_theta = 0;
-	  
-	  ntupleDigi.id_r   = (*dtLayerIdIt).first.station();
-	  ntupleDigi.id_eta = (*dtLayerIdIt).first.wheel();
-	  ntupleDigi.id_phi = (*dtLayerIdIt).first.sector();
+	      if (ntupleMatch.type == muon_pog::MuonDetType::DT         &&
+		  ntupleMatch.id_r    == (*dtLayerIdIt).first.station() &&
+		  ntupleMatch.id_eta  == (*dtLayerIdIt).first.wheel()   &&
+		  ntupleMatch.id_phi  == (*dtLayerIdIt).first.sector())
+		
+		{
+		  DTDigiCollection::const_iterator digiIt = (*dtLayerIdIt).second.first;
 
-	  ntupleDigiMap[rawId] = ntupleDigi;
-	  
+		  for (;digiIt!=(*dtLayerIdIt).second.second; ++digiIt)
+		    {
+		      (*dtLayerIdIt).first.superLayer() == 1 && ntupleMatch.dtDigi.n_phi1[0]++;
+		      (*dtLayerIdIt).first.superLayer() == 2 && ntupleMatch.dtDigi.n_theta[0]++;
+		      (*dtLayerIdIt).first.superLayer() == 3 && ntupleMatch.dtDigi.n_phi2[0]++;
+		      
+		      const auto topo = dtGeom->layer((*dtLayerIdIt).first)->specificTopology();
+		      Float_t xWire = topo.wirePosition((*digiIt).wire());
+
+		      Float_t dX = std::abs(ntupleMatch.x - xWire);
+
+		      if (dX < 50.)
+			{
+			  (*dtLayerIdIt).first.superLayer() == 1 && ntupleMatch.dtDigi.n_phi1[1]++;
+			  (*dtLayerIdIt).first.superLayer() == 2 && ntupleMatch.dtDigi.n_theta[1]++;
+			  (*dtLayerIdIt).first.superLayer() == 3 && ntupleMatch.dtDigi.n_phi2[1]++;
+			}
+		      if (dX < 25.)
+			{
+			  (*dtLayerIdIt).first.superLayer() == 1 && ntupleMatch.dtDigi.n_phi1[2]++;
+			  (*dtLayerIdIt).first.superLayer() == 2 && ntupleMatch.dtDigi.n_theta[2]++;
+			  (*dtLayerIdIt).first.superLayer() == 3 && ntupleMatch.dtDigi.n_phi2[2]++;
+			}
+		      if (dX < 15.)
+			{
+			  (*dtLayerIdIt).first.superLayer() == 1 && ntupleMatch.dtDigi.n_phi1[3]++;
+			  (*dtLayerIdIt).first.superLayer() == 2 && ntupleMatch.dtDigi.n_theta[3]++;
+			  (*dtLayerIdIt).first.superLayer() == 3 && ntupleMatch.dtDigi.n_phi2[3]++;
+			}
+		    }
+		}
+	    }
 	}
-
-      DTDigiCollection::const_iterator digiIt = (*dtLayerIdIt).second.first;
-
-	for (;digiIt!=(*dtLayerIdIt).second.second; ++digiIt)
-	  {
-	    (*dtLayerIdIt).first.superLayer() == 1 && ntupleDigiMap[rawId].n_phi1++;
-	    (*dtLayerIdIt).first.superLayer() == 2 && ntupleDigiMap[rawId].n_theta++;
-	    (*dtLayerIdIt).first.superLayer() == 3 && ntupleDigiMap[rawId].n_phi2++;
-	  }
     }
-
-  for (const auto & ntupleDigiMapPair : ntupleDigiMap)
-    event_.dtDigis.push_back(ntupleDigiMapPair.second);
 
 }
 
@@ -1124,7 +1143,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		{
 		  
 		  if(type   == ntupleMatch.type   &&
-             id_r   == ntupleMatch.id_r   &&
+		     id_r   == ntupleMatch.id_r   &&
 		     id_eta == ntupleMatch.id_eta &&
 		     id_phi == ntupleMatch.id_phi )
 		    {
