@@ -4,10 +4,10 @@ Muon POG tree producer
 ## Installation instructions
 
 ```bash
-cmsrel CMSSW_8_0_20 # Just an example release, works in CMSSW >= 74X at present 
-cd CMSSW_8_0_20/src/
+cmsrel CMSSW_9_4_4 
+cd CMSSW_9_4_4/src/
 
-git clone git@github.com:cms-MuonPOG/MuonPOGtreeProducer.git
+git clone git@github.com:battibass/MuonPOGtreeProducer.git
 
 cmsenv
 
