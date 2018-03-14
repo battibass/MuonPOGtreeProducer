@@ -21,7 +21,7 @@ config.JobType.pyCfgParams = ['globalTag=94X_dataRun2_ReReco_EOY17_v2',
 config.JobType.allowUndistributedCMSSW = True  # To fix cmssw releases
 
 config.section_('Data')
-config.Data.inputDataset = '/SingleMuon/Run2017E-ZMu-17Nov2017-v1/RAW-RECO'
+config.Data.inputDataset = '/SingleMuon/Run2017F-ZMu-17Nov2017-v1/RAW-RECO'
 
 config.Data.lumiMask = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'
 
