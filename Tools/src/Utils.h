@@ -29,6 +29,16 @@ namespace muon_pog
     return sqrt(deta*deta + dphi*dphi);
   }
 
+  // The names says it all
+  double deltaPhi(double phi1, double phi2)
+  {
+    double dphi = phi1 - phi2;
+    while (dphi > TMath::Pi()) dphi -= 2*TMath::Pi();
+    while (dphi <= -TMath::Pi()) dphi += 2*TMath::Pi();
+    
+    return dphi;
+  }
+
     
   // Check if a muon_pog::Muon passes a given ID (embedded using official selectors)
   // Valid IDs are GLOBAL, TRACKER, SOFT, LOOSE, MEDIUM, TIGHT, HIGHPT
@@ -60,13 +70,13 @@ namespace muon_pog
 		      const std::string & trackType)
   {
 
-    if (trackType == "PF")         return muon.fits.at(muons_pog::MuonFitType::DEFAULT).charge;
-    else if (trackType == "TUNEP") return muon.fits.at(muons_pog::MuonFitType::TUNEP).charge;
-    else if (trackType == "GLB")   return muon.fits.at(muons_pog::MuonFitType::GLB).charge;
-    else if (trackType == "INNER") return muon.fits.at(muons_pog::MuonFitType::INNER).charge;
-    else if (trackType == "PICKY") return muon.fits.at(muons_pog::MuonFitType::PICKY).charge;
-    else if (trackType == "DYT") return muon.fits.at(muons_pog::MuonFitType::DYT).charge;
-    else if (trackType == "TPFMS") return muon.fits.at(muons_pog::MuonFitType::TPFMS).charge;
+    if (trackType == "PF")         return muon.fits.at(muon_pog::MuonFitType::DEFAULT).charge;
+    else if (trackType == "TUNEP") return muon.fits.at(muon_pog::MuonFitType::TUNEP).charge;
+    else if (trackType == "GLB")   return muon.fits.at(muon_pog::MuonFitType::GLB).charge;
+    else if (trackType == "INNER") return muon.fits.at(muon_pog::MuonFitType::INNER).charge;
+    else if (trackType == "PICKY") return muon.fits.at(muon_pog::MuonFitType::PICKY).charge;
+    else if (trackType == "DYT") return muon.fits.at(muon_pog::MuonFitType::DYT).charge;
+    else if (trackType == "TPFMS") return muon.fits.at(muon_pog::MuonFitType::TPFMS).charge;
       
     else
       {
@@ -89,19 +99,19 @@ namespace muon_pog
     TLorentzVector result;
     muon_pog::MuonFit fit;
     if (trackType == "PF")
-      fit = muon.fits.at(muons_pog::MuonFitType::DEFAULT)
+      fit = muon.fits.at(muon_pog::MuonFitType::DEFAULT);
     else if (trackType == "TUNEP")
-      fit = muon.fits.at(muons_pog::MuonFitType::TUNEP)
+      fit = muon.fits.at(muon_pog::MuonFitType::TUNEP);
     else if (trackType == "GLB")
-      fit = muon.fits.at(muons_pog::MuonFitType::GLB)
+      fit = muon.fits.at(muon_pog::MuonFitType::GLB);
     else if (trackType == "INNER")
-      fit = muon.fits.at(muons_pog::MuonFitType::INNER)
+      fit = muon.fits.at(muon_pog::MuonFitType::INNER);
     else if (trackType == "PICKY")
-      fit = muon.fits.at(muons_pog::MuonFitType::PICKY)
+      fit = muon.fits.at(muon_pog::MuonFitType::PICKY);
     else if (trackType == "DYT")
-      fit = muon.fits.at(muons_pog::MuonFitType::DYT)
+      fit = muon.fits.at(muon_pog::MuonFitType::DYT);
     else if (trackType == "TPFMS")
-      fit = muon.fits.at(muons_pog::MuonFitType::TPFMS)
+      fit = muon.fits.at(muon_pog::MuonFitType::TPFMS);
     else
       {
 	std::cout << "[Plotter::muonTk]: Invalid track type: "
@@ -288,10 +298,276 @@ namespace muon_pog
 
 
   
+//**********************************************
+// Helper functions for high-pT analysis studies
+//**********************************************
+  
+  bool isTkRelIsolated(const muon_pog::Muon & muon,
+		       const muon_pog::MuonFitType trackType = muon_pog::MuonFitType::INNER,
+		       const Float_t cut = 0.1)
+  {
+    
+    // if a refit is not present the pT is -1000
+    if (muon.fitPt(trackType) < 0)
+      {
+	std::cout << "[isTkRelIsolated]: Track type: "
+		  << trackType << " has non valid value" << std::endl;
+	exit(900);
+      }
+    
+    bool result = (muon.trackerIso / muon.fitPt(trackType)) < cut;
+    
+    return result;
+    
+  }
+
+
+
+  bool isPFRelIsolated(const muon_pog::Muon & muon,
+		       const muon_pog::MuonFitType trackType = muon_pog::MuonFitType::INNER,
+		       const Float_t cut = 0.1)
+  {
+    
+    // if a refit is not present the pT is -1000
+    if (muon.fitPt(trackType) < 0)
+      {
+	std::cout << "[isTkRelIsolated]: Track type: "
+		  << trackType << " has non valid value" << std::endl;
+	exit(900);
+      }
+    
+    bool result = ((muon.isoPflow04*muon.pt) / muon.fitPt(trackType)) < cut;
+    
+    return result;
+    
+  }
 
   
+  bool hasGoodTrackCuts(const muon_pog::Muon & muon)
+  {
+    
+    bool result =
+      muon.trkPixelValidHits > 0 &&
+      muon.trkTrackerLayersWithMeas > 5;
+    
+    return result;
+    
+  }
+
+
+  bool hasGoodTrackCutsTight(const muon_pog::Muon & muon)
+  {
+    
+    bool result =
+      muon.trkTrackerLostHits == 0 &&
+      muon.trkPixelValidHits > 1 &&
+      muon.trkTrackerLayersWithMeas > 6;
+    
+    return result;
+    
+  }
+  
+
+  bool hasGoodMuonCuts(const muon_pog::Muon & muon)
+  {
+    
+    // TUNE-P should be there if the muon is global
+    if (muon.isGlobal && muon.fitPt(muon_pog::MuonFitType::TUNEP) < 0)
+      {
+	std::cout << "[hasGoodMuonCuts]: TUNEP  has non valid value but the muon is global!"
+		  << std::endl;
+	exit(900);
+      }
+    
+    bool result =
+      muon.isGlobal &&
+      muon.glbMuonValidHits > 0 &&
+      //muon.trkMuonMatchedStations > 1 &&
+      muon.trkMuonZPrimeMatchedStations &&
+      ( muon.fitPtErr(muon_pog::MuonFitType::TUNEP) /
+	muon.fitPt(muon_pog::MuonFitType::TUNEP)      ) < 0.3;
+    
+    return result;
+    
+  }
+  
+  bool isHighPtNoVtx(const muon_pog::Muon & muon)
+  {
+
+    bool result =
+      hasGoodTrackCuts(muon) &&
+      hasGoodMuonCuts(muon)  &&
+      isTkRelIsolated(muon,muon_pog::MuonFitType::TUNEP);
+    
+    return result;
+    
+  }
+  
+  // The dR matching default is set to 0.2 to be consistent with the analysis cuts
+  // (infor from Giovanni), it can easily be tighten of, at least, a factor of 2
+  bool isTag(const muon_pog::Muon & muon,
+	     const muon_pog::HLT  & hlt,
+	     std::vector<std::string> filters,
+	     Float_t dR = 0.2)
+  {
+    
+    if (!isHighPtNoVtx(muon))
+      return false;
+    
+    for (auto & filter : filters)
+      {
+	if (hasFilterMatch(muon, hlt, filter, dR))
+	  return true;
+      }
+    
+    return false;
+
+  }
+
+
+  // TAGs should use TUNEP track and probes INNER
+  // but I do not know who is a TAG and who is a PROBE here
+  bool isPairOS(const muon_pog::MuonPair & pair,
+		const std::vector<muon_pog::Muon> & muons,
+		const muon_pog::MuonFitType trackType1,
+		const muon_pog::MuonFitType trackType2)
+  {
+    // just a sanity cut as value for non filled objects is - 1000
+    if ( pair.getMu(1, muons).fitPt(trackType1) < 0 ||
+	 pair.getMu(2, muons).fitPt(trackType2) < 0 )
+      {
+	std::cout << "[isPairOS]: one of the two fit pTs is not valid"
+		  << std::endl;
+	exit(900);
+      }
+    
+    bool result =
+      ( pair.getMu(1, muons).fitCharge(trackType1) *
+	pair.getMu(2, muons).fitCharge(trackType2) ) < 0.;
+    
+    return result;
+    
+  }
+
+
+  bool isPairCloseToBS(const muon_pog::MuonPair & pair,
+		       const std::vector<muon_pog::Muon> & muons,
+		       const Float_t cut = 0.2)
+  {
+    
+    const muon_pog::Muon & mu1 = pair.getMu(1, muons);
+    const muon_pog::Muon & mu2 = pair.getMu(2, muons);
+
+    // just a sanity cut as value for non filled objects is - 1000
+    if (mu1.dxybs < -990 || mu2.dxybs < -990)
+      {
+	std::cout << "[isPairCloseToBS]: dxy wrt BS is not valid"
+		  << std::endl;
+	exit(900);
+      }
+    
+    bool result =
+      std::abs(mu1.dxybs) < cut &&
+      std::abs(mu2.dxybs) < cut;
+
+    return result;
+
+  }
+  
+  
+  bool isPairCloseToPV(const muon_pog::MuonPair & pair,
+		       const std::vector<muon_pog::Muon> & muons,
+		       const Float_t cut = 0.2)
+  {
+    
+    const muon_pog::Muon & mu1 = pair.getMu(1, muons);
+    const muon_pog::Muon & mu2 = pair.getMu(2, muons);
+    
+    // just a sanity cut as value for non filled objects is - 1000
+    if (mu1.dxyInner < -990 || mu2.dxyInner < -990)
+      {
+	std::cout << "[isPairCloseToPV]: dxy wrt PF for inner track is not valid"
+		  << std::endl;
+	exit(900);
+      }
+    
+    bool result =
+      std::abs(mu1.dxyInner) < cut &&
+      std::abs(mu2.dxyInner) < cut;
+    
+    return result;
+    
+  }
+  
+  Float_t pairDZ(const muon_pog::MuonPair & pair,
+		 const std::vector<muon_pog::Muon> & muons)
+  {
+    
+    const muon_pog::Muon & mu1 = pair.getMu(1, muons);
+    const muon_pog::Muon & mu2 = pair.getMu(2, muons);
+    
+    // just a sanity cut as value for non filled objects is - 1000
+    if ((mu1.dzbs < -990 || mu2.dzbs < -990))
+      {
+	std::cout << "[pairDZ]: dZ wrt BS is not valid"
+		  << std::endl;
+	exit(900);
+      }
+    
+    Float_t result = mu1.dzbs - mu2.dzbs;
+    
+    return result;
+    
+  }
+  
+  Float_t absPair3DAngle(const muon_pog::MuonPair & pair,
+			 const std::vector<muon_pog::Muon> & muons)
+  {
+    
+    const muon_pog::Muon & mu1 = pair.getMu(1, muons);
+    const muon_pog::Muon & mu2 = pair.getMu(2, muons);
+    
+    // just a sanity cut as value for non filled objects is - 1000
+    if (mu1.fitPt(muon_pog::MuonFitType::INNER) < 0 ||
+	mu2.fitPt(muon_pog::MuonFitType::INNER) < 0 )
+      {
+	std::cout << "[pair3DAngle]: one of the muons in the pair has no valid inner track"
+		  << std::endl;
+	exit(900);
+      }
+    
+    auto muTk1 = muonTk(mu1,"INNER");
+    auto muTk2 = muonTk(mu2,"INNER");
+    
+    Float_t result = std::abs(muTk1.Angle(muTk2.Vect()));
+    
+    return result;
+    
+  }
+  
+
+  //check if is OOT muon
+  bool isOOT(const muon_pog::Muon & muon)
+  {
+    bool veto = false; // default is in-time muon
+    bool cmbok =(muon.muonTimeDof>7); //combined dt+csc
+    bool rpcok =(muon.muonRpcTimeDof>1 && muon.muonRpcTimeErr==0); //rpc
+    if (rpcok){
+      if ((fabs(muon.muonRpcTime)>10) && !(cmbok && fabs(muon.muonTime)<10))
+	veto = 1;
+    }
+    else if (cmbok && (muon.muonTime>20 || muon.muonTime<-45))
+      veto = 1;
+    
+    return veto;
+    
+    
+    
+  }
+
+
 }
-
+  
 #endif
-
+  
 
