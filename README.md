@@ -7,7 +7,7 @@ Muon POG tree producer
 cmsrel CMSSW_9_4_4 
 cd CMSSW_9_4_4/src/
 
-git clone git@github.com:battibass/MuonPOGtreeProducer.git
+git clone git@github.com:battibass/MuonPOGtreeProducer.git -b 94X_powermatches
 
 cmsenv
 
