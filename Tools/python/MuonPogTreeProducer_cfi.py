@@ -8,6 +8,8 @@ MuonPogTree = cms.EDAnalyzer("MuonPogTreeProducer",
                              TrigPathCut   = cms.untracked.string("all"),
 
                              dtDigiTag        = cms.untracked.InputTag("none"),
+                             cscWireDigiTag   = cms.untracked.InputTag("none"),
+                             cscStripDigiTag  = cms.untracked.InputTag("none"),
                              DTSegmentTag     = cms.untracked.InputTag("dt4DSegments"),
                              CSCSegmentTag    = cms.untracked.InputTag("cscSegments"),
                              MuonTag          = cms.untracked.InputTag("muons"),

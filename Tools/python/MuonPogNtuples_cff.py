@@ -26,12 +26,18 @@ def appendMuonPogNtuple(process, runOnMC, \
         process.load("EventFilter.L1TXRawToDigi.twinMuxStage2Digis_cfi")
         process.MuonPogTree.dtTrigPhiTag = cms.untracked.InputTag("twinMuxStage2Digis","PhIn")
 
-        process.load("EventFilter.DTRawToDigi.dtunpacker_cfi")
+        process.load("Configuration/StandardSequences/RawToDigi_cff")
+
         process.muonDTDigis.inputLabel = cms.InputTag('rawDataCollector')
         process.MuonPogTree.dtDigiTag = cms.untracked.InputTag("muonDTDigis")
+
+        process.muonDTDigis.inputLabel = cms.InputTag('rawDataCollector')
+        process.MuonPogTree.cscWireDigiTag = cms.untracked.InputTag("muonCSCDigis","MuonCSCWireDigi")
+        process.MuonPogTree.cscStripDigiTag = cms.untracked.InputTag("muonCSCDigis","MuonCSCStripDigi")
         
         process.muonPogNtuple.replace(process.MuonPogTree, process.twinMuxStage2Digis + \
-                                                           process.muonDTDigis + \
+                                                           process.muonDTDigis  + \
+                                                           process.muonCSCDigis + \
                                                            process.MuonPogTree)
         
     if hasMuonTagger :

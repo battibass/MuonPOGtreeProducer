@@ -12,6 +12,7 @@
 #pragma link C++ class muon_pog::MuonPair+;
 #pragma link C++ class muon_pog::MuonSegment+;
 #pragma link C++ class muon_pog::DtDigiSummary+;
+#pragma link C++ class muon_pog::CscDigiSummary+;
 #pragma link C++ class muon_pog::TriggerPrimitive+;
 #pragma link C++ class muon_pog::L1Muon+;
 #pragma link C++ class muon_pog::HLT+;
@@ -25,6 +26,7 @@
 #pragma link C++ class std::vector<muon_pog::MuonPair>+;
 #pragma link C++ class std::vector<muon_pog::MuonSegment>+;
 #pragma link C++ class std::vector<muon_pog::DtDigiSummary>+;
+#pragma link C++ class std::vector<muon_pog::CscDigiSummary>+;
 #pragma link C++ class std::vector<muon_pog::TriggerPrimitive>+;
 #pragma link C++ class std::vector<muon_pog::HLTObject>+;
 #pragma link C++ class std::vector<muon_pog::ChambMatch>+;

@@ -81,6 +81,28 @@ namespace muon_pog {
 
   };
 
+  class CscDigiSummary {
+
+  public:
+
+    Int_t n_strip[4];  // all chamber, 50 cm, 25 cm, 15 cm distance of wire position w.r.t. muon
+    Int_t n_wire[4];
+
+    CscDigiSummary()
+      { 
+	for (int iType =0; iType < 4; ++iType) 
+	  {
+	    n_strip[iType]  = 0;
+	    n_wire[iType] = 0;
+	  }
+      };
+
+    virtual ~CscDigiSummary(){};
+
+    ClassDef(CscDigiSummary,1)
+
+  };
+
   enum MuonDetType { DT=0, CSC, RPC };
 
   class ChambMatch {
@@ -112,12 +134,13 @@ namespace muon_pog {
 
     std::vector<std::size_t> trigIndexes;
 
-    DtDigiSummary dtDigi;
+    DtDigiSummary  dtDigi;
+    CscDigiSummary cscDigi;
 
     ChambMatch(){};
     virtual ~ChambMatch(){};
     
-    ClassDef(ChambMatch,10)
+    ClassDef(ChambMatch,11)
   };
 
   class MuonSegment {
@@ -362,7 +385,7 @@ namespace muon_pog {
       return fits.at(type).ptErr;
     };
 
-    ClassDef(Muon,7)
+    ClassDef(Muon,9)
   };
 
   class MuonPair {

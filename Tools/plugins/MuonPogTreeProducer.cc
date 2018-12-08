@@ -33,6 +33,12 @@
 #include "DataFormats/DTDigi/interface/DTDigi.h"
 #include "DataFormats/DTDigi/interface/DTDigiCollection.h"
 
+#include "DataFormats/CSCDigi/interface/CSCWireDigi.h"
+#include "DataFormats/CSCDigi/interface/CSCWireDigiCollection.h"
+
+#include "DataFormats/CSCDigi/interface/CSCStripDigi.h"
+#include "DataFormats/CSCDigi/interface/CSCStripDigiCollection.h"
+
 #include "DataFormats/DTRecHit/interface/DTRecSegment4DCollection.h"
 #include "DataFormats/CSCRecHit/interface/CSCSegmentCollection.h"
 
@@ -123,6 +129,11 @@ private:
 		   const edm::ESHandle<DTGeometry> &,
 		   std::vector<muon_pog::Muon> &);
 
+  void fillCscDigis(const edm::Handle<CSCWireDigiCollection> &,
+		    const edm::Handle<CSCStripDigiCollection> &,
+		    const edm::ESHandle<CSCGeometry> &,
+		    std::vector<muon_pog::Muon> &);
+
   void fillMuonPairVertexes(const edm::Handle<edm::View<reco::Muon> > &,
 			    const edm::ESHandle<TransientTrackBuilder> &);
      
@@ -176,8 +187,10 @@ private:
     
   edm::EDGetTokenT<L1MuDTChambPhContainer> dtTrigPhiToken_;
   edm::EDGetTokenT<l1t::MuonBxCollection> l1Token_;
-  edm::EDGetTokenT<DTDigiCollection> dtDigiToken_;
 
+  edm::EDGetTokenT<CSCWireDigiCollection>  cscWireDigiToken_;
+  edm::EDGetTokenT<CSCStripDigiCollection> cscStripDigiToken_;
+  edm::EDGetTokenT<DTDigiCollection> dtDigiToken_;
 
   Float_t m_minMuPtCut;
   Int_t m_minNMuCut;
@@ -243,6 +256,12 @@ MuonPogTreeProducer::MuonPogTreeProducer( const edm::ParameterSet & cfg )
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("ScalersTag", edm::InputTag("scalersRawToDigi"));
   if (tag.label() != "none") scalersToken_ = consumes<LumiScalersCollection>(tag);
+
+  tag = cfg.getUntrackedParameter<edm::InputTag>("cscWireDigiTag", edm::InputTag("none"));
+  if (tag.label() != "none") cscWireDigiToken_ = consumes<CSCWireDigiCollection>(tag);
+
+  tag = cfg.getUntrackedParameter<edm::InputTag>("cscStripDigiTag", edm::InputTag("none"));
+  if (tag.label() != "none") cscStripDigiToken_ = consumes<CSCStripDigiCollection>(tag);
 
   tag = cfg.getUntrackedParameter<edm::InputTag>("dtDigiTag", edm::InputTag("none"));
   if (tag.label() != "none") dtDigiToken_ = consumes<DTDigiCollection>(tag);
@@ -522,7 +541,7 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
     {
       nGoodMuons = fillMuons(muons,vertexes,beamSpot,dtGeom,cscGeom,badMuons,cloneMuons);
 
-      //Fill DT trigger phi information
+      //Fill DT digi information
       edm::Handle<DTDigiCollection> dtDigis;
       if (!dtDigiToken_.isUninitialized() )
 	{
@@ -531,6 +550,19 @@ void MuonPogTreeProducer::analyze (const edm::Event & ev, const edm::EventSetup 
 	  else {
             fillDtDigis(dtDigis,dtGeom,event_.muons);
 	  }
+	}
+
+      //Fill CSC digi information
+      edm::Handle<CSCWireDigiCollection>  cscWireDigis;
+      edm::Handle<CSCStripDigiCollection> cscStripDigis;
+      if (!cscWireDigiToken_.isUninitialized() ||
+	  !cscStripDigiToken_.isUninitialized() )
+	{
+	  if (ev.getByToken(cscWireDigiToken_,cscWireDigis) &&
+	      ev.getByToken(cscStripDigiToken_,cscStripDigis) )
+            fillCscDigis(cscWireDigis,cscStripDigis,cscGeom,event_.muons);
+	  else
+	    edm::LogError("") << "[MuonPogTreeProducer] CSC digis collection does not exist !!!";
 	}
 
     }
@@ -797,6 +829,121 @@ void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDi
 			  (*dtLayerIdIt).first.superLayer() == 2 && ntupleMatch.dtDigi.n_theta[3]++;
 			  (*dtLayerIdIt).first.superLayer() == 3 && ntupleMatch.dtDigi.n_phi2[3]++;
 			}
+		    }
+		}
+	    }
+	}
+    }
+
+}
+
+
+void MuonPogTreeProducer::fillCscDigis(const edm::Handle<CSCWireDigiCollection>  & cscWireDigis,
+				       const edm::Handle<CSCStripDigiCollection> & cscStripDigis,
+				       const edm::ESHandle<CSCGeometry> & cscGeom,
+				       std::vector<muon_pog::Muon> & ntupleMuons)
+{
+
+  CSCWireDigiCollection::DigiRangeIterator cscWireLayerIdIt  = cscWireDigis->begin();
+  CSCWireDigiCollection::DigiRangeIterator cscWireLayerIdEnd = cscWireDigis->end();
+
+  for (; cscWireLayerIdIt!=cscWireLayerIdEnd; ++cscWireLayerIdIt)
+    {
+
+      for (auto & ntupleMuon : ntupleMuons)
+	{
+
+	  for (auto & ntupleMatch : ntupleMuon.matches)
+	    {
+
+	      if (ntupleMatch.type == muon_pog::MuonDetType::CSC        &&
+		  ntupleMatch.id_r    == (*cscWireLayerIdIt).first.station() *
+		                         (*cscWireLayerIdIt).first.zendcap() &&
+		  ntupleMatch.id_eta  == (*cscWireLayerIdIt).first.ring()    &&
+		  ntupleMatch.id_phi  == (*cscWireLayerIdIt).first.chamber())
+		
+		{
+		  CSCWireDigiCollection::const_iterator digiIt = (*cscWireLayerIdIt).second.first;
+
+		  for (;digiIt!=(*cscWireLayerIdIt).second.second; ++digiIt)
+		    {
+		      ntupleMatch.cscDigi.n_wire[0]++;
+
+		      const CSCLayer* layer = cscGeom->layer((*cscWireLayerIdIt).first);
+		      const CSCLayerGeometry* layerGeom = layer->geometry();		      
+
+		      Float_t yWire = layerGeom->yOfWireGroup(digiIt->getWireGroup(), ntupleMatch.x); 
+
+		      Float_t dY = std::abs(ntupleMatch.y - yWire);
+
+		      if (dY < 50.)
+			ntupleMatch.cscDigi.n_wire[1]++;
+		      if (dY < 25.)
+			ntupleMatch.cscDigi.n_wire[2]++;
+		      if (dY < 15.)
+			ntupleMatch.cscDigi.n_wire[3]++;
+		    }
+		}
+	    }
+	}
+    }
+
+  CSCStripDigiCollection::DigiRangeIterator cscStripLayerIdIt  = cscStripDigis->begin();
+  CSCStripDigiCollection::DigiRangeIterator cscStripLayerIdEnd = cscStripDigis->end();
+
+  for (; cscStripLayerIdIt!=cscStripLayerIdEnd; ++cscStripLayerIdIt)
+    {
+
+      for (auto & ntupleMuon : ntupleMuons)
+	{
+
+	  for (auto & ntupleMatch : ntupleMuon.matches)
+	    {
+
+	      if (ntupleMatch.type == muon_pog::MuonDetType::CSC        &&
+		  ntupleMatch.id_r    == (*cscStripLayerIdIt).first.station() *
+		                         (*cscStripLayerIdIt).first.zendcap() &&
+		  ntupleMatch.id_eta  == (*cscStripLayerIdIt).first.ring()    &&
+		  ntupleMatch.id_phi  == (*cscStripLayerIdIt).first.chamber())
+		
+		{
+		  CSCStripDigiCollection::const_iterator digiIt = (*cscStripLayerIdIt).second.first;
+
+		  for (;digiIt!=(*cscStripLayerIdIt).second.second; ++digiIt)
+		    {
+
+		      std::vector<int> adcVals = digiIt->getADCCounts();
+		      bool hasFired = false;
+		      float pedestal = 0.5*(float)(adcVals[0]+adcVals[1]);
+		      float threshold = 13.3 ;
+		      float diff = 0.;
+		      for (const auto & adcVal : adcVals) 
+			{
+		          diff = (float)adcVal - pedestal;
+		          if (diff > threshold) 
+			    { 
+			      hasFired = true; 
+			      break;
+			    }
+			} 
+
+		      if (!hasFired) continue;
+
+		      ntupleMatch.cscDigi.n_strip[0]++;
+
+		      const CSCLayer* layer = cscGeom->layer((*cscStripLayerIdIt).first);
+		      const CSCLayerGeometry* layerGeom = layer->geometry();		      
+
+		      Float_t xStrip = layerGeom->xOfStrip(digiIt->getStrip(), ntupleMatch.y); 
+
+		      Float_t dX = std::abs(ntupleMatch.x - xStrip);
+
+		      if (dX < 50.)
+			ntupleMatch.cscDigi.n_strip[1]++;
+		      if (dX < 25.)
+			ntupleMatch.cscDigi.n_strip[2]++;
+		      if (dX < 15.)
+			ntupleMatch.cscDigi.n_strip[3]++;
 		    }
 		}
 	    }
