@@ -3,17 +3,17 @@ config = Configuration()
 
 config.section_('General')
 config.General.transferOutputs = True
-config.General.requestName = 'SingleMuonRun2017F_ZMu_EOY_ReReco_v2'
+config.General.requestName = 'ZMuMu_Powheg_M_4500-6000_v2'
 
 config.section_('JobType')
 config.JobType.pluginName  = 'Analysis'
 config.JobType.psetName    = '../muonPogNtuples_cfg.py'
 #config.JobType.outputFiles = ['muonNTuple.root']
-config.JobType.pyCfgParams = ['globalTag=94X_dataRun2_ReReco_EOY17_v2',
-                              'ntupleName=muonPOGNtuple_SingleMuonRun2017F_v2_ReReco.root',
+config.JobType.pyCfgParams = ['globalTag=94X_mc2017_realistic_MuonTrackFix_01',
+                              'ntupleName=muonPOGNtuple.root',
                               'hasRaw=True',
                               'nEvents=-1',
-                              'runOnMC=False',
+                              'runOnMC=True',
                               'hltPathFilter=all',
                               'minMuPt=45.0',
                               'minNMu=2'
@@ -21,12 +21,12 @@ config.JobType.pyCfgParams = ['globalTag=94X_dataRun2_ReReco_EOY17_v2',
 config.JobType.allowUndistributedCMSSW = True  # To fix cmssw releases
 
 config.section_('Data')
-config.Data.inputDataset = '/SingleMuon/Run2017F-ZMu-17Nov2017-v1/RAW-RECO'
+config.Data.inputDataset = '/ZToMuMu_NNPDF31_13TeV-powheg_M_4500_6000/RunIIFall17DRPremix-MUOTrackFix_94X_mc2017_realistic_MuonTrackFix_01_ext1-v1/AODSIM'
 
-config.Data.lumiMask = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'
+config.Data.useParent = True
 
-config.Data.splitting    = 'LumiBased'
-config.Data.unitsPerJob  = 150  # Since files based, 10 files per job
+config.Data.splitting    = 'FileBased'
+config.Data.unitsPerJob  = 10  # Since files based, 10 files per job
 config.Data.inputDBS     = 'https://cmsweb.cern.ch/dbs/prod/global/DBSReader/'
 config.Data.outLFNDirBase  = '/store/user/battilan/NTuplesMuonPOG/ZMu/'
 

@@ -1,0 +1,1684 @@
+{
+    "# showers vs p DT"   :
+    {
+        "comment"   : "# showers vs p DT",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersVsPSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersVsP25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersVsP15_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 1.0, "shower probability"],
+            "legendTitle"       : "DT - |#eta| < 0.9 - any station",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_DT",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p CSC"   :
+    {
+        "comment"   : "# showers vs p CSC",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersVsPSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersVsP25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 1.0, "shower probability"],
+            "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4 - any station",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_CSC",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p MB1"   :
+    {
+        "comment"   : "# showers vs p MB1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p MB2"   :
+    {
+        "comment"   : "# showers vs p MB2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p MB3"   :
+    {
+        "comment"   : "# showers vs p MB3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p MB4"   :
+    {
+        "comment"   : "# showers vs p MB4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi MB1"   :
+    {
+        "comment"   : "# showers vs phi MB1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi MB2"   :
+    {
+        "comment"   : "# showers vs phi MB2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi MB3"   :
+    {
+        "comment"   : "# showers vs phi MB3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi MB4"   :
+    {
+        "comment"   : "# showers vs phi MB4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta MB1"   :
+    {
+        "comment"   : "# showers vs eta MB1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta MB2"   :
+    {
+        "comment"   : "# showers vs eta MB2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta MB3"   :
+    {
+        "comment"   : "# showers vs eta MB3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta MB4"   :
+    {
+        "comment"   : "# showers vs eta MB4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "MB4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# DT showers per ch."   :
+    {
+        "comment"   : "# DT showers per ch.",
+        "inputs"    :
+        {
+	    "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersPerChSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersPerCh25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nDtShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 4.5, "muon station #"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "DT - |#eta| < 0.9",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment",
+            "filenamePlot"      : "shower_probability_per_ch_DT",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# matched stations vs shower DT"   :
+    {
+        "comment"   : "# matched stations vs shower DT",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nDtMatchStVsShowersSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 12 hits",
+                "legendEntry"       : "25 cm - 12 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nDtMatchStVsShowers25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 16 hits",
+                "legendEntry"       : "25 cm - 16 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nDtMatchStVsShowers25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 20 hits",
+                "legendEntry"       : "25 cm - 20 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nDtMatchStVsShowers25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 3.5, "# stations with showers"],
+            "y"                 : [1.0, 5.5, "# matched stations"],
+            "legendTitle"       : "DT - |#eta| < 0.9",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "nmatched_stations_vs_showers_DT",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p ME1"   :
+    {
+        "comment"   : "# showers vs p ME1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "ME1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p ME2"   :
+    {
+        "comment"   : "# showers vs p ME2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "ME2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p ME3"   :
+    {
+        "comment"   : "# showers vs p ME3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "ME3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs p ME4"   :
+    {
+        "comment"   : "# showers vs p ME4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPME425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.3, "shower probability"],
+            "legendTitle"       : "ME4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_p_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi ME1"   :
+    {
+        "comment"   : "# showers vs phi ME1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi ME2"   :
+    {
+        "comment"   : "# showers vs phi ME2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi ME3"   :
+    {
+        "comment"   : "# showers vs phi ME3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs phi ME4"   :
+    {
+        "comment"   : "# showers vs phi ME4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsPhiME425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #phi"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_phi_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta ME1"   :
+    {
+        "comment"   : "# showers vs eta ME1",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME1Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME1",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta ME2"   :
+    {
+        "comment"   : "# showers vs eta ME2",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME2Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME2",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta ME3"   :
+    {
+        "comment"   : "# showers vs eta ME3",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME3Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME3",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# showers vs eta ME4"   :
+    {
+        "comment"   : "# showers vs eta ME4",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME4Segment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nShowersVsEtaME425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-3.15, 3.15, "muon #eta"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "ME4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "shower_probability_vs_eta_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# CSC showers per ch."   :
+    {
+        "comment"   : "# CSC showers per ch.",
+        "inputs"    :
+        {
+	    "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersPerChSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersPerCh25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/efficiencies",
+                "plot"		    : "nCscShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+
+        },
+        "plot"      :
+        {
+            "x"                 : [0.5, 4.5, "muon station #"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment",
+            "filenamePlot"      : "shower_probability_per_ch_CSC",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "# matched stations vs shower CSC"   :
+    {
+        "comment"   : "# matched stations vs shower CSC",
+        "inputs"    :
+        {
+            "1 Segment"   :
+            {
+                "label"             : "segment",
+                "legendEntry"       : "segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nCscMatchStVsShowersSegment_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "2 25 1"   :
+            {
+                "label"             : "25 cm - 27 hits",
+                "legendEntry"       : "25 cm - 27 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nCscMatchStVsShowers25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "3 25 2"   :
+            {
+                "label"             : "25 cm - 36 hits",
+                "legendEntry"       : "25 cm - 36 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nCscMatchStVsShowers25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            },
+	    "4 25 3"   :
+            {
+                "label"             : "25 cm - 45 hits",
+                "legendEntry"       : "25 cm - 45 hits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/control",
+                "plot"		    : "nCscMatchStVsShowers25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.5, 3.5, "# stations with showers"],
+            "y"                 : [1.0, 5.5, "# matched stations"],
+            "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
+            "caption"           : "Run2017BCDEF",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/showers_hits_vs_segment/",
+            "filenamePlot"      : "nmatched_stations_vs_showers_CSC",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   

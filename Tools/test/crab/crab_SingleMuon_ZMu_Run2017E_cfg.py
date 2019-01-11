@@ -3,14 +3,14 @@ config = Configuration()
 
 config.section_('General')
 config.General.transferOutputs = True
-config.General.requestName = 'SingleMuonRun2017F_ZMu_EOY_ReReco_v2'
+config.General.requestName = 'SingleMuonRun2017E_ZMu_EOY_ReReco_v2'
 
 config.section_('JobType')
 config.JobType.pluginName  = 'Analysis'
 config.JobType.psetName    = '../muonPogNtuples_cfg.py'
 #config.JobType.outputFiles = ['muonNTuple.root']
 config.JobType.pyCfgParams = ['globalTag=94X_dataRun2_ReReco_EOY17_v2',
-                              'ntupleName=muonPOGNtuple_SingleMuonRun2017F_v2_ReReco.root',
+                              'ntupleName=muonPOGNtuple_SingleMuonRun2017E_v2_ReReco.root',
                               'hasRaw=True',
                               'nEvents=-1',
                               'runOnMC=False',
@@ -21,7 +21,7 @@ config.JobType.pyCfgParams = ['globalTag=94X_dataRun2_ReReco_EOY17_v2',
 config.JobType.allowUndistributedCMSSW = True  # To fix cmssw releases
 
 config.section_('Data')
-config.Data.inputDataset = '/SingleMuon/Run2017F-ZMu-17Nov2017-v1/RAW-RECO'
+config.Data.inputDataset = '/SingleMuon/Run2017E-ZMu-17Nov2017-v1/RAW-RECO'
 
 config.Data.lumiMask = 'https://cms-service-dqm.web.cern.ch/cms-service-dqm/CAF/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'
 

@@ -863,7 +863,7 @@ void MuonPogTreeProducer::fillCscDigis(const edm::Handle<CSCWireDigiCollection> 
 		  ntupleMatch.id_phi  == (*cscWireLayerIdIt).first.chamber())
 		
 		{
-		  CSCWireDigiCollection::const_iterator digiIt = (*cscWireLayerIdIt).second.first;
+		  CSCWireDigiCollection::const_iterator digiIt = (*cscWireLayerIdIt).second.first;		  
 
 		  for (;digiIt!=(*cscWireLayerIdIt).second.second; ++digiIt)
 		    {
@@ -919,7 +919,7 @@ void MuonPogTreeProducer::fillCscDigis(const edm::Handle<CSCWireDigiCollection> 
 		      float diff = 0.;
 		      for (const auto & adcVal : adcVals) 
 			{
-		          diff = (float)adcVal - pedestal;
+			  diff = (float)adcVal - pedestal;
 		          if (diff > threshold) 
 			    { 
 			      hasFired = true; 
