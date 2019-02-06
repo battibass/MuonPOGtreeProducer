@@ -143,7 +143,10 @@ namespace muon_pog
 	      for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++qualIt)
 		{
 
-		  if(std::abs(match.x - dtSegments.at(*indexIt).x) < deltaX &&
+		  if(match.id_eta == dtSegments.at(*indexIt).id_eta && 
+       		     match.id_phi == dtSegments.at(*indexIt).id_phi && 
+       		     match.id_r   == dtSegments.at(*indexIt).id_r   && 
+       		     std::abs(match.x - dtSegments.at(*indexIt).x) < deltaX &&
 		     dtSegments.at(*indexIt).nHitsX > 0)
 		    {
 
@@ -171,7 +174,10 @@ namespace muon_pog
 	      for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++qualIt)
 		{
 
-		  if(std::abs(match.x - cscSegments.at(*indexIt).x) < deltaX)
+		  if(match.id_eta == cscSegments.at(*indexIt).id_eta && 
+       		     match.id_phi == cscSegments.at(*indexIt).id_phi && 
+       		     match.id_r   == cscSegments.at(*indexIt).id_r   && 
+       		     std::abs(match.x - cscSegments.at(*indexIt).x) < deltaX)
 		    {
 
 		      cscSegmentPerCh[disk + 3].push_back(cscSegments.at((*indexIt)));
