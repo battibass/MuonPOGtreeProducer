@@ -233,7 +233,7 @@ namespace muon_pog
        		     seg1It->id_r   == seg2It->id_r   && 
        		     ( (std::abs(seg1It->x - seg2It->x) < 0.005) ||
 			( std::abs(seg1It->x - seg2It->x) < 0.15 && 
-			  std::abs(seg1It->errx/seg1It->x - seg2It->errx/seg2It->errx) < 1e-6
+			  std::abs(seg1It->errx/seg1It->x - seg2It->errx/seg2It->x) < 1e-6
 			)
 		     ) && 
        		    seg1It->nHitsX == seg2It->nHitsX) 
