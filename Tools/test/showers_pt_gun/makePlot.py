@@ -67,8 +67,7 @@ for keyPlot in config:
                 inputName = keys.GetName()
 
                 if inputName.find("=") > 0 or \
-                   inputDir.Get(inputName).ClassName() == "TDirectoryFile" or \
-                   inputDir.Get(inputName).ClassName() == "TH2F":
+                   inputDir.Get(inputName).ClassName() == "TDirectoryFile":
                     continue
 
                 if inputPlotNames[iHisto] == "all" :
@@ -100,16 +99,16 @@ for keyPlot in config:
 
     for histoName,histograms in inputHistos.iteritems():
 
-        for iHisto in range(len(histograms)):
+        if histograms[iHisto].ClassName() != "TH2F" :
+            for iHisto in range(len(histograms)):
 
-            histograms[iHisto].SetLineColor(colorMap[iHisto])
-            histograms[iHisto].SetLineWidth(2)
-            histograms[iHisto].SetMarkerStyle(markerMap[iHisto])
-            histograms[iHisto].SetMarkerColor(colorMap[iHisto])
+                histograms[iHisto].SetLineColor(colorMap[iHisto])
+                histograms[iHisto].SetLineWidth(2)
+                histograms[iHisto].SetMarkerStyle(markerMap[iHisto])
+                histograms[iHisto].SetMarkerColor(colorMap[iHisto])
 
         # Setup canvas with all elements
         canvas = TCanvas('canvas', 'canvas', 800, 800)
-
 
         pad = TPad('pad', 'pad', 0.01, 0.00, 1.00, 1.00)
  
@@ -125,11 +124,14 @@ for keyPlot in config:
     
         for iHisto in range(len(histograms)):
 
-
-            if iHisto == 0 :
-                histograms[iHisto].Draw('')
-            else :
-                histograms[iHisto].Draw('same')
+            if histograms[iHisto].ClassName() == "TH2F" :
+                pad.SetLogz()
+                histograms[iHisto].Draw('colz')
+            else:
+                if iHisto == 0 :
+                    histograms[iHisto].Draw('')
+                else :
+                    histograms[iHisto].Draw('same')
 
             canvas.Update()
 
@@ -176,13 +178,14 @@ for keyPlot in config:
         canvas.cd()
         leg = TLegend(0.49, 0.67, 0.75+0.1, 0.80)
 
-        for iHisto in range(len(histograms)):
-            leg.AddEntry(histograms[iHisto], inputLegendEntries[iHisto], 'LP')
+        if histograms[iHisto].ClassName() != "TH2F" :
+            for iHisto in range(len(histograms)):
+                leg.AddEntry(histograms[iHisto], inputLegendEntries[iHisto], 'LP')
 
-        leg.SetBorderSize(1)
-        leg.SetTextFont(43)
-        leg.SetTextSize(20)
-        leg.Draw()
+            leg.SetBorderSize(1)
+            leg.SetTextFont(43)
+            leg.SetTextSize(20)
+            leg.Draw()
 
         canvas.cd()
         latex = TLatex()

@@ -134,7 +134,7 @@ namespace muon_pog {
 
   public :
 
-    enum HistoType { KIN=0, CONT, HIT, EFF};
+    enum HistoType { KIN=0, CONT, HIT, EFF, SEG};
       
     Plotter(muon_pog::TagAndProbeConfig tnpConfig, muon_pog::SampleConfig & sampleConfig) :
       m_tnpConfig(tnpConfig) , m_sampleConfig(sampleConfig) {};
@@ -462,7 +462,8 @@ void muon_pog::Plotter::book(TFile *outFile)
   outFile->mkdir(sampleTag+"/efficiencies");      
   outFile->mkdir(sampleTag+"/kinematical_variables");
   outFile->mkdir(sampleTag+"/hit_count");
-  outFile->mkdir(sampleTag+"/control");      
+  outFile->mkdir(sampleTag+"/control");
+  outFile->mkdir(sampleTag+"/segment");
   
   for (auto fEtaBin : m_tnpConfig.probe_fEtaBins)
     {
@@ -491,7 +492,7 @@ void muon_pog::Plotter::book(TFile *outFile)
 								";#phi;# entries",
 								96,-TMath::Pi(),TMath::Pi());
 
-	  m_histos[KIN]["probePVsEta" + etaTag + IDTag]  = new TH2F("probePVsEta" + completeTag,
+ 	  m_histos[KIN]["probePVsEta" + etaTag + IDTag]  = new TH2F("probePVsEta" + completeTag,
 								    "probePVsEta" + completeTag +
 								    "#eta ;p (GeV)",
 								    12, 0., 2.4, 50,0.,2500.);
@@ -502,7 +503,9 @@ void muon_pog::Plotter::book(TFile *outFile)
 	  bookBasic(outFile, etaTag + IDTag, sampleTag, "15");
 
 	  bookBasic(outFile, etaTag + IDTag, sampleTag, "Segment");
-	  bookShower(outFile, etaTag + IDTag, sampleTag, "Segment");	  
+
+	  bookShower(outFile, etaTag + IDTag, sampleTag, "Segment2");	  
+	  bookShower(outFile, etaTag + IDTag, sampleTag, "Segment3");	  
 
 	  std::vector<TString> analysisTags = { "1", "2", "3", "4", "5", "6", "7" };
 	  
@@ -513,7 +516,44 @@ void muon_pog::Plotter::book(TFile *outFile)
 	      bookShower(outFile, etaTag + IDTag, sampleTag, "25_" + analysisTag);	  
 	      bookShower(outFile, etaTag + IDTag, sampleTag, "15_" + analysisTag);	  
 	    }
-      
+
+	  std::vector<TString> chambTags = { "MB1", "MB2", "MB3", "MB4", "ME1", "ME2", "ME3", "ME4" };
+
+	  outFile->cd(sampleTag+"/segment");
+
+	  for ( const auto & chambTag : chambTags)
+	    {
+ 	      m_histos[SEG]["errXVsPosX" + chambTag + etaTag + IDTag]  = new TH2F("errXVsPosX" + chambTag + etaTag + IDTag,
+										 "errXVsPosX" + chambTag + etaTag + IDTag +
+										 ";#Delta(pos_x); #Delta(err_x)",
+										 201, -10.05, 10.05, 201, -1.005, 1.005);
+
+ 	      m_histos[SEG]["errXVsPhi" + chambTag + etaTag + IDTag]  = new TH2F("errXVsPhi" + chambTag + etaTag + IDTag,
+										 "errXVsPhi" + chambTag + etaTag + IDTag +
+										 ";#Delta(phi); #Delta(err_x)",
+										 201, -.01005, .01005, 201, -1.005, 1.005);
+
+	      m_histos[SEG]["posYVsPosX" + chambTag + etaTag + IDTag]  = new TH2F("posYVsPosX" + chambTag + etaTag + IDTag,
+										  "posYVsPosX" + chambTag + etaTag + IDTag +
+										  ";#Delta(pos_x); #Delta(pos_y)",
+										  201, -100.5, 100.5, 201, -100.5, 100.5);
+
+	      m_histos[SEG]["nHitsVsPosX" + chambTag + etaTag + IDTag]  = new TH2F("nHitsVsPosX" + chambTag + etaTag + IDTag,
+										  "nHitsVsPosX" + chambTag + etaTag + IDTag +
+										  ";#Delta(pos_x); #Delta(# hits)",
+										  201, -10.05, 10.05, 21, -10.5, 10.5);
+
+	      m_histos[SEG]["nDigiVsNSegShower" + chambTag + etaTag + IDTag]  = new TH2F("nDigiVsNSegShower" + chambTag + etaTag + IDTag,
+											 "nDigiVsNSegShower" + chambTag + etaTag + IDTag +
+											 ";# segment ;# digi",
+											 101, -0.5, 100.5, 101, -0.5, 100.5);
+
+	      m_histos[SEG]["nDigiVsNSegAll" + chambTag + etaTag + IDTag]  = new TH2F("nDigiVsNSegAll" + chambTag + etaTag + IDTag,
+										      "nDigiVsNSegAll" + chambTag + etaTag + IDTag +
+										      ";# segment ;# digi",
+										      101, -0.5, 100.5, 101, -0.5, 100.5);
+	    }
+
 	}
 
     }
@@ -754,7 +794,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[KIN]["probePhi" + etaTag + IDTag]->Fill(probeMuTk.Phi(), weight);
 		      static_cast<TH2F*>(m_histos[KIN]["probePVsEta" + etaTag + IDTag])->Fill(probeMuTk.Eta(), std::abs(probeMuTk.P()), weight);
 
-		      auto nShowersSegment = showerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 0.3);
+		      auto nShowersSegment = showerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25.);
 
 		      auto nShowersChamb = showerPerCh(probeMuon, 0);
 		      auto nShowers50    = showerPerCh(probeMuon, 1);
@@ -770,7 +810,7 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 
 		      std::vector<TString> analysisTags = { "1", "2", "3", "4", "5", "6", "7" };
 		      std::vector<int> cscCutTags = { 27, 36, 45, 54, 63, 72, 81 };
-		      std::vector<int> dtCutTags  = {  6,  8, 10, 12, 14, 16, 18 };
+		      std::vector<int> dtCutTags  = { 12, 16, 20, 24, 28, 32, 36 };
 
 		      auto analysisTagIt  = analysisTags.begin();
 		      auto analysisTagEnd = analysisTags.end();
@@ -781,9 +821,11 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      auto dtCutTagIt  = dtCutTags.begin();
 		      auto dtCutTagEnd = dtCutTags.end();
 
-		      auto hasShowersSegment = hasShowerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 0.3, 2, 3);
+		      auto hasShowersSegment2 = hasShowerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25., 2, 2);
+		      auto hasShowersSegment3 = hasShowerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25., 3, 3);
 
-		      fillShowerPlots(etaTag + IDTag, TString("Segment"), probeMuon, probeMuTk, hasShowersSegment, weight);
+		      fillShowerPlots(etaTag + IDTag, TString("Segment2"), probeMuon, probeMuTk, hasShowersSegment2, weight);
+		      fillShowerPlots(etaTag + IDTag, TString("Segment3"), probeMuon, probeMuTk, hasShowersSegment3, weight);
 
 		      for (; analysisTagIt != analysisTagEnd && 
 			     cscCutTagIt   != cscCutTagEnd && 
@@ -791,10 +833,10 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			     ++analysisTagIt, ++dtCutTagIt, ++cscCutTagIt)
 			{
 
-			  auto hasShowersChamb = hasShowerPerCh(probeMuon, (*dtCutTagIt), 999, (*cscCutTagIt), 0);
-			  auto hasShowers50    = hasShowerPerCh(probeMuon, (*dtCutTagIt), 999, (*cscCutTagIt), 1);
-			  auto hasShowers25    = hasShowerPerCh(probeMuon, (*dtCutTagIt), 999, (*cscCutTagIt), 2);
-			  auto hasShowers15    = hasShowerPerCh(probeMuon, (*dtCutTagIt), 999, (*cscCutTagIt), 3);
+			  auto hasShowersChamb = hasShowerPerCh(probeMuon, (*dtCutTagIt), (*cscCutTagIt), 0);
+			  auto hasShowers50    = hasShowerPerCh(probeMuon, (*dtCutTagIt), (*cscCutTagIt), 1);
+			  auto hasShowers25    = hasShowerPerCh(probeMuon, (*dtCutTagIt), (*cscCutTagIt), 2);
+			  auto hasShowers15    = hasShowerPerCh(probeMuon, (*dtCutTagIt), (*cscCutTagIt), 3);
 
 			  fillShowerPlots(etaTag + IDTag, TString("Chamb_") + (*analysisTagIt), probeMuon, probeMuTk, hasShowersChamb, weight);
 			  fillShowerPlots(etaTag + IDTag, TString("50_") + (*analysisTagIt), probeMuon, probeMuTk, hasShowers50, weight);		      
@@ -802,6 +844,58 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			  fillShowerPlots(etaTag + IDTag, TString("15_") + (*analysisTagIt), probeMuon, probeMuTk, hasShowers15, weight);
 
 			}
+
+		      auto segmentsPerCh  = getSegmentsPerCh(probeMuon, ev.dtSegments, ev.cscSegments);
+		
+		      Int_t iCh = 0;
+		      std::vector<TString> chambTags = { "MB1", "MB2", "MB3", "MB4", "ME1", "ME2", "ME3", "ME4" };
+
+		      for ( const auto & chambTag : chambTags)
+			{
+
+			  const auto & segments = segmentsPerCh[iCh]; 
+			  
+			  if(nShowers25[iCh] > 0)
+			    {
+			      m_histos[SEG]["nDigiVsNSegShower" + chambTag + etaTag + IDTag]->Fill(nShowers25[iCh],nShowersSegment[iCh]);
+			      m_histos[SEG]["nDigiVsNSegAll" + chambTag + etaTag + IDTag]->Fill(nShowers25[iCh],segments.size());
+			    }
+
+			  auto seg1It = segments.cbegin();
+			  auto segEnd = segments.cend();
+			  
+			  // std::cout << chambTag << std::endl;
+
+			  for (; seg1It != segEnd; ++seg1It)
+			    {
+			      auto seg2It = seg1It;
+			      seg2It++;
+			      for (; seg2It != segEnd; ++seg2It)
+				{				      
+				  Float_t dX    = seg1It->x - seg2It->x;
+				  Float_t dY    = seg1It->y - seg2It->y;
+				  Float_t dPhi  = seg1It->phi - seg2It->phi;
+				  Float_t dErrX = seg1It->errx - seg2It->errx;
+				  Float_t dNHit = seg1It->nHitsX - seg2It->nHitsX;
+
+				  // std::cout << (seg1It == seg2It) << " " << dX << " " << dY << " " << dErrX << " " << dNHit << std::endl;
+	  
+				  m_histos[SEG]["errXVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dErrX);
+
+				  m_histos[SEG]["errXVsPhi" + chambTag + etaTag + IDTag]->Fill(dPhi,dErrX);
+				  
+				  m_histos[SEG]["posYVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dY);
+
+				  m_histos[SEG]["nHitsVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dNHit);
+				}
+			    }
+
+			  ++iCh;
+
+			  // std::cout << std::endl << std::endl;
+
+			}
+		      
 		    }
 		}
 	    }

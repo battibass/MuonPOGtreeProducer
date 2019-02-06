@@ -75,136 +75,253 @@ namespace muon_pog
   };
 
 
+  std::array<std::vector<muon_pog::MuonSegment>,8> getSegmentsPerCh(const muon_pog::Muon & muon,
+								    const std::vector<muon_pog::MuonSegment> & dtSegments,
+								    const std::vector<muon_pog::MuonSegment> & cscSegments)
+    {
+        
+      std::array<std::vector<muon_pog::MuonSegment>,8> segments;
+
+      for (const auto & match : muon.matches)
+        {
+	  
+	  if (match.type == muon_pog::MuonDetType::DT)
+	    {
+	      
+	      Int_t ch = match.id_r;
+ 
+	      for (const auto & idx : match.indexes)
+		segments[ch - 1].push_back(dtSegments.at(idx));
+	    }
+
+	  if (match.type == muon_pog::MuonDetType::CSC)
+	    {
+	      
+	      Int_t disk = std::abs(match.id_r);
+	      
+	      for (const auto & idx : match.indexes)
+		segments[disk + 3].push_back(cscSegments.at(idx));
+	    }
+
+	}
+
+      return segments;
+
+    }
+
+
   std::array<Int_t,8> showerPerCh(const muon_pog::Muon & muon,
 				  const std::vector<muon_pog::MuonSegment> & dtSegments,
 				  const std::vector<muon_pog::MuonSegment> & cscSegments,
-				  Float_t deltaPhi)
+				  Float_t deltaX)
     {
         
       std::array<Int_t,8> nExtraSegPerCh = {0, 0, 0, 0, 0, 0, 0, 0};
+      std::array<Int_t,8> nFilteredSegPerCh = {0, 0, 0, 0, 0, 0, 0, 0};
+
       std::map<Int_t,std::vector<muon_pog::MuonSegment> > dtSegmentPerCh;
       std::map<Int_t,std::vector<muon_pog::MuonSegment> > cscSegmentPerCh;
+
+      std::map<Int_t,Int_t> arbSegmentPerCh;
         
       for (const auto & match : muon.matches)
         {
 	  
-	  Int_t ch = match.id_r;
-            
-	  if (match.type != muon_pog::MuonDetType::DT)
-	    continue;
-            
-	  std::vector<std::size_t>::const_iterator indexIt  = match.indexes.begin();
-	  std::vector<std::size_t>::const_iterator indexEnd = match.indexes.end();
+	  auto indexIt  = match.indexes.cbegin();
+	  auto indexEnd = match.indexes.cend();
         
-	  std::vector<std::bitset<4> >::const_iterator qualIt  = match.matchQuals.begin();
-	  std::vector<std::bitset<4> >::const_iterator qualEnd = match.matchQuals.end();
+	  auto qualIt  = match.matchQuals.cbegin();
+	  auto qualEnd = match.matchQuals.cend();
+
+	  std::bitset<4> mask(std::string("0010"));
             
-	  for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++ qualIt)
-            {
+	  if (match.type == muon_pog::MuonDetType::DT)
+	    {
 	      
-	      std::bitset<4> mask(std::string("0010"));
+	      Int_t ch = match.id_r;
+ 
+	      for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++qualIt)
+		{
 
-		if( !(mask & (*qualIt)).count() &&
-		  std::abs(match.phi - dtSegments.at(*indexIt).phi) < deltaPhi)
-		dtSegmentPerCh[ch - 1].push_back(dtSegments.at((*indexIt)));
-            }
+		  if(std::abs(match.x - dtSegments.at(*indexIt).x) < deltaX &&
+		     dtSegments.at(*indexIt).nHitsX > 0)
+		    {
 
+		      dtSegmentPerCh[ch - 1].push_back(dtSegments.at((*indexIt)));
+
+		      if((mask & (*qualIt)).count())
+			{
+			  if (arbSegmentPerCh.find(ch - 1) == arbSegmentPerCh.end())
+			    arbSegmentPerCh[ch - 1] = 0;
+			  
+			  arbSegmentPerCh[ch - 1] += 1;
+			}
+
+		    }
+    	  
+		}
+
+	    }
+
+      	  if (match.type == muon_pog::MuonDetType::CSC)
+	    {
+	      
+	      Int_t disk = std::abs(match.id_r);
+
+	      for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++qualIt)
+		{
+
+		  if(std::abs(match.x - cscSegments.at(*indexIt).x) < deltaX)
+		    {
+
+		      cscSegmentPerCh[disk + 3].push_back(cscSegments.at((*indexIt)));
+
+		      if((mask & (*qualIt)).count())
+			{
+			  if (arbSegmentPerCh.find(disk + 3) == arbSegmentPerCh.end())
+			    arbSegmentPerCh[disk + 3] = 0;
+
+			  arbSegmentPerCh[disk + 3] += 1;
+			}
+		      
+		    }
+		  
+		}
+	      
+	    }
+            
         }
      
+      /* for (auto & pair : dtSegmentPerCh) */
+      /* 	{   */
+
+      /* 	  auto seg1It = pair.second.begin();  */
+
+      /* 	  std::cout << std::endl; */
+      /* 	  std::cout << pair.first << " " << pair.second.size() << " " << arbSegmentPerCh[pair.first] << std::endl; */
+
+      /* 	  for (; seg1It != pair.second.end(); ++seg1It)  */
+      /*  	    {  */
+
+      /* 	      std::cout << seg1It->id_eta << " " */
+      /* 			<< seg1It->id_phi << " " */
+      /* 			<< seg1It->id_r   << " " */
+      /* 			<< seg1It->x << " " */
+      /* 			<< seg1It->y << " " */
+      /* 			<< seg1It->nHitsX << std::endl; */
+
+      /* 	    } */
+      /* 	} */
+
       for (auto & pair : dtSegmentPerCh)
-	{ 
+      	{  
 
-      	  std::vector<muon_pog::MuonSegment>::iterator seg1It  = pair.second.begin();
-            
-      	  for (; seg1It != pair.second.end(); ++seg1It)
-       	    {
-       	      std::vector<muon_pog::MuonSegment>::iterator seg2It  = seg1It;
-       	      seg2It++;
-                    
-       	      for (; seg2It != pair.second.end(); ++seg2It)
-       		{
-		  
-       		  if(seg1It->id_eta == seg2It->id_eta &&
-       		     seg1It->id_phi == seg2It->id_phi &&
-       		     seg1It->id_r   == seg2It->id_r   &&
-       		     ( std::abs(seg1It->x - seg2It->x)       < 0.01 ||
-       		       std::abs(seg1It->errx - seg2It->errx) < 0.01
-       		       ) &&
-       		     seg1It->nHitsX == seg2It->nHitsX)
-       		    {
-       		      auto copy = seg2It;
-		      pair.second.erase(copy);
-		      --seg2It;
-       		    }
-       		}
-       	    }
- 
-	}
+      	  auto seg1It = pair.second.begin(); 
 
-      for (const auto & match : muon.matches)
-        {
+      	  for (; seg1It != pair.second.end(); ++seg1It) 
+       	    { 
+
+	      bool isCopy = false;
 	  
-	  Int_t ch = std::abs(match.id_r);
-            
-	  if (match.type != muon_pog::MuonDetType::CSC)
-	    continue;
-            
-	  std::vector<std::size_t>::const_iterator indexIt  = match.indexes.begin();
-	  std::vector<std::size_t>::const_iterator indexEnd = match.indexes.end();
-        
-	  std::vector<std::bitset<4> >::const_iterator qualIt  = match.matchQuals.begin();
-	  std::vector<std::bitset<4> >::const_iterator qualEnd = match.matchQuals.end();
-            
-	  for (; qualIt != qualEnd && indexIt != indexEnd; ++indexIt, ++ qualIt)
-            {
-	      
-	      std::bitset<4> mask(std::string("0010"));
+       	      auto seg2It  = pair.second.begin(); 
+                 
+       	      for (; seg2It != seg1It; ++seg2It) 
+       		{ 
 
-		if( !(mask & (*qualIt)).count() &&
-		  std::abs(match.phi - cscSegments.at(*indexIt).phi) < deltaPhi)
-		cscSegmentPerCh[ch + 3].push_back(cscSegments.at((*indexIt)));
-            }
+       		  if(seg1It->id_eta == seg2It->id_eta && 
+       		     seg1It->id_phi == seg2It->id_phi && 
+       		     seg1It->id_r   == seg2It->id_r   && 
+       		     ( (std::abs(seg1It->x - seg2It->x) < 0.005) ||
+			( std::abs(seg1It->x - seg2It->x) < 0.15 && 
+			  std::abs(seg1It->errx/seg1It->x - seg2It->errx/seg2It->errx) < 1e-6
+			)
+		     ) && 
+       		    seg1It->nHitsX == seg2It->nHitsX) 
+       		    { 
+		      isCopy = true;
+		      break;
+      		    } 
 
-        }
-     
-      for (auto & pair : cscSegmentPerCh)
-	{ 
-
-      	  std::vector<muon_pog::MuonSegment>::iterator seg1It  = pair.second.begin();
-            
-      	  for (; seg1It != pair.second.end(); ++seg1It)
-       	    {
-       	      std::vector<muon_pog::MuonSegment>::iterator seg2It  = seg1It;
-       	      seg2It++;
-                    
-       	      for (; seg2It != pair.second.end(); ++seg2It)
-       		{
-		  
-       		  if(seg1It->id_eta == seg2It->id_eta &&
-       		     seg1It->id_phi == seg2It->id_phi &&
-       		     seg1It->id_r   == seg2It->id_r   &&
-       		     ( std::abs(seg1It->x - seg2It->x)       < 0.01 ||
-       		       std::abs(seg1It->errx - seg2It->errx) < 0.01
-       		       ) &&
-       		     seg1It->nHitsX == seg2It->nHitsX)
-       		    {
-       		      auto copy = seg2It;
-		      pair.second.erase(copy);
-		      --seg2It;
-       		    }
        		}
-       	    }
- 
-	}
-      
+
+	      if (!isCopy)
+		{
+		  nFilteredSegPerCh[pair.first]++;    
+		}   
+
+       	    } 
+
+      	} 
+
+      for (auto & pair : cscSegmentPerCh)
+      	{  
+
+      	  auto seg1It = pair.second.begin(); 
+
+      	  for (; seg1It != pair.second.end(); ++seg1It) 
+       	    { 
+
+	      bool isCopy = false;
+	  
+       	      auto seg2It  = pair.second.begin(); 
+                 
+       	      for (; seg2It != seg1It; ++seg2It) 
+       		{ 
+
+       		  if(seg1It->id_eta == seg2It->id_eta && 
+       		     seg1It->id_phi == seg2It->id_phi && 
+       		     seg1It->id_r   == seg2It->id_r   && 
+       		     std::abs(seg1It->phi - seg2It->phi) < 0.0002 &&
+		     //std::abs(seg1It->x - seg2It->x) < 0.5 &&
+		     std::abs(seg1It->nHitsX - seg2It->nHitsX) <= 2) 
+       		    { 
+		      isCopy = true;
+		      break;
+      		    } 
+
+       		}
+
+	      if (!isCopy)
+		{
+		  nFilteredSegPerCh[pair.first]++;    
+		}   
+
+       	    } 
+
+      	} 
+
       for (const auto & pair : dtSegmentPerCh)
         {
-	  nExtraSegPerCh[pair.first] = pair.second.size();
+	  nExtraSegPerCh[pair.first] = nFilteredSegPerCh[pair.first] - arbSegmentPerCh[pair.first];
         }
 
       for (const auto & pair : cscSegmentPerCh)
         {
-	  nExtraSegPerCh[pair.first] = pair.second.size();
+	  nExtraSegPerCh[pair.first] = nFilteredSegPerCh[pair.first] - arbSegmentPerCh[pair.first];
+
+	  /* if (nExtraSegPerCh[pair.first] >=2) */
+	  /*   { */
+	  /*     std::cout << "AT LEAST 2 EXTRA CSC SEGMENTS: "  */
+	  /* 		<< nExtraSegPerCh[pair.first] << " " << arbSegmentPerCh[pair.first] << std::endl; */
+
+	  /*     auto seg1It = pair.second.begin();  */
+	      
+	  /*     for (; seg1It != pair.second.end(); ++seg1It)  */
+	  /* 	{  */
+
+	  /* 	  std::cout << "\t"  */
+	  /* 		    << seg1It->id_eta << " " */
+	  /* 		    << seg1It->id_phi << " "  */
+	  /* 		    << seg1It->id_r   << " "  */
+	  /* 		    << seg1It->x << " " */
+	  /* 		    << seg1It->phi << " " */
+	  /* 		    << seg1It->y << " " */
+	  /* 		    << seg1It->nHitsX */
+	  /* 		    << std::endl; */
+	  /* 	}    */
+
+       	  /*   }  */
+	  
         }
 
       return nExtraSegPerCh;
@@ -214,90 +331,107 @@ namespace muon_pog
   std::array<bool,8> hasShowerPerCh(const muon_pog::Muon & muon,
 				    const std::vector<muon_pog::MuonSegment> & dtSegments,
 				    const std::vector<muon_pog::MuonSegment> & cscSegments,
-				    Float_t deltaPhi, Int_t nDtSegment, Int_t nCscSegment)
+				    Float_t deltaX, Int_t nDtSegment, Int_t nCscSegment)
     {
       
       std::array<bool,8> showers = {false, false, false, false, false, false, false, false};
       
-      auto nSegmentsPerCh = showerPerCh(muon, dtSegments, cscSegments, deltaPhi);
+      auto nSegmentsPerCh = showerPerCh(muon, dtSegments, cscSegments, deltaX);
       
       for (Int_t iChamber = 0; iChamber < 8; ++iChamber)
 	{
 	  if (iChamber < 4 && nSegmentsPerCh[iChamber] >= nDtSegment)  showers[iChamber] = true;
 	  if (iChamber > 3 && nSegmentsPerCh[iChamber] >= nCscSegment) showers[iChamber] = true;
 	}
-
+      
       return showers;
-
+      
     }
-
+  
   std::array<int,8> showerPerCh(const muon_pog::Muon & muon, Int_t range)
     {
       
       std::array<int,8> showerPerCh = {0, 0, 0, 0, 0, 0, 0, 0};
       
-      for (const auto & match : muon.matches)
-	  {
-	    
-	    if (match.type == muon_pog::MuonDetType::DT)
-	      {
-		Int_t ch = match.id_r;
-            
-		showerPerCh[ch - 1] += ( match.dtDigi.n_phi1[range] +
-					 match.dtDigi.n_phi2[range] );
-	      }
-	    if (match.type == muon_pog::MuonDetType::CSC)
-	      {
-		
-		Int_t disk = std::abs(match.id_r);
-
-            	showerPerCh[disk +3] += ( match.cscDigi.n_strip[range] );
-	      }
-	    
-	  }
-      
-      return showerPerCh;
-      
-    };
-
-  std::array<bool,8> hasShowerPerCh(const muon_pog::Muon & muon,
-				    Int_t nDtDigiAND, Int_t nDtDigiOR, 
-				    Int_t nCscStripDigi, Int_t range)
-    {
-      
-      std::array<bool,8> showerPerCh = {false, false, false, false, false, false, false, false};
+      std::map<Int_t, Int_t> me11DigiPerSec;
       
       for (const auto & match : muon.matches)
 	{
 	  
 	  if (match.type == muon_pog::MuonDetType::DT)
 	    {
-	      if( ( match.dtDigi.n_phi1[range] >= nDtDigiAND && 
-		    match.dtDigi.n_phi2[range] >= nDtDigiAND ) 
-		  ||
-		  ( match.dtDigi.n_phi1[range] >= nDtDigiOR  || 
-		    match.dtDigi.n_phi2[range] >= nDtDigiOR  ) 
-		  )
-		{
-		  Int_t ch = match.id_r;
-		  
-		  showerPerCh[ch - 1] = true;
-		}
+	      // In DT check for the maximum in terms of
+	      // # of digis in case deposits in multple
+	      // neighbouring sectors occur
+	      
+	      Int_t ch = match.id_r;
+	      
+	      Int_t nDigi = match.dtDigi.n_phi1[range] +
+		match.dtDigi.n_phi2[range];
+	      
+	      if (nDigi > showerPerCh[ch - 1])
+		showerPerCh[ch - 1] = nDigi; 
 	    }
-
+	  
 	  if (match.type == muon_pog::MuonDetType::CSC)
 	    {
-	      if( match.cscDigi.n_strip[range] >= nCscStripDigi )
+	      
+	      // In DT check for the maximum in terms of
+	      // # of digis in case deposits in multple
+	      // neighbouring sectors occur, but also
+	      // sum ME11a and ME11b digis
+	      
+	      Int_t disk   = std::abs(match.id_r);
+	      Int_t ring   = match.id_eta;
+	      Int_t sector = match.id_phi;
+	      
+	      Int_t nDigi = match.cscDigi.n_strip[range];
+	      
+	      Bool_t isMe11 = (disk == 1 && (ring == 1 || ring == 4) ); 
+	      
+	      if (isMe11)
 		{
-		  Int_t disk = std::abs(match.id_r);
+		  if(me11DigiPerSec.find(sector) == me11DigiPerSec.end())
+		    me11DigiPerSec[sector] = 0;
 		  
-		  showerPerCh[disk + 3] = true;
+		  me11DigiPerSec[sector] += nDigi;
+		}
+	      else
+		{
+		  if (nDigi > showerPerCh[disk +3])
+		    showerPerCh[disk + 3] = nDigi;
 		}
 	    }
-
+	  
+	}
+      
+      for (const auto & me11DigiAndSec : me11DigiPerSec)
+	{	  
+	  Int_t nDigi = me11DigiAndSec.second;
+	  if (nDigi > showerPerCh[4])
+	    showerPerCh[4] = nDigi;
 	}
       
       return showerPerCh;
+      
+    };
+
+  std::array<bool,8> hasShowerPerCh(const muon_pog::Muon & muon,
+				    Int_t nDtDigi, Int_t nCscStripDigi, 
+				    Int_t range)
+    {
+      
+      std::array<bool,8> showers = {false, false, false, false, false, false, false, false};
+
+      auto nDigisPerCh = showerPerCh(muon, range);
+      
+      for (Int_t iChamber = 0; iChamber < 8; ++iChamber)
+	{
+	  if (iChamber < 4 && nDigisPerCh[iChamber] >= nDtDigi)  showers[iChamber] = true;
+	  if (iChamber > 3 && nDigisPerCh[iChamber] >= nCscStripDigi) showers[iChamber] = true;
+	}
+      
+      return showers;
       
     };
 

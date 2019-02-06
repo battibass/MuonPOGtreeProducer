@@ -1,0 +1,1282 @@
+{
+    "MB1 segment dX vs dErr"   :
+    {
+        "comment"   : "MB1 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB1 segment dX vs dErr",
+                "legendEntry"       : "MB1 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXMB1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB1 segment dPhi vs dErr"   :
+    {
+        "comment"   : "MB1 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB1 segment dPhi vs dErr",
+                "legendEntry"       : "MB1 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiMB1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB1 segment dX vs N hits"   :
+    {
+        "comment"   : "MB1 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB1 segment dX vs Nhits",
+                "legendEntry"       : "MB1 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXMB1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB1 segment dX vs dY"   :
+    {
+        "comment"   : "MB1 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "MB1 segment dX vs dY",
+                "legendEntry"       : "MB1 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXMB1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB1 N digi vs N extra segments"   :
+    {
+        "comment"   : "MB1 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB1 n digi vs n extra segment",
+                "legendEntry"       : "MB1 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerMB1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_MB1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB2 segment dX vs dErr"   :
+    {
+        "comment"   : "MB2 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB2 segment dX vs dErr",
+                "legendEntry"       : "MB2 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXMB2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB2 segment dPhi vs dErr"   :
+    {
+        "comment"   : "MB2 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB2 segment dPhi vs dErr",
+                "legendEntry"       : "MB2 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiMB2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB2 segment dX vs N hits"   :
+    {
+        "comment"   : "MB2 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB2 segment dX vs Nhits",
+                "legendEntry"       : "MB2 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXMB2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB2 segment dX vs dY"   :
+    {
+        "comment"   : "MB2 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "MB2 segment dX vs dY",
+                "legendEntry"       : "MB2 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXMB2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB2 N digi vs N extra segments"   :
+    {
+        "comment"   : "MB2 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB2 n digi vs n extra segment",
+                "legendEntry"       : "MB2 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerMB2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_MB2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB3 segment dX vs dErr"   :
+    {
+        "comment"   : "MB3 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB3 segment dX vs dErr",
+                "legendEntry"       : "MB3 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXMB3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB3 segment dPhi vs dErr"   :
+    {
+        "comment"   : "MB3 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB3 segment dPhi vs dErr",
+                "legendEntry"       : "MB3 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiMB3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB3 segment dX vs N hits"   :
+    {
+        "comment"   : "MB3 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB3 segment dX vs Nhits",
+                "legendEntry"       : "MB3 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXMB3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB3 segment dX vs dY"   :
+    {
+        "comment"   : "MB3 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "MB3 segment dX vs dY",
+                "legendEntry"       : "MB3 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXMB3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB3 N digi vs N extra segments"   :
+    {
+        "comment"   : "MB3 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB3 n digi vs n extra segment",
+                "legendEntry"       : "MB3 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerMB3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_MB3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB4 segment dX vs dErr"   :
+    {
+        "comment"   : "MB4 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB4 segment dX vs dErr",
+                "legendEntry"       : "MB4 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXMB4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB4 segment dPhi vs dErr"   :
+    {
+        "comment"   : "MB4 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "MB4 segment dPhi vs dErr",
+                "legendEntry"       : "MB4 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiMB4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB4 segment dX vs N hits"   :
+    {
+        "comment"   : "MB4 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB4 segment dX vs Nhits",
+                "legendEntry"       : "MB4 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXMB4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB4 segment dX vs dY"   :
+    {
+        "comment"   : "MB4 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "MB4 segment dX vs dY",
+                "legendEntry"       : "MB4 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXMB4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "MB4 N digi vs N extra segments"   :
+    {
+        "comment"   : "MB4 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "MB4 n digi vs n extra segment",
+                "legendEntry"       : "MB4 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerMB4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_MB4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME1 segment dX vs dErr"   :
+    {
+        "comment"   : "ME1 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME1 segment dX vs dErr",
+                "legendEntry"       : "ME1 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXME1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME1 segment dPhi vs dErr"   :
+    {
+        "comment"   : "ME1 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME1 segment dPhi vs dErr",
+                "legendEntry"       : "ME1 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiME1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME1 segment dX vs N hits"   :
+    {
+        "comment"   : "ME1 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME1 segment dX vs Nhits",
+                "legendEntry"       : "ME1 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXME1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME1 segment dX vs dY"   :
+    {
+        "comment"   : "ME1 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "ME1 segment dX vs dY",
+                "legendEntry"       : "ME1 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXME1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME1 N digi vs N extra segments"   :
+    {
+        "comment"   : "ME1 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME1 n digi vs n extra segment",
+                "legendEntry"       : "ME1 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerME1_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_ME1",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME2 segment dX vs dErr"   :
+    {
+        "comment"   : "ME2 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME2 segment dX vs dErr",
+                "legendEntry"       : "ME2 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXME2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME2 segment dPhi vs dErr"   :
+    {
+        "comment"   : "ME2 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME2 segment dPhi vs dErr",
+                "legendEntry"       : "ME2 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiME2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME2 segment dX vs N hits"   :
+    {
+        "comment"   : "ME2 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME2 segment dX vs Nhits",
+                "legendEntry"       : "ME2 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXME2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME2 segment dX vs dY"   :
+    {
+        "comment"   : "ME2 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "ME2 segment dX vs dY",
+                "legendEntry"       : "ME2 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXME2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME2 N digi vs N extra segments"   :
+    {
+        "comment"   : "ME2 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME2 n digi vs n extra segment",
+                "legendEntry"       : "ME2 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerME2_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_ME2",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME3 segment dX vs dErr"   :
+    {
+        "comment"   : "ME3 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME3 segment dX vs dErr",
+                "legendEntry"       : "ME3 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXME3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME3 segment dPhi vs dErr"   :
+    {
+        "comment"   : "ME3 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME3 segment dPhi vs dErr",
+                "legendEntry"       : "ME3 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiME3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME3 segment dX vs N hits"   :
+    {
+        "comment"   : "ME3 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME3 segment dX vs Nhits",
+                "legendEntry"       : "ME3 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXME3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME3 segment dX vs dY"   :
+    {
+        "comment"   : "ME3 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "ME3 segment dX vs dY",
+                "legendEntry"       : "ME3 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXME3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME3 N digi vs N extra segments"   :
+    {
+        "comment"   : "ME3 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME3 n digi vs n extra segment",
+                "legendEntry"       : "ME3 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerME3_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_ME3",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME4 segment dX vs dErr"   :
+    {
+        "comment"   : "ME4 segment dX vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME4 segment dX vs dErr",
+                "legendEntry"       : "ME4 segment dX vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPosXME4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_posX_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME4 segment dPhi vs dErr"   :
+    {
+        "comment"   : "ME4 segment dPhi vs dErr",
+        "inputs"    :
+        {
+            "err_x vs pos_x"   :
+            {
+                "label"             : "ME4 segment dPhi vs dErr",
+                "legendEntry"       : "ME4 segment dPhi vs dErr",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "errXVsPhiME4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-0.1,  0.1, "#Delta(#phi)"],
+            "y"                 : [-0.25,  0.25, "#Delta(err_{X})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_errX_vs_phi_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME4 segment dX vs N hits"   :
+    {
+        "comment"   : "ME4 segment dX vs N hits",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME4 segment dX vs Nhits",
+                "legendEntry"       : "ME4 segment dX vs Nhits",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nHitsVsPosXME4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-10.0, 10.0, "#Delta(pos_{X})"],
+            "y"                 : [ -7.5,  7.5, "#Delta(# hits)"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nHits_vs_posX_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME4 segment dX vs dY"   :
+    {
+        "comment"   : "ME4 segment dX vs dY",
+        "inputs"    :
+        {
+            "pos_y vs pos_x"   :
+            {
+                "label"             : "ME4 segment dX vs dY",
+                "legendEntry"       : "ME4 segment dX vs dY",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "posYVsPosXME4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [-50.0, 50.0, "#Delta(pos_{X})"],
+            "y"                 : [-50.0, 50.0, "#Delta(pos_{Y})"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_posY_vs_posX_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    },
+
+    "ME4 N digi vs N extra segments"   :
+    {
+        "comment"   : "ME4 N digi vs N extra segments",
+        "inputs"    :
+        {
+            "n_hits vs pos_x"   :
+            {
+                "label"             : "ME4 n digi vs n extra segment",
+                "legendEntry"       : "ME4 n digi vs n extra segment",
+                "filename"          : "strip_digis/results.root",
+                "folder"            : "/Data2017/segment",
+                "plot"		    : "nDigiVsNSegShowerME4_fEtaMin0.0_fEtaMax2.4_HIGHPT"
+            }
+        },
+        "plot"      :
+        {
+            "x"                 : [0.0, 100.0, "# digi"],
+            "y"                 : [0.0,  20.0, "# segments"],
+            "legendTitle"       : "",
+            "caption"           : "2017 MC - flat p gun",
+            "logo"              : ["CMS", "Work in progress"],
+            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
+            "markerMap"         : [20, 21, 22, 23, 24, 25, 26]
+        },
+        "output"    :
+        {
+            "directory"         : "plots/control_segment/",
+            "filenamePlot"      : "probe_nDigi_vs_nSegments_ME4",
+            "fileType"          : ["png", "pdf"]
+        }
+    }
+
+}   
