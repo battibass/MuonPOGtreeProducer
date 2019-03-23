@@ -42,7 +42,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 1.0, "shower probability"],
             "legendTitle"       : "DT - |#eta| < 0.9 - any station",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -98,7 +98,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 1.0, "shower probability"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4 - any station",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -154,7 +154,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -210,7 +210,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -266,7 +266,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -322,7 +322,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -376,9 +376,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -432,9 +432,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -488,9 +488,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -544,9 +544,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -600,9 +600,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -656,9 +656,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -712,9 +712,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -768,9 +768,9 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -825,9 +825,9 @@
         "plot"      :
         {
             "x"                 : [0.5, 4.5, "muon station #"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "DT - |#eta| < 0.9",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -883,7 +883,7 @@
             "x"                 : [-0.5, 3.5, "# stations with showers"],
             "y"                 : [1.0, 5.5, "# matched stations"],
             "legendTitle"       : "DT - |#eta| < 0.9",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -939,7 +939,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -995,7 +995,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1051,7 +1051,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1107,7 +1107,7 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1163,7 +1163,7 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1219,7 +1219,7 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1275,7 +1275,7 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1331,7 +1331,7 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1387,7 +1387,7 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1443,7 +1443,7 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1499,7 +1499,7 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1555,7 +1555,7 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1612,7 +1612,7 @@
             "x"                 : [0.5, 4.5, "muon station #"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
@@ -1668,7 +1668,7 @@
             "x"                 : [-0.5, 3.5, "# stations with showers"],
             "y"                 : [1.0, 5.5, "# matched stations"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]

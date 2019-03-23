@@ -1,7 +1,7 @@
 {
-    "# DT hits vs p"   :
+    "# DT digis vs p"   :
     {
-        "comment"   : "# DT hits vs p",
+        "comment"   : "# DT digis vs p",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -55,9 +55,9 @@
         }
     },
 
-    "# CSC hits vs p"   :
+    "# CSC digis vs p"   :
     {
-        "comment"   : "# CSC hits vs p",
+        "comment"   : "# CSC digis vs p",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -111,9 +111,9 @@
         }
     },
 
-    "# hits vs p MB1"   :
+    "# digis vs p MB1"   :
     {
-        "comment"   : "# hits vs p MB1",
+        "comment"   : "# digis vs p MB1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -167,9 +167,9 @@
         }
     },
 
-    "# hits vs p MB2"   :
+    "# digis vs p MB2"   :
     {
-        "comment"   : "# hits vs p MB2",
+        "comment"   : "# digis vs p MB2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -223,9 +223,9 @@
         }
     },
 
-    "# hits vs p MB3"   :
+    "# digis vs p MB3"   :
     {
-        "comment"   : "# hits vs p MB3",
+        "comment"   : "# digis vs p MB3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -279,9 +279,9 @@
         }
     },
 
-    "# hits vs p MB4"   :
+    "# digis vs p MB4"   :
     {
-        "comment"   : "# hits vs p MB4",
+        "comment"   : "# digis vs p MB4",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -335,9 +335,9 @@
         }
     },
 
-    "# hits vs p ME1"   :
+    "# digis vs p ME1"   :
     {
-        "comment"   : "# hits vs p ME1",
+        "comment"   : "# digis vs p ME1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -391,9 +391,9 @@
         }
     },
 
-    "# hits vs p ME2"   :
+    "# digis vs p ME2"   :
     {
-        "comment"   : "# hits vs p ME2",
+        "comment"   : "# digis vs p ME2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -447,9 +447,9 @@
         }
     },
 
-    "# hits vs p ME3"   :
+    "# digis vs p ME3"   :
     {
-        "comment"   : "# hits vs p ME3",
+        "comment"   : "# digis vs p ME3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -503,9 +503,9 @@
         }
     },
 
-    "# hits vs p ME4"   :
+    "# digis vs p ME4"   :
     {
-        "comment"   : "# hits vs p ME4",
+        "comment"   : "# digis vs p ME4",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -559,9 +559,9 @@
         }
     },
 
-    "# hits vs eta MB1"   :
+    "# digis vs eta MB1"   :
     {
-        "comment"   : "# hits vs eta MB1",
+        "comment"   : "# digis vs eta MB1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -615,9 +615,9 @@
         }
     },
 
-    "# hits vs eta MB2"   :
+    "# digis vs eta MB2"   :
     {
-        "comment"   : "# hits vs eta MB2",
+        "comment"   : "# digis vs eta MB2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -671,9 +671,9 @@
         }
     },
 
-    "# hits vs eta MB3"   :
+    "# digis vs eta MB3"   :
     {
-        "comment"   : "# hits vs eta MB3",
+        "comment"   : "# digis vs eta MB3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -727,9 +727,9 @@
         }
     },
 
-    "# hits vs eta MB4"   :
+    "# digis vs eta MB4"   :
     {
-        "comment"   : "# hits vs eta MB4",
+        "comment"   : "# digis vs eta MB4",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -783,9 +783,9 @@
         }
     },
 
-    "# hits vs eta ME1"   :
+    "# digis vs eta ME1"   :
     {
-        "comment"   : "# hits vs eta ME1",
+        "comment"   : "# digis vs eta ME1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -839,9 +839,9 @@
         }
     },
 
-    "# hits vs eta ME2"   :
+    "# digis vs eta ME2"   :
     {
-        "comment"   : "# hits vs eta ME2",
+        "comment"   : "# digis vs eta ME2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -895,9 +895,9 @@
         }
     },
 
-    "# hits vs eta ME3"   :
+    "# digis vs eta ME3"   :
     {
-        "comment"   : "# hits vs eta ME3",
+        "comment"   : "# digis vs eta ME3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -951,9 +951,9 @@
         }
     },
 
-    "# hits vs eta ME4"   :
+    "# digis vs eta ME4"   :
     {
-        "comment"   : "# hits vs eta ME4",
+        "comment"   : "# digis vs eta ME4",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1007,9 +1007,9 @@
         }
     },
 
-    "# hits vs phi MB1"   :
+    "# digis vs phi MB1"   :
     {
-        "comment"   : "# hits vs phi MB1",
+        "comment"   : "# digis vs phi MB1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1063,9 +1063,9 @@
         }
     },
 
-    "# hits vs phi MB2"   :
+    "# digis vs phi MB2"   :
     {
-        "comment"   : "# hits vs phi MB2",
+        "comment"   : "# digis vs phi MB2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1119,9 +1119,9 @@
         }
     },
 
-    "# hits vs phi MB3"   :
+    "# digis vs phi MB3"   :
     {
-        "comment"   : "# hits vs phi MB3",
+        "comment"   : "# digis vs phi MB3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1175,9 +1175,9 @@
         }
     },
 
-    "# hits vs phi MB4"   :
+    "# digis vs phi MB4"   :
     {
-        "comment"   : "# hits vs phi MB4",
+        "comment"   : "# digis vs phi MB4",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1231,9 +1231,9 @@
         }
     },
 
-    "# hits vs phi ME1"   :
+    "# digis vs phi ME1"   :
     {
-        "comment"   : "# hits vs phi ME1",
+        "comment"   : "# digis vs phi ME1",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1287,9 +1287,9 @@
         }
     },
 
-    "# hits vs phi ME2"   :
+    "# digis vs phi ME2"   :
     {
-        "comment"   : "# hits vs phi ME2",
+        "comment"   : "# digis vs phi ME2",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1343,9 +1343,9 @@
         }
     },
 
-    "# hits vs phi ME3"   :
+    "# digis vs phi ME3"   :
     {
-        "comment"   : "# hits vs phi ME3",
+        "comment"   : "# digis vs phi ME3",
         "inputs"    :
         {
             "1 Chamb"   :
@@ -1399,9 +1399,9 @@
         }
     },
 
-    "# hits vs phi ME4"   :
+    "# digis vs phi ME4"   :
     {
-        "comment"   : "# hits vs phi ME4",
+        "comment"   : "# digis vs phi ME4",
         "inputs"    :
         {
             "1 Chamb"   :

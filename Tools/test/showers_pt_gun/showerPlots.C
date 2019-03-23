@@ -149,6 +149,8 @@ namespace muon_pog {
     void fillShowerPlots(TString etaIdTag, TString categoryTag, const muon_pog::Muon & muon,
 			 const TLorentzVector & genMuTk, const std::array<bool,8> & showers, double weight);
 
+    void postFillShowerPlots();
+
     void bookBasic(TFile *outFile, const TString & etaIdTag,
 		   const TString & sampleTag, const TString & categoryTag);
 
@@ -159,6 +161,8 @@ namespace muon_pog {
     std::map<Plotter::HistoType, std::map<TString, TEfficiency *> > m_effs;
     TagAndProbeConfig m_tnpConfig;
     SampleConfig m_sampleConfig;
+
+    std::vector<std::string> eventsForTim;
 
   private:
 
@@ -277,6 +281,8 @@ int main(int argc, char* argv[]){
 	      
 	      plotter.fill(ev->muons, ev->hlt, (*ev), weight);
 	    }
+
+	  plotter.postFillShowerPlots();
 
 	  delete ev;
 	  inputFile->Close();
@@ -460,6 +466,7 @@ void muon_pog::Plotter::book(TFile *outFile)
   outFile->cd(sampleTag);
 
   outFile->mkdir(sampleTag+"/efficiencies");      
+  outFile->mkdir(sampleTag+"/reco_efficiencies");      
   outFile->mkdir(sampleTag+"/kinematical_variables");
   outFile->mkdir(sampleTag+"/hit_count");
   outFile->mkdir(sampleTag+"/control");
@@ -496,6 +503,24 @@ void muon_pog::Plotter::book(TFile *outFile)
 								    "probePVsEta" + completeTag +
 								    "#eta ;p (GeV)",
 								    12, 0., 2.4, 50,0.,2500.);
+
+	  outFile->cd(sampleTag+"/reco_efficiencies");
+
+	  const Double_t pBins[14] = {0., 50., 100., 150., 200., 300., 400., 500., 600., 700., 800., 1200., 2000., 4000.};
+	  m_effs[EFF]["effVsP" + etaTag + IDTag]  = new TEfficiency("effVsP" + completeTag,
+								    "effVsP" + completeTag +
+								    ";p (GeV);reco efficiency",
+								    13, pBins);
+
+	  m_effs[EFF]["effVsPBarrel" + etaTag + IDTag]  = new TEfficiency("effVsPBarrel" + completeTag,
+									  "effVsPBarrel" + completeTag +
+									  ";p (GeV);reco efficiency",
+									  13, pBins);
+
+	  m_effs[EFF]["effVsPEndcap" + etaTag + IDTag]  = new TEfficiency("effVsPEndcap" + completeTag,
+									  "effVsPEndcap" + completeTag +
+									  ";p (GeV);reco efficiency",
+									  13, pBins);
 
 	  bookBasic(outFile, etaTag + IDTag, sampleTag, "Chamb");
 	  bookBasic(outFile, etaTag + IDTag, sampleTag, "50");
@@ -538,20 +563,30 @@ void muon_pog::Plotter::book(TFile *outFile)
 										  ";#Delta(pos_x); #Delta(pos_y)",
 										  201, -100.5, 100.5, 201, -100.5, 100.5);
 
+	      m_histos[SEG]["posYVsPhi" + chambTag + etaTag + IDTag]  = new TH2F("posYVsPhi" + chambTag + etaTag + IDTag,
+										 "posYVsPhi" + chambTag + etaTag + IDTag +
+										 ";#Delta(phi); #Delta(pos_y)",
+										 201, -.01005, .01005, 201, -100.5, 100.5);
+
 	      m_histos[SEG]["nHitsVsPosX" + chambTag + etaTag + IDTag]  = new TH2F("nHitsVsPosX" + chambTag + etaTag + IDTag,
 										  "nHitsVsPosX" + chambTag + etaTag + IDTag +
 										  ";#Delta(pos_x); #Delta(# hits)",
 										  201, -10.05, 10.05, 21, -10.5, 10.5);
 
+	      m_histos[SEG]["nHitsVsPhi" + chambTag + etaTag + IDTag]  = new TH2F("nHitsVsPhi" + chambTag + etaTag + IDTag,
+										  "nHitsVsPhi" + chambTag + etaTag + IDTag +
+										  ";#Delta(phi); #Delta(# hits)",
+										  201, -.01005, .01005, 21, -10.5, 10.5);
+
 	      m_histos[SEG]["nDigiVsNSegShower" + chambTag + etaTag + IDTag]  = new TH2F("nDigiVsNSegShower" + chambTag + etaTag + IDTag,
 											 "nDigiVsNSegShower" + chambTag + etaTag + IDTag +
 											 ";# segment ;# digi",
-											 101, -0.5, 100.5, 101, -0.5, 100.5);
+											 201, -0.5, 200.5, 101, -0.5, 100.5);
 
 	      m_histos[SEG]["nDigiVsNSegAll" + chambTag + etaTag + IDTag]  = new TH2F("nDigiVsNSegAll" + chambTag + etaTag + IDTag,
 										      "nDigiVsNSegAll" + chambTag + etaTag + IDTag +
 										      ";# segment ;# digi",
-										      101, -0.5, 100.5, 101, -0.5, 100.5);
+										      201, -0.5, 200.5, 101, -0.5, 100.5);
 	    }
 
 	}
@@ -629,7 +664,7 @@ void muon_pog::Plotter::bookShower(TFile *outFile,
   outFile->cd(sampleTag+"/efficiencies");
 
   // const Double_t ptBins[12] = {0., 50., 100., 150., 200., 300., 400., 500., 600., 700., 800., 1200.};
-  std::vector<std::string> chambers = { "MB1", "MB2", "MB3", "MB4", "ME1", "ME2", "ME3", "ME4" };
+  std::vector<std::string> chambers = { "MB1", "MB2", "MB3", "MB4", "AvgDT", "ME1", "ME2", "ME3", "ME4", "AvgCSC" };
   for (const auto & chamb : chambers)
     {
 
@@ -639,7 +674,7 @@ void muon_pog::Plotter::bookShower(TFile *outFile,
       m_effs[EFF]["nShowersVsP" + plotTag] = new TEfficiency("nShowersVsP" + completeTag, 
 							      "nShowersVsP" + completeTag +
 							      ";muon p (GeV/c);shower probability", 
-							      12, 0., 2400.);
+							      24, 0., 2400.);
 
       m_effs[EFF]["nShowersVsPhi" + plotTag] = new TEfficiency("nShowersVsPhi" + completeTag, 
 							       "nShowersVsPhi" + completeTag +
@@ -701,13 +736,23 @@ void muon_pog::Plotter::bookShower(TFile *outFile,
   m_histos[CONT]["nDtShowers" + plotTag] = new TH1F("nDtShowers" + completeTag,
 						    "nDtShowers" + completeTag +
 						    ";# of stations with showers;# entries",
-						    4, 0.5, 4.5);
+						    5, -0.5, 4.5);
   
   m_histos[CONT]["nCscShowers" + plotTag] = new TH1F("nCscShowers" + completeTag,
 						     "nCscShowers" + completeTag +
 						     ";# of stations with showers;# entries",
-						     4, 0.5, 4.5);
+						     5, -0.5, 4.5);
 
+  m_histos[CONT]["nDtShowersComb" + plotTag] = new TH1F("nDtShowersComb" + completeTag,
+							"nDtShowersComb" + completeTag +
+							";# of stations with showers;# entries",
+							5, -0.5, 4.5);
+  
+  m_histos[CONT]["nCscShowersComb" + plotTag] = new TH1F("nCscShowersComb" + completeTag,
+							 "nCscShowersComb" + completeTag +
+							 ";# of stations with showers;# entries",
+							 5, -0.5, 4.5);
+  
   m_histos[CONT]["nDtMatchStVsShowers" + plotTag] = new TProfile("nDtMatchStVsShowers" + completeTag,
 								 "nDtMatchStVsShowers" + completeTag +
 								 ";# of stations with showers;# of matched stations",
@@ -717,6 +762,24 @@ void muon_pog::Plotter::bookShower(TFile *outFile,
 								  "nCscMatchStVsShowers" + completeTag +
 								  ";# of stations with showers;# of matched stations",
 								  4, -0.5, 3.5, -0.5, 4.5);
+
+  outFile->cd(sampleTag+"/reco_efficiencies");
+
+  const Double_t pBins[14] = {0., 50., 100., 150., 200., 300., 400., 500., 600., 700., 800., 1200., 2000., 4000.};
+  m_effs[EFF]["effVsP" + plotTag]  = new TEfficiency("effVsP" + plotTag,
+						     "effVsP" + plotTag +
+						     ";p (GeV);reco efficiency",
+						     13, pBins);
+  
+  m_effs[EFF]["effVsPBarrel" + plotTag]  = new TEfficiency("effVsPBarrel" + plotTag,
+							   "effVsPBarrel" + plotTag +
+							   ";p (GeV);reco efficiency",
+							   13, pBins);
+  
+  m_effs[EFF]["effVsPEndcap" + plotTag]  = new TEfficiency("effVsPEndcap" + plotTag,
+							   "effVsPEndcap" + plotTag +
+							   ";p (GeV);reco efficiency",
+							   13, pBins);
   
 }
 
@@ -794,6 +857,16 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 		      m_histos[KIN]["probePhi" + etaTag + IDTag]->Fill(probeMuTk.Phi(), weight);
 		      static_cast<TH2F*>(m_histos[KIN]["probePVsEta" + etaTag + IDTag])->Fill(probeMuTk.Eta(), std::abs(probeMuTk.P()), weight);
 
+		      bool isGlobal = probeMuon.isGlobal;
+			      
+		      m_effs[EFF]["effVsP" + etaTag + IDTag]->FillWeighted(isGlobal, weight, probeMuTk.P()); 
+
+		      if (fabs(probeMuTk.Eta()) < 0.9)
+			m_effs[EFF]["effVsPBarrel" + etaTag + IDTag]->FillWeighted(isGlobal, weight, probeMuTk.P());
+
+		      if (fabs(probeMuTk.Eta()) > 1.6)
+			m_effs[EFF]["effVsPEndcap" + etaTag + IDTag]->FillWeighted(isGlobal, weight, probeMuTk.P());
+
 		      auto nShowersSegment = showerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25.);
 
 		      auto nShowersChamb = showerPerCh(probeMuon, 0);
@@ -823,6 +896,22 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 
 		      auto hasShowersSegment2 = hasShowerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25., 2, 2);
 		      auto hasShowersSegment3 = hasShowerPerCh(probeMuon, ev.dtSegments, ev.cscSegments, 25., 3, 3);
+
+		      for (std::size_t iShower = 4; iShower < 8; ++iShower)
+			{
+			  std::stringstream showerEvent;
+
+			  showerEvent << ev.runNumber << ":"
+				      << ev.luminosityBlockNumber << ":"
+				      << ev.eventNumber;
+
+			  if (eventsForTim.size() < 50 && nShowersSegment[iShower] == 2 && nShowers25[iShower] < 72 &&
+			      std::find(eventsForTim.begin(), eventsForTim.end(), showerEvent.str()) == eventsForTim.end())
+			    {
+			      eventsForTim.push_back(showerEvent.str());
+			      std::cout << "A good event : " <<nShowersSegment[iShower] << " " << nShowers25[iShower] << std::endl;
+			    }
+			}
 
 		      fillShowerPlots(etaTag + IDTag, TString("Segment2"), probeMuon, probeMuTk, hasShowersSegment2, weight);
 		      fillShowerPlots(etaTag + IDTag, TString("Segment3"), probeMuon, probeMuTk, hasShowersSegment3, weight);
@@ -871,22 +960,30 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 			      auto seg2It = seg1It;
 			      seg2It++;
 			      for (; seg2It != segEnd; ++seg2It)
-				{				      
-				  Float_t dX    = seg1It->x - seg2It->x;
-				  Float_t dY    = seg1It->y - seg2It->y;
-				  Float_t dPhi  = seg1It->phi - seg2It->phi;
-				  Float_t dErrX = seg1It->errx - seg2It->errx;
-				  Float_t dNHit = seg1It->nHitsX - seg2It->nHitsX;
+				{	
+				  if (seg1It == seg2It)
+				    continue; // CB a test
 
-				  // std::cout << (seg1It == seg2It) << " " << dX << " " << dY << " " << dErrX << " " << dNHit << std::endl;
-	  
-				  m_histos[SEG]["errXVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dErrX);
-
-				  m_histos[SEG]["errXVsPhi" + chambTag + etaTag + IDTag]->Fill(dPhi,dErrX);
+				  if (seg1It->id_eta == seg2It->id_eta && 
+				      seg1It->id_phi == seg2It->id_phi && 
+				      seg1It->id_r   == seg2It->id_r)
+				    {
 				  
-				  m_histos[SEG]["posYVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dY);
-
-				  m_histos[SEG]["nHitsVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dNHit);
+				      Float_t dX    = seg1It->x - seg2It->x;
+				      Float_t dY    = seg1It->y - seg2It->y;
+				      Float_t dPhi  = seg1It->phi - seg2It->phi;
+				      Float_t dErrX = seg1It->errx - seg2It->errx;
+				      Float_t dNHit = seg1It->nHitsX - seg2It->nHitsX;
+				      
+				      // std::cout << (seg1It == seg2It) << " " << dX << " " << dY << " " << dErrX << " " << dNHit << std::endl;
+				      
+				      m_histos[SEG]["errXVsPosX"  + chambTag + etaTag + IDTag]->Fill(dX,dErrX);
+				      m_histos[SEG]["errXVsPhi"   + chambTag + etaTag + IDTag]->Fill(dPhi,dErrX);
+				      m_histos[SEG]["posYVsPosX"  + chambTag + etaTag + IDTag]->Fill(dX,dY);
+				      m_histos[SEG]["posYVsPhi"   + chambTag + etaTag + IDTag]->Fill(dPhi,dY);
+				      m_histos[SEG]["nHitsVsPosX" + chambTag + etaTag + IDTag]->Fill(dX,dNHit);
+				      m_histos[SEG]["nHitsVsPhi"  + chambTag + etaTag + IDTag]->Fill(dPhi,dNHit);
+				    }
 				}
 			    }
 
@@ -901,6 +998,75 @@ void muon_pog::Plotter::fill(const std::vector<muon_pog::Muon> & muons,
 	    }
 	}
     }
+}
+
+void muon_pog::Plotter::postFillShowerPlots()
+{
+
+  std::cout << "\n events for Tim : " << std::endl;
+
+  for (const auto & event : eventsForTim)
+    {
+      std::cout << event << std::endl;
+    }
+
+  std::cout << std::endl;
+	
+  std::vector<TString> nDigiTags = { "1", "2", "3", "4", "5", "6", "7" };
+  std::vector<TString> rangeTags = { "Chamb_", "50_", "25_", "15_" };
+
+  std::vector<TString> analysisTags;
+
+  analysisTags.push_back("Segment2");
+  analysisTags.push_back("Segment3");
+
+  for (const auto & rangeTag : rangeTags)
+    {
+      for (const auto & nDigiTag : nDigiTags)
+	{
+	  analysisTags.push_back(rangeTag + nDigiTag);
+	}
+    }
+
+  for (auto fEtaBin : m_tnpConfig.probe_fEtaBins)
+    {
+	  
+      TString etaTag = "_fEtaMin" + fEtaBin.first + "_fEtaMax" + fEtaBin.second;
+      
+      for (auto & probe_ID : m_tnpConfig.probe_IDs)
+	{
+	
+	  TString IDTag = "_" + probe_ID;
+
+	  for (const auto & analysisTag : analysisTags)
+	    {
+
+	      std::vector<Double_t> probPerChDt;
+	      std::vector<Double_t> probPerChCsc;
+
+	      TString plotTag = analysisTag + etaTag + IDTag;
+	      
+	      for (Int_t iBinCh = 1; iBinCh <= 4; ++iBinCh)
+		{
+		  probPerChDt.push_back(m_effs[EFF]["nDtShowersPerCh" + plotTag]->GetEfficiency(iBinCh));
+		  probPerChCsc.push_back(m_effs[EFF]["nCscShowersPerCh" + plotTag]->GetEfficiency(iBinCh));
+		}
+
+	      for (Int_t iBinComb = 1; iBinComb <= 5; ++iBinComb)
+		{
+		  m_histos[CONT]["nDtShowersComb" + plotTag]->SetBinContent(iBinComb, combineProbability(probPerChDt, iBinComb - 1));
+		  m_histos[CONT]["nCscShowersComb" + plotTag]->SetBinContent(iBinComb, combineProbability(probPerChCsc, iBinComb - 1));
+		}
+	      
+	      m_histos[CONT]["nDtShowers" + plotTag]->Sumw2();
+	      m_histos[CONT]["nCscShowers" + plotTag]->Sumw2();
+	      m_histos[CONT]["nDtShowers" + plotTag]->Scale(1./m_histos[CONT]["nDtShowers" + plotTag]->Integral());
+	      m_histos[CONT]["nCscShowers" + plotTag]->Scale(1./m_histos[CONT]["nCscShowers" + plotTag]->Integral());
+
+	    }	    
+	}	    
+    }	    
+
 }
 
 void muon_pog::Plotter::fillBasicPlots(TString etaIdTag,
@@ -951,6 +1117,10 @@ void muon_pog::Plotter::fillShowerPlots(TString etaIdTag,
 	m_effs[EFF]["nShowersVsP" + chamb + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.P());
 	m_effs[EFF]["nShowersVsPhi" + chamb + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Phi());
 	m_effs[EFF]["nShowersVsEta" + chamb + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Eta());
+
+	m_effs[EFF]["nShowersVsPAvgDT" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.P());
+	m_effs[EFF]["nShowersVsPhiAvgDT" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Phi());
+	m_effs[EFF]["nShowersVsEtaAvgDT" +categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Eta());
 	
 	m_effs[EFF]["nDtShowersPerCh" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, iChamb + 1);
 
@@ -962,6 +1132,14 @@ void muon_pog::Plotter::fillShowerPlots(TString etaIdTag,
       (showers[1] ? 1 : 0) +
       (showers[2] ? 1 : 0) +
       (showers[3] ? 1 : 0);
+
+    bool isGlobal = muon.isGlobal;
+  
+    if (nDtShowers)
+      m_effs[EFF]["effVsP" + categoryTag + etaIdTag]->FillWeighted(isGlobal, weight, refMuTk.P()); 
+  
+    if (nDtShowers && fabs(refMuTk.Eta()) < 0.9)
+      m_effs[EFF]["effVsPBarrel" + categoryTag + etaIdTag]->FillWeighted(isGlobal, weight, refMuTk.P());
   
     m_effs[EFF]["nDtShowersVsP" + categoryTag + etaIdTag]->FillWeighted(nDtShowers, weight, refMuTk.P());
     m_effs[EFF]["nDtShowersVsPhi" + categoryTag + etaIdTag]->FillWeighted(nDtShowers, weight, refMuTk.Phi());
@@ -986,6 +1164,10 @@ void muon_pog::Plotter::fillShowerPlots(TString etaIdTag,
 	m_effs[EFF]["nShowersVsPhi" + chamb + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Phi());
 	m_effs[EFF]["nShowersVsEta" + chamb + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Eta());
 	
+	m_effs[EFF]["nShowersVsPAvgCSC" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.P());
+	m_effs[EFF]["nShowersVsPhiAvgCSC" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Phi());
+	m_effs[EFF]["nShowersVsEtaAvgCSC" +categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, refMuTk.Eta());
+
 	m_effs[EFF]["nCscShowersPerCh" + categoryTag + etaIdTag]->FillWeighted(showers[iChamb], weight, iChamb - 3);
 
 	iChamb++;
@@ -997,6 +1179,14 @@ void muon_pog::Plotter::fillShowerPlots(TString etaIdTag,
       (showers[6] ? 1 : 0) +
       (showers[7] ? 1 : 0);
     
+    bool isGlobal = muon.isGlobal;
+  
+    if (nCscShowers)
+      m_effs[EFF]["effVsP" + categoryTag + etaIdTag]->FillWeighted(isGlobal, weight, refMuTk.P()); 
+  
+    if (nCscShowers && fabs(refMuTk.Eta()) > 1.6)
+      m_effs[EFF]["effVsPEndcap" + categoryTag + etaIdTag]->FillWeighted(isGlobal, weight, refMuTk.P());
+
     m_effs[EFF]["nCscShowersVsP" + categoryTag + etaIdTag]->FillWeighted(nCscShowers, weight, refMuTk.P());
     m_effs[EFF]["nCscShowersVsPhi" + categoryTag + etaIdTag]->FillWeighted(nCscShowers, weight, refMuTk.Phi());
     m_effs[EFF]["nCscShowersVsEta" + categoryTag + etaIdTag]->FillWeighted(nCscShowers, weight, refMuTk.Eta());

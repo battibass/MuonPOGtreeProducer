@@ -198,6 +198,7 @@ private:
   muon_pog::Event event_;
   muon_pog::EventId eventId_;
   std::map<std::string,TTree*> tree_;
+  std::map<std::string,TH1F*>  histos_;
   
 };
 
@@ -287,6 +288,14 @@ void MuonPogTreeProducer::beginJob()
   int splitBranches = 2;
   tree_["muPogTree"]->Branch("event",&event_,64000,splitBranches);
   tree_["muPogTree"]->Branch("eventId",&eventId_,64000,splitBranches);
+
+  std::vector<std::string> stationTags = { "MB1", "MB2", "MB3", "MB4", "ME1", "ME2", "ME3","ME4" };
+
+  for (auto & stationTag : stationTags)
+    {
+      std::string hName = "dX" + stationTag;
+      histos_[hName] = fs->make<TH1F>(hName.c_str(), hName.c_str(), 300, 0, 300);
+    }
 
 }
 
@@ -811,6 +820,9 @@ void MuonPogTreeProducer::fillDtDigis(const edm::Handle<DTDigiCollection> & dtDi
 
 		      Float_t dX = std::abs(ntupleMatch.x - xWire);
 
+		      std::string hName = "dXMB" + std::to_string((*dtLayerIdIt).first.station());
+		      histos_[hName]->Fill(dX);
+		      
 		      if (dX < 50.)
 			{
 			  (*dtLayerIdIt).first.superLayer() == 1 && ntupleMatch.dtDigi.n_phi1[1]++;
@@ -937,6 +949,9 @@ void MuonPogTreeProducer::fillCscDigis(const edm::Handle<CSCWireDigiCollection> 
 		      Float_t xStrip = layerGeom->xOfStrip(digiIt->getStrip(), ntupleMatch.y); 
 
 		      Float_t dX = std::abs(ntupleMatch.x - xStrip);
+
+		      std::string hName = "dXME" + std::to_string((*cscStripLayerIdIt).first.station());
+		      histos_[hName]->Fill(dX);
 
 		      if (dX < 50.)
 			ntupleMatch.cscDigi.n_strip[1]++;

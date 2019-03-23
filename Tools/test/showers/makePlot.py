@@ -67,8 +67,7 @@ for keyPlot in config:
                 inputName = keys.GetName()
 
                 if inputName.find("=") > 0 or \
-                   inputDir.Get(inputName).ClassName() == "TDirectoryFile" or \
-                   inputDir.Get(inputName).ClassName() == "TH2F":
+                   inputDir.Get(inputName).ClassName() == "TDirectoryFile":
                     continue
 
                 if inputPlotNames[iHisto] == "all" :
@@ -100,36 +99,73 @@ for keyPlot in config:
 
     for histoName,histograms in inputHistos.iteritems():
 
-        for iHisto in range(len(histograms)):
+        if histograms[iHisto].ClassName() != "TH2F" :
+            for iHisto in range(len(histograms)):
 
-            histograms[iHisto].SetLineColor(colorMap[iHisto])
-            histograms[iHisto].SetLineWidth(2)
-            histograms[iHisto].SetMarkerStyle(markerMap[iHisto])
-            histograms[iHisto].SetMarkerColor(colorMap[iHisto])
+                histograms[iHisto].SetLineColor(colorMap[iHisto])
+                histograms[iHisto].SetLineWidth(2)
+                histograms[iHisto].SetMarkerStyle(markerMap[iHisto])
+                histograms[iHisto].SetMarkerColor(colorMap[iHisto])
 
         # Setup canvas with all elements
         canvas = TCanvas('canvas', 'canvas', 800, 800)
 
-
         pad = TPad('pad', 'pad', 0.01, 0.00, 1.00, 1.00)
  
         pad.SetGrid()
-        #pad.SetLogy()
         pad.Draw()
         pad.cd()
+
+        hasLogY      = False
+        hasHistN     = False
+        hasNoScale   = False
+        hasLinearFit = False
+        hasParabFit  = False
+        
+        
+        if config[keyPlot]['plot'].has_key('option') :
+            option = config[keyPlot]['plot']['option']
+
+            if option.find("logY") > -1 :
+                hasLogY = True
+                option = option.replace("logY","")
+
+            if option.find("histN") > -1 :
+                hasHistN = True
+                option = option.replace("histN","")
+
+            if option.find("noScale") > -1 :
+                hasNoScale = True
+                option = option.replace("noScale","")
+
+            if option.find("linearFit") > -1 :
+                hasLinearFit = True
+                option = option.replace("linearFit","")
+
+            if option.find("parabFit") > -1 :
+                hasParabFit = True
+                option = option.replace("parabFit","")
+
+        if hasLogY :
+            pad.SetLogy()
 
         plotX = config[keyPlot]['plot']['x']
         plotY = config[keyPlot]['plot']['y']
         # Generate superimposed graph using TMultiHisto
-
     
         for iHisto in range(len(histograms)):
 
-
-            if iHisto == 0 :
-                histograms[iHisto].Draw('')
-            else :
-                histograms[iHisto].Draw('same')
+            if histograms[iHisto].ClassName() == "TH2F" :
+                pad.SetLogz()
+                histograms[iHisto].Draw('colz')
+            else:
+                if iHisto == 0 :
+                    histograms[iHisto].Draw('')
+                else :
+                    if hasHistN :
+                        histograms[iHisto].Draw('sameHIST')
+                    else:
+                        histograms[iHisto].Draw('same')
 
             canvas.Update()
 
@@ -138,17 +174,61 @@ for keyPlot in config:
             else :
                 histo = histograms[iHisto]
 
+            if hasLinearFit :
+               func = TF1("myLine","pol1")
+               func.SetRange(plotX[0], plotX[1])
+               histo.Fit("myLine","RF")
+               func.SetLineColor(colorMap[iHisto])
+               func.DrawCopy("same")
+               par0 = float("{0:.4f}".format(func.GetParameter(0)))
+               par1 = float("{0:.7f}".format(func.GetParameter(1)))
+               parErr0 = float("{0:.4f}".format(func.GetParError(0)))
+               parErr1 = float("{0:.7f}".format(func.GetParError(1)))
+               print "[makePlot.py] Fit (line) ", histograms[iHisto].GetName(), \
+                   "par0 =", par0, "parErr0 =", parErr0, \
+                   "par1 =", par1, "parErr1 =", parErr1, \
+               
+            if hasParabFit :
+               func = TF1("myParab","pol2")
+               func.SetRange(plotX[0], plotX[1])
+               func.SetParameter(0,0.005)
+               func.SetParameter(1,0.0001)
+               func.SetParameter(2,0.000000001)
+               func.SetParLimits(0,0.,0.02)
+               func.SetParLimits(1,0.,0.002)
+               func.SetParLimits(2,-1e-7,0.)
+               histo.Fit("myParab","RF")
+               func.SetLineColor(colorMap[iHisto])
+               func.DrawCopy("same")
+               par0 = float("{0:.4f}".format(func.GetParameter(0)))
+               par1 = float("{0:.7f}".format(func.GetParameter(1)))
+               par2 = float("{0:.9f}".format(func.GetParameter(2)))
+               parErr0 = float("{0:.4f}".format(func.GetParError(0)))
+               parErr1 = float("{0:.7f}".format(func.GetParError(1)))
+               parErr2 = float("{0:.9f}".format(func.GetParError(2)))
+               print "[makePlot.py] Fit (parab) ", histograms[iHisto].GetName(), \
+                   "par0 =", par0, "parErr0 =", parErr0, \
+                   "par1 =", par1, "parErr1 =", parErr1, \
+                   "par2 =", par2, "parErr2 =", parErr2
+
+
+
+
             if histograms[iHisto].ClassName() != "TH1F" :
                 histo.GetXaxis().SetRangeUser(plotX[0], plotX[1])
                 histo.GetYaxis().SetRangeUser(plotY[0], plotY[1])
                 histo.GetXaxis().SetTitle(plotX[2])
                 histo.GetYaxis().SetTitle(plotY[2])
             else:
-                histo.Scale(1./histo.Integral())
+                if not hasNoScale :
+                    histo.Scale(1./histo.Integral())
                 histo.GetXaxis().SetRangeUser(plotX[0], plotX[1])
-                histo.GetYaxis().SetRangeUser(0.0, histograms[iHisto].GetMaximum() * 1.5)
-                #histo.GetYaxis().SetRangeUser(0.0001, histograms[iHisto].GetMaximum() * 5.5)
-                #histo.GetYaxis().SetRangeUser(0.0, 0.25)
+
+                if hasLogY :
+                    histo.GetYaxis().SetRangeUser(plotY[0], plotY[1])
+                else :
+                    histo.GetYaxis().SetRangeUser(0.0, histograms[iHisto].GetMaximum() * 1.5)
+
                 histo.GetXaxis().SetTitle(histoName)
                 histo.GetXaxis().SetTitle(plotX[2])
                 histo.GetYaxis().SetTitle(plotY[2])
@@ -176,13 +256,14 @@ for keyPlot in config:
         canvas.cd()
         leg = TLegend(0.49, 0.67, 0.75+0.1, 0.80)
 
-        for iHisto in range(len(histograms)):
-            leg.AddEntry(histograms[iHisto], inputLegendEntries[iHisto], 'LP')
+        if histograms[iHisto].ClassName() != "TH2F" :
+            for iHisto in range(len(histograms)):
+                leg.AddEntry(histograms[iHisto], inputLegendEntries[iHisto], 'LP')
 
-        leg.SetBorderSize(1)
-        leg.SetTextFont(43)
-        leg.SetTextSize(20)
-        leg.Draw()
+            leg.SetBorderSize(1)
+            leg.SetTextFont(43)
+            leg.SetTextSize(20)
+            leg.Draw()
 
         canvas.cd()
         latex = TLatex()

@@ -40,7 +40,7 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 30.0, "hit multiplicity"],
             "legendTitle"       : "25 cm",
             "caption"           : "2017 MC - flat p gun",
@@ -50,7 +50,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "n_hits_vs_p_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -97,7 +97,7 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
+            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [10.0, 40.0, "hit multiplicity"],
             "legendTitle"       : "25 cm",
             "caption"           : "2017 MC - flat p gun",
@@ -107,7 +107,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "n_hits_vs_p_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -153,9 +153,9 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 0.3, "shower probability"],
-            "option"            : "parabFit",
+            "x"                 : [0.0, 600.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "option"            : "linearFit",
             "legendTitle"       : "25 cm - >= 20 digis",
             "caption"           : "2017 MC - flat p gun",
             "logo"              : ["CMS", "Work in progress"],
@@ -164,7 +164,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "shower_probability_vs_p_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -210,9 +210,9 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
+            "x"                 : [0.0, 1000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
-            "option"            : "parabFit",
+            "option"            : "linearFit",
             "legendTitle"       : "25 cm - >= 36 digis",
             "caption"           : "2017 MC - flat p gun",
             "logo"              : ["CMS", "Work in progress"],
@@ -221,7 +221,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "shower_probability_vs_p_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -243,9 +243,9 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 0.3, "shower probability"],
-            "option"            : "parabFit",
+            "x"                 : [0.0, 600.0, "muon p (GeV/c)"],
+            "y"                 : [0.0, 0.2, "shower probability"],
+            "option"            : "linearFit",
             "legendTitle"       : "25 cm - >= 20 digis",
             "caption"           : "2017 MC - flat p gun",
             "logo"              : ["CMS", "Work in progress"],
@@ -254,7 +254,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "shower_probability_vs_p_avg_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -276,9 +276,9 @@
         },
         "plot"      :
         {
-            "x"                 : [50.0, 2000.0, "muon p (GeV/c)"],
+            "x"                 : [0.0, 1000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
-            "option"            : "parabFit",
+            "option"            : "linearFit",
             "legendTitle"       : "25 cm - >= 36 digis",
             "caption"           : "2017 MC - flat p gun",
             "logo"              : ["CMS", "Work in progress"],
@@ -287,7 +287,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison/",
+            "directory"         : "plots/comparison_range/",
             "filenamePlot"      : "shower_probability_vs_p_avg_CSC",
             "fileType"          : ["png", "pdf"]
         }

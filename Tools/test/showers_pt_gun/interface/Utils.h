@@ -237,12 +237,8 @@ namespace muon_pog
        		  if(seg1It->id_eta == seg2It->id_eta && 
        		     seg1It->id_phi == seg2It->id_phi && 
        		     seg1It->id_r   == seg2It->id_r   && 
-       		     ( (std::abs(seg1It->x - seg2It->x) < 0.005) ||
-			( std::abs(seg1It->x - seg2It->x) < 0.15 && 
-			  std::abs(seg1It->errx/seg1It->x - seg2It->errx/seg2It->x) < 1e-6
-			)
-		     ) && 
-       		    seg1It->nHitsX == seg2It->nHitsX) 
+       		     std::abs(seg1It->x - seg2It->x) < 0.005 && 
+		     seg1It->nHitsX == seg2It->nHitsX) 
        		    { 
 		      isCopy = true;
 		      break;
@@ -277,8 +273,7 @@ namespace muon_pog
        		  if(seg1It->id_eta == seg2It->id_eta && 
        		     seg1It->id_phi == seg2It->id_phi && 
        		     seg1It->id_r   == seg2It->id_r   && 
-       		     std::abs(seg1It->phi - seg2It->phi) < 0.0002 &&
-		     //std::abs(seg1It->x - seg2It->x) < 0.5 &&
+		     std::abs(seg1It->phi - seg2It->phi) < 0.0002 &&
 		     std::abs(seg1It->nHitsX - seg2It->nHitsX) <= 2) 
        		    { 
 		      isCopy = true;
@@ -440,6 +435,53 @@ namespace muon_pog
       return showers;
       
     };
+
+  Double_t combineProbability(std::vector<Double_t> probPerCh, Int_t nChamb)
+  {
+
+    Double_t prob = 0.;
+
+    std::map<Int_t, std::vector< std::vector<bool> > > combMap = { { 4, { {true,  true,  true,  true } } },
+								   { 3, { {true,  true,  true,  false}, 
+									  {true,  true,  false, true }, 
+									  {true,  false, true,  true }, 
+									  {false, true,  true,  true } } },
+								   { 2, { {true,  true,  false, false}, 
+									  {true,  false, true,  false}, 
+									  {true,  false, false, true }, 
+									  {false, true,  true,  false}, 
+									  {false, true,  false, true }, 
+									  {false, false, true,  true } } },
+								   { 1, { {true,  false, false, false}, 
+									  {false, true,  false, false}, 
+									  {false, false, true,  false}, 
+									  {false, false, false, true } } },
+								   { 0, { {false, false, false, false} } }  };
+
+    for (const auto & combEntry : combMap[nChamb])
+      {
+
+	Double_t probEntry = 1.;
+	
+	auto combIt  = combEntry.cbegin();
+	auto combEnd = combEntry.cend();
+
+	auto probIt  = probPerCh.cbegin();
+	auto probEnd = probPerCh.cend();
+	
+	for (; combIt != combEnd && probIt != probEnd; ++combIt, ++probIt)
+	  {
+	    if (*combIt) 
+	      probEntry *= (*probIt);
+	    else
+	      probEntry *= (1. - (*probIt));
+	  }
+	prob += probEntry;
+      }
+    
+    return prob;
+
+  }
 
   // Returns the charge muon_pog::Muon for a given fit 
   // Valid track fits are: PF, TUNEP, GLB, INNER, PICKY, DYT, TPFMS

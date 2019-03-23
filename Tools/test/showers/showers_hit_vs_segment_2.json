@@ -6,11 +6,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersVsPSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -42,14 +42,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 1.0, "shower probability"],
             "legendTitle"       : "DT - |#eta| < 0.9 - any station",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -62,11 +62,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersVsPSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -98,14 +98,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 1.0, "shower probability"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4 - any station",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -118,11 +118,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -154,14 +154,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -174,11 +174,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -210,14 +210,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -230,11 +230,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -266,14 +266,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -286,11 +286,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -322,14 +322,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -342,11 +342,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -376,16 +376,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -398,11 +398,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -432,16 +432,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -454,11 +454,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -488,16 +488,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -510,11 +510,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -544,16 +544,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -566,11 +566,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -600,16 +600,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -622,11 +622,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -656,16 +656,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -678,11 +678,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -712,16 +712,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -734,11 +734,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -768,16 +768,16 @@
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "MB4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -790,11 +790,11 @@
         {
 	    "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersPerChSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -825,16 +825,16 @@
         "plot"      :
         {
             "x"                 : [0.5, 4.5, "muon station #"],
-            "y"                 : [0.0, 0.3, "shower probability"],
+            "y"                 : [0.0, 0.1, "shower probability"],
             "legendTitle"       : "DT - |#eta| < 0.9",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3",
+            "directory"         : "plots/showers_hits_vs_segment_2",
             "filenamePlot"      : "shower_probability_per_ch_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -847,11 +847,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
-                "plot"		    : "nDtMatchStVsShowersSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtMatchStVsShowersSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "5 25 4"   :
             {
@@ -883,14 +883,14 @@
             "x"                 : [-0.5, 3.5, "# stations with showers"],
             "y"                 : [1.0, 5.5, "# matched stations"],
             "legendTitle"       : "DT - |#eta| < 0.9",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "nmatched_stations_vs_showers_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -903,11 +903,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -939,14 +939,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -959,11 +959,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -995,14 +995,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1015,11 +1015,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1051,14 +1051,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1071,11 +1071,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1107,14 +1107,14 @@
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_p_ME4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1127,11 +1127,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1163,14 +1163,14 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1183,11 +1183,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1219,14 +1219,14 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1239,11 +1239,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1275,14 +1275,14 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1295,11 +1295,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1331,14 +1331,14 @@
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_phi_ME4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1351,11 +1351,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME1Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1387,14 +1387,14 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME1",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1407,11 +1407,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME2Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1443,14 +1443,14 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME2",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1463,11 +1463,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME3Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1499,14 +1499,14 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME3",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1519,11 +1519,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME4Segment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1555,14 +1555,14 @@
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "ME4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "shower_probability_vs_eta_ME4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1575,11 +1575,11 @@
         {
 	    "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersPerChSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1612,14 +1612,14 @@
             "x"                 : [0.5, 4.5, "muon station #"],
             "y"                 : [0.0, 0.3, "shower probability"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3",
+            "directory"         : "plots/showers_hits_vs_segment_2",
             "filenamePlot"      : "shower_probability_per_ch_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -1632,11 +1632,11 @@
         {
             "1 Segment"   :
             {
-                "label"             : ">= 3 extra segments",
-                "legendEntry"       : ">= 3 extra segments",
+                "label"             : ">= 2 extra segments",
+                "legendEntry"       : ">= 2 extra segments",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
-                "plot"		    : "nCscMatchStVsShowersSegment3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscMatchStVsShowersSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 25 1"   :
             {
@@ -1668,14 +1668,14 @@
             "x"                 : [-0.5, 3.5, "# stations with showers"],
             "y"                 : [1.0, 5.5, "# matched stations"],
             "legendTitle"       : "CSC - 1.2 < |#eta| < 2.4",
-            "caption"           : "2017 MC - flat p gun",
+            "caption"           : "Run2017BCDEF",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
             "markerMap"         : [20, 24, 25, 26, 21, 22, 23]
         },
         "output"    :
         {
-            "directory"         : "plots/showers_hits_vs_segment_3/",
+            "directory"         : "plots/showers_hits_vs_segment_2/",
             "filenamePlot"      : "nmatched_stations_vs_showers_CSC",
             "fileType"          : ["png", "pdf"]
         }

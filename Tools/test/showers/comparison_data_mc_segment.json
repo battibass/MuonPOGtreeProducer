@@ -1,485 +1,4 @@
 {
-    "# digis vs p MB1 DT"   :
-    {
-        "comment"   : "# digis vs p MB1 DT",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 30.0, "Hit multiplicity"],
-            "legendTitle"       : "MB1 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_MB1",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p MB2 DT"   :
-    {
-        "comment"   : "# digis vs p MB2 DT",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 30.0, "Hit multiplicity"],
-            "legendTitle"       : "MB2 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_MB2",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p MB3 DT"   :
-    {
-        "comment"   : "# digis vs p MB3 DT",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 30.0, "Hit multiplicity"],
-            "legendTitle"       : "MB3 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_MB3",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p MB4 DT"   :
-    {
-        "comment"   : "# digis vs p MB4 DT",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPMB425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 30.0, "Hit multiplicity"],
-            "legendTitle"       : "MB4 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_MB4",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p all DT"   :
-    {
-        "comment"   : "# digis vs p all DT",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nDtHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nDtHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nDtHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [0.0, 30.0, "Hit multiplicity"],
-            "legendTitle"       : "DT - |#eta|<0.9 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_DT",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p ME1 CSC"   :
-    {
-        "comment"   : "# digis vs p ME1 CSC",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME125_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [10.0, 40.0, "Hit multiplicity"],
-            "legendTitle"       : "ME1 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_ME1",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p ME2 CSC"   :
-    {
-        "comment"   : "# digis vs p ME2 CSC",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME225_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [10.0, 40.0, "Hit multiplicity"],
-            "legendTitle"       : "ME2 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_ME2",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p ME3 CSC"   :
-    {
-        "comment"   : "# digis vs p ME3 CSC",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME325_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [10.0, 40.0, "Hit multiplicity"],
-            "legendTitle"       : "ME3 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_ME3",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p ME4 CSC"   :
-    {
-        "comment"   : "# digis vs p ME4 CSC",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nHitVsPME425_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [10.0, 40.0, "Hit multiplicity"],
-            "legendTitle"       : "ME4 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_ME4",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
-    "# digis vs p all CSC"   :
-    {
-        "comment"   : "# digis vs p all CSC",
-        "inputs"    :
-        {
-	    "1 data"   :
-            {
-                "label"             : "data: Run2017BCDEF",
-                "legendEntry"       : "data: Run2017BCDEF",
-                "filename"          : "strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nCscHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "2 flat gun"   :
-            {
-                "label"             : "mc: flat p gun",
-                "legendEntry"       : "mc: flat p gun",
-                "filename"          : "../showers_pt_gun/strip_digis/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nCscHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            },
-	    "3 Z#rightarrow#mu#mu"   :
-            {
-                "label"             : "Z#rightarrow#mu#mu powheg",
-                "legendEntry"       : "Z#rightarrow#mu#mu powheg",
-                "filename"          : "strip_digis_powheg/results.root",
-                "folder"            : "/Data2017/hit_count",
-                "plot"		    : "nCscHitsVsP25_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
-            }
-        },
-        "plot"      :
-        {
-            "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
-            "y"                 : [10.0, 40.0, "Hit multiplicity"],
-            "legendTitle"       : "CSC - 1.2<|#eta|<2.4 - 25 cm",
-            "caption"           : "2017",
-            "logo"              : ["CMS", "Work in progress"],
-            "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
-            "markerMap"         : [21, 25, 22, 23, 24, 21, 26]
-        },
-        "output"    :
-        {
-            "directory"         : "plots/comparison_data_mc/",
-            "filenamePlot"      : "n_hits_vs_p_CSC",
-            "fileType"          : ["png", "pdf"]
-        }
-    },
-
     "# showers vs p MB1 DT"   :
     {
         "comment"   : "# showers vs p MB1 DT",
@@ -491,7 +10,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -499,7 +18,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -507,14 +26,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "MB1 - 25 cm - 20 digis",
+            "legendTitle"       : "MB1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -522,7 +41,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -539,7 +58,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -547,7 +66,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -555,14 +74,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "MB2 - 25 cm - 20 digis",
+            "legendTitle"       : "MB2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -570,7 +89,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -587,7 +106,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -595,7 +114,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -603,14 +122,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "MB3 - 25 cm - 20 digis",
+            "legendTitle"       : "MB3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -618,7 +137,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -635,7 +154,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -643,7 +162,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -651,14 +170,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "MB4 - 25 cm - 20 digis",
+            "legendTitle"       : "MB4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -666,7 +185,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -683,7 +202,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -691,7 +210,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -699,14 +218,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.7, "Shower probability"],
-            "legendTitle"       : "DT - |#eta|<0.9 - 25 cm - 20 digis",
+            "legendTitle"       : "DT - |#eta|<0.9 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -714,7 +233,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -731,7 +250,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -739,7 +258,7 @@
                 "legendEntry"       : "mc: flat p gun (reweighted)",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -747,14 +266,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nDtShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nDtShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.5, 4.5, "muon station #"],
             "y"                 : [0.0, 0.10, "Shower probability"],
-            "legendTitle"       : "DT - |#eta|<0.9 - 25 cm - 20 digis",
+            "legendTitle"       : "DT - |#eta|<0.9 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -762,7 +281,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_per_ch_DT",
             "fileType"          : ["png", "pdf"]
         }
@@ -779,7 +298,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -787,7 +306,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -795,14 +314,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "ME1 - 25 cm - 36 digis",
+            "legendTitle"       : "ME1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -810,7 +329,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -827,7 +346,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -835,7 +354,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -843,14 +362,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "ME2 - 25 cm - 36 digis",
+            "legendTitle"       : "ME2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -858,7 +377,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -875,7 +394,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -883,7 +402,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -891,14 +410,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "ME3 - 25 cm - 36 digis",
+            "legendTitle"       : "ME3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -906,7 +425,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -923,7 +442,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -931,7 +450,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -939,14 +458,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.3, "Shower probability"],
-            "legendTitle"       : "ME4 - 25 cm - 36 digis",
+            "legendTitle"       : "ME4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -954,7 +473,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_ME4",
             "fileType"          : ["png", "pdf"]
         }
@@ -971,7 +490,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -979,7 +498,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -987,14 +506,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersVsPSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.0, 2000.0, "muon p (GeV/c)"],
             "y"                 : [0.0, 0.7, "Shower probability"],
-            "legendTitle"       : "CSC - 1.2<|#eta|<2.4 - 25 cm - 36 digis",
+            "legendTitle"       : "CSC - 1.2<|#eta|<2.4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1002,7 +521,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_p_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -1019,7 +538,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1027,7 +546,7 @@
                 "legendEntry"       : "mc: flat p gun (reweighted)",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1035,14 +554,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nCscShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nCscShowersPerChSegment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [0.5, 4.5, "muon station #"],
             "y"                 : [0.0, 0.10, "Shower probability"],
-            "legendTitle"       : "CSC - 1.2<|#eta|<2.4 - 25 cm - 36 digis",
+            "legendTitle"       : "CSC - 1.2<|#eta|<2.4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1050,7 +569,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_per_ch_CSC",
             "fileType"          : ["png", "pdf"]
         }
@@ -1067,7 +586,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1075,7 +594,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1083,14 +602,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB1 - 25 cm - 20 digis",
+            "legendTitle"       : "MB1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1098,7 +617,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1115,7 +634,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1123,7 +642,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1131,14 +650,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB2 - 25 cm - 20 digis",
+            "legendTitle"       : "MB2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1146,7 +665,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1163,7 +682,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1171,7 +690,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1179,14 +698,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB3 - 25 cm - 20 digis",
+            "legendTitle"       : "MB3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1194,7 +713,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1211,7 +730,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1219,7 +738,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1227,14 +746,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB4 - 25 cm - 20 digis",
+            "legendTitle"       : "MB4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1242,7 +761,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1259,7 +778,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1267,7 +786,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1275,14 +794,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME1 - 25 cm - 36 digis",
+            "legendTitle"       : "ME1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1290,7 +809,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1307,7 +826,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1315,7 +834,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1323,14 +842,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME2 - 25 cm - 36 digis",
+            "legendTitle"       : "ME2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1338,7 +857,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1355,7 +874,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1363,7 +882,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1371,14 +890,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME3 - 25 cm - 36 digis",
+            "legendTitle"       : "ME3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1386,7 +905,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1403,7 +922,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1411,7 +930,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1419,14 +938,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsPhiME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsPhiME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #phi"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME4 - 25 cm - 36 digis",
+            "legendTitle"       : "ME4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1434,7 +953,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_phi_ME4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1451,7 +970,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1459,7 +978,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1467,14 +986,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB1 - 25 cm - 20 digis",
+            "legendTitle"       : "MB1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1482,7 +1001,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_MB1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1499,7 +1018,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1507,7 +1026,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1515,14 +1034,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB2 - 25 cm - 20 digis",
+            "legendTitle"       : "MB2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1530,7 +1049,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_MB2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1547,7 +1066,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1555,7 +1074,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1563,14 +1082,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB3 - 25 cm - 20 digis",
+            "legendTitle"       : "MB3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1578,7 +1097,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_MB3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1595,7 +1114,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1603,7 +1122,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1611,14 +1130,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaMB4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.1, "Shower probability"],
-            "legendTitle"       : "MB4 - 25 cm - 20 digis",
+            "legendTitle"       : "MB4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1626,7 +1145,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_MB4",
             "fileType"          : ["png", "pdf"]
         }
@@ -1643,7 +1162,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1651,7 +1170,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1659,14 +1178,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME1Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME1 - 25 cm - 36 digis",
+            "legendTitle"       : "ME1 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1674,7 +1193,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_ME1",
             "fileType"          : ["png", "pdf"]
         }
@@ -1691,7 +1210,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1699,7 +1218,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1707,14 +1226,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME2Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME2 - 25 cm - 36 digis",
+            "legendTitle"       : "ME2 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1722,7 +1241,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_ME2",
             "fileType"          : ["png", "pdf"]
         }
@@ -1739,7 +1258,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1747,7 +1266,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1755,14 +1274,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME3Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME3 - 25 cm - 36 digis",
+            "legendTitle"       : "ME3 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1770,7 +1289,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_ME3",
             "fileType"          : ["png", "pdf"]
         }
@@ -1787,7 +1306,7 @@
                 "legendEntry"       : "data: Run2017BCDEF",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "2 flat gun"   :
             {
@@ -1795,7 +1314,7 @@
                 "legendEntry"       : "mc: flat p gun",
                 "filename"          : "../showers_pt_gun/strip_digis_p_reweight/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "3 Z#rightarrow#mu#mu"   :
             {
@@ -1803,14 +1322,14 @@
                 "legendEntry"       : "Z#rightarrow#mu#mu powheg",
                 "filename"          : "strip_digis_powheg/results.root",
                 "folder"            : "/Data2017/efficiencies",
-                "plot"		    : "nShowersVsEtaME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
+                "plot"		    : "nShowersVsEtaME4Segment2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             }
         },
         "plot"      :
         {
             "x"                 : [-3.15, 3.15, "muon #eta"],
             "y"                 : [0.0, 0.2, "Shower probability"],
-            "legendTitle"       : "ME4 - 25 cm - 36 digis",
+            "legendTitle"       : "ME4 >= 2 extra segments",
             "caption"           : "2017",
             "logo"              : ["CMS", "Work in progress"],
             "colorMap"          : [1, 4, 2, 3, 5, 6, 7, 8, 9],
@@ -1818,7 +1337,7 @@
         },
         "output"    :
         {
-            "directory"         : "plots/comparison_data_mc/",
+            "directory"         : "plots/comparison_data_mc_segment/",
             "filenamePlot"      : "shower_probability_vs_eta_ME4",
             "fileType"          : ["png", "pdf"]
         }

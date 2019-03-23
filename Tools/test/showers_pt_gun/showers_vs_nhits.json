@@ -6,24 +6,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -54,24 +54,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -102,24 +102,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -150,24 +150,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPMB425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -198,40 +198,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersVsP25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "24 hits",
-                "legendEntry"       : "24 hits",
+                "label"             : "24 digis",
+                "legendEntry"       : "24 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersVsP25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "28 hits",
-                "legendEntry"       : "28 hits",
+                "label"             : "28 digis",
+                "legendEntry"       : "28 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersVsP25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -262,40 +262,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersPerCh25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "24 hits",
-                "legendEntry"       : "24 hits",
+                "label"             : "24 digis",
+                "legendEntry"       : "24 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersPerCh25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "28 hits",
-                "legendEntry"       : "28 hits",
+                "label"             : "28 digis",
+                "legendEntry"       : "28 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nDtShowersPerCh25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -326,40 +326,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "12 hits",
-                "legendEntry"       : "12 hits",
+                "label"             : "12 digis",
+                "legendEntry"       : "12 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nDtMatchStVsShowers25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "16 hits",
-                "legendEntry"       : "16 hits",
+                "label"             : "16 digis",
+                "legendEntry"       : "16 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nDtMatchStVsShowers25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "20 hits",
-                "legendEntry"       : "20 hits",
+                "label"             : "20 digis",
+                "legendEntry"       : "20 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nDtMatchStVsShowers25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "24 hits",
-                "legendEntry"       : "24 hits",
+                "label"             : "24 digis",
+                "legendEntry"       : "24 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nDtMatchStVsShowers25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "28 hits",
-                "legendEntry"       : "28 hits",
+                "label"             : "28 digis",
+                "legendEntry"       : "28 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nDtMatchStVsShowers25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -390,24 +390,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME125_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME125_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME125_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -438,24 +438,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME225_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME225_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME225_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -486,24 +486,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME325_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME325_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME325_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -534,24 +534,24 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME425_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME425_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nShowersVsPME425_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -582,40 +582,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersVsP25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersVsP25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersVsP25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "54 hits",
-                "legendEntry"       : "54 hits",
+                "label"             : "54 digis",
+                "legendEntry"       : "54 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersVsP25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "63 hits",
-                "legendEntry"       : "63 hits",
+                "label"             : "63 digis",
+                "legendEntry"       : "63 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersVsP25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -647,40 +647,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersPerCh25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersPerCh25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersPerCh25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "54 hits",
-                "legendEntry"       : "54 hits",
+                "label"             : "54 digis",
+                "legendEntry"       : "54 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersPerCh25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "63 hits",
-                "legendEntry"       : "63 hits",
+                "label"             : "63 digis",
+                "legendEntry"       : "63 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/efficiencies",
                 "plot"		    : "nCscShowersPerCh25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
@@ -712,40 +712,40 @@
         {
 	    "1 12"   :
             {
-                "label"             : "27 hits",
-                "legendEntry"       : "27 hits",
+                "label"             : "27 digis",
+                "legendEntry"       : "27 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nCscMatchStVsShowers25_1_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 16"   :
             {
-                "label"             : "36 hits",
-                "legendEntry"       : "36 hits",
+                "label"             : "36 digis",
+                "legendEntry"       : "36 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nCscMatchStVsShowers25_2_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 20"   :
             {
-                "label"             : "45 hits",
-                "legendEntry"       : "45 hits",
+                "label"             : "45 digis",
+                "legendEntry"       : "45 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nCscMatchStVsShowers25_3_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 24"   :
             {
-                "label"             : "54 hits",
-                "legendEntry"       : "54 hits",
+                "label"             : "54 digis",
+                "legendEntry"       : "54 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nCscMatchStVsShowers25_4_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"
             },
 	    "1 28"   :
             {
-                "label"             : "63 hits",
-                "legendEntry"       : "63 hits",
+                "label"             : "63 digis",
+                "legendEntry"       : "63 digis",
                 "filename"          : "strip_digis/results.root",
                 "folder"            : "/Data2017/control",
                 "plot"		    : "nCscMatchStVsShowers25_5_fEtaMin0.0_fEtaMax2.4_HIGHPTData2017"

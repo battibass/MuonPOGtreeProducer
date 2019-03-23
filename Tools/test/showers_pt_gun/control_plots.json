@@ -1,7 +1,7 @@
 {
-    "# hits DT"   :
+    "# digis DT"   :
     {
-        "comment"   : "# hits DT",
+        "comment"   : "# digis DT",
         "inputs"    :
         {
             "MB1"   :
@@ -39,7 +39,7 @@
         },
         "plot"      :
         {
-            "x"                 : [0.0, 100.0, "# hits per chamber"],
+            "x"                 : [0.0, 100.0, "# digis per chamber"],
             "y"                 : [0.0, 10000, "fraction of entries"],
             "legendTitle"       : "",
             "caption"           : "2017 MC - flat p gun",
@@ -55,9 +55,9 @@
         }
     },
 
-    "# hits CSC"   :
+    "# digis CSC"   :
     {
-        "comment"   : "# hits CSC",
+        "comment"   : "# digis CSC",
         "inputs"    :
         {
             "ME1"   :
@@ -95,7 +95,7 @@
         },
         "plot"      :
         {
-            "x"                 : [0.0, 100.0, "# hits per chamber"],
+            "x"                 : [0.0, 100.0, "# digis per chamber"],
             "y"                 : [0.0, 10000, "fraction of entries"],
             "legendTitle"       : "",
             "caption"           : "2017 MC - flat p gun",
