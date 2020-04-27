@@ -1,5 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 import FWCore.ParameterSet.VarParsing as VarParsing
+from Configuration.StandardSequences.Eras import eras
 
 import subprocess
 import sys
@@ -7,37 +8,39 @@ import sys
 options = VarParsing.VarParsing()
 
 options.register('globalTag',
-                 '94X_dataRun2_ReReco_EOY17_v2', #default value
+                 '110X_mcRun3_2021_realistic_v9', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Global Tag")
 
 options.register('nEvents',
-                 1000, #default value
+                 50000, #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.int,
                  "Maximum number of processed events")
 
 options.register('eosInputFolder',
-                 '/store/data/Run2017F/SingleMuon/RAW-RECO/ZMu-17Nov2017-v1/00000/', #default value
+                 # '/store/group/phys_muon/SingleMuPlusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_154053//0000/', #default value
+                 '/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "EOS folder with input files")
 
 options.register('ntupleName',
-                 './muonPOGNtuple_9_4_4_ZMuSkim_2017F.root', #default value
+                 # './muonPOGNtuple_11_0_1_SingleMuPlusPt20to2500_NoPU_50k.root', #default value
+                 './muonPOGNtuple_11_0_1_SingleMuMinusPt20to2500_NoPU_50k.root', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Folder and name ame for output ntuple")
 
 options.register('runOnMC',
-                 False, #default value
+                 True, #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Run on DATA or MC")
 
 options.register('hasRaw',
-                 True, #default value
+                 False, #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.bool,
                  "Enables DT twin mux unpacking if RAW format available")
@@ -82,7 +85,7 @@ else :
     print "[" + sys.argv[0] + "]:", "hltPathFilter=", options.hltPathFilter, "is not a valid parameter!"
     sys.exit(100)
 
-process = cms.Process("NTUPLES")
+process = cms.Process("NTUPLES",eras.Run3)
 
 process.load('Configuration.StandardSequences.Services_cff')
 process.load('FWCore.MessageService.MessageLogger_cfi')
@@ -106,13 +109,11 @@ process.source = cms.Source("PoolSource",
 
 )
 
-files = subprocess.check_output([ "/afs/cern.ch/project/eos/installation/0.3.15/bin/eos.select", "ls", options.eosInputFolder ])
+files = subprocess.check_output([ "ls", "/eos/cms/" + options.eosInputFolder ])
 process.source.fileNames = [options.eosInputFolder+"/"+f for f in files.split() ]  
 
 process.load("Configuration.StandardSequences.GeometryRecoDB_cff")
 process.load("Configuration.StandardSequences.MagneticField_38T_cff")
-#process.load("Geometry.CommonDetUnit.globalTrackingGeometry_cfi")
-#process.load("RecoMuon.DetLayers.muonDetLayerGeometry_cfi")
 
 from MuonPOGtreeProducer.Tools.MuonPogNtuples_cff import appendMuonPogNtuple, customiseHlt, customiseMuonCuts
     
@@ -120,5 +121,3 @@ appendMuonPogNtuple(process,options.runOnMC,"HLT",options.ntupleName,options.has
 
 customiseHlt(process,pathCut,filterCut)
 customiseMuonCuts(process,options.minMuPt,options.minNMu)
-
-

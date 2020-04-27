@@ -129,6 +129,8 @@ namespace muon_pog {
     Float_t errDxDz; 
     Float_t errDyDz; 
 
+    Int_t nDigis;
+
     std::vector<std::size_t> indexes;
     std::vector<std::bitset<4> >  matchQuals; // bit order 0 = Trk, 1 = TrkArb, 2 = Sta, 3 = Sta Valid 
 
@@ -239,18 +241,32 @@ namespace muon_pog {
     Int_t   charge;    // charge
 
     Float_t ptErr; // fit sigma pT 
+    Float_t chi2; // fit chi^2 / n dof
+
+    Int_t   nPixHits; // # of valid pixel hits
+    Int_t   nTrkLays; // # of valid tracker layers
+    Int_t   nMuHits;  // # of valid muon hits
+
 
     MuonFit(){};
     MuonFit(Float_t in_pt,
 	    Float_t in_eta,
 	    Float_t in_phi,
 	    Int_t   in_charge,
-	    Float_t in_ptErr
+	    Float_t in_ptErr,
+	    Float_t in_chi2,
+	    Int_t   in_nPixHits,
+	    Int_t   in_nTrkLays,
+	    Int_t   in_nMuHits
 	    ) : pt(in_pt) ,
                 eta(in_eta) ,
                 phi(in_phi) ,
                 charge(in_charge) ,
-                ptErr(in_ptErr) {};
+                ptErr(in_ptErr) ,
+                chi2(in_chi2),
+                nPixHits(in_nPixHits),
+                nTrkLays(in_nTrkLays),
+                nMuHits(in_nMuHits){};
     virtual ~MuonFit(){};
     
     ClassDef(MuonFit,1)

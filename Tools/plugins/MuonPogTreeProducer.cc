@@ -1043,49 +1043,89 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.charge = mu.charge();
 
       ntupleMu.fits.push_back(muon_pog::MuonFit(mu.pt(),mu.eta(),mu.phi(),
-						mu.charge(),mu.muonBestTrack()->ptError()));
+						mu.charge(),mu.muonBestTrack()->ptError(),
+						mu.muonBestTrack()->normalizedChi2(),
+						mu.muonBestTrack()->hitPattern().numberOfValidPixelHits(), 
+						mu.muonBestTrack()->hitPattern().trackerLayersWithMeasurement(), 
+						mu.muonBestTrack()->hitPattern().numberOfValidMuonHits() 
+      						));
 
       ntupleMu.fits.push_back(muon_pog::MuonFit(hasInnerTrack ? mu.innerTrack()->pt()  : -1000.,
       						hasInnerTrack ? mu.innerTrack()->eta() : -1000.,
       						hasInnerTrack ? mu.innerTrack()->phi() : -1000.,
       						hasInnerTrack ? mu.innerTrack()->charge()  : -1000.,
-      						hasInnerTrack ? mu.innerTrack()->ptError() : -1000.));
+      						hasInnerTrack ? mu.innerTrack()->ptError() : -1000.,
+      						hasInnerTrack ? mu.innerTrack()->normalizedChi2() : -1000.,
+						hasInnerTrack ? mu.innerTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						hasInnerTrack ? mu.innerTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						hasInnerTrack ? mu.innerTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
 
       ntupleMu.fits.push_back(muon_pog::MuonFit(isStandAlone ? mu.outerTrack()->pt()  : -1000.,
       						isStandAlone ? mu.outerTrack()->eta() : -1000.,
       						isStandAlone ? mu.outerTrack()->phi() : -1000.,
       						isStandAlone ? mu.outerTrack()->charge()  : -1000.,
-      						isStandAlone ? mu.outerTrack()->ptError() : -1000.));
+      						isStandAlone ? mu.outerTrack()->ptError() : -1000.,
+      						isStandAlone ? mu.outerTrack()->normalizedChi2() : -1000.,
+						isStandAlone ? mu.outerTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						isStandAlone ? mu.outerTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						isStandAlone ? mu.outerTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
 
       ntupleMu.fits.push_back(muon_pog::MuonFit(isGlobal ? mu.globalTrack()->pt()  : -1000.,
       						isGlobal ? mu.globalTrack()->eta() : -1000.,
       						isGlobal ? mu.globalTrack()->phi() : -1000.,
       						isGlobal ? mu.globalTrack()->charge()  : -1000.,
-      						isGlobal ? mu.globalTrack()->ptError() : -1000.));
+      						isGlobal ? mu.globalTrack()->ptError() : -1000.,
+      						isGlobal ? mu.globalTrack()->normalizedChi2() : -1000.,
+						isGlobal ? mu.globalTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						isGlobal ? mu.globalTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						isGlobal ? mu.globalTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
 
       ntupleMu.fits.push_back(muon_pog::MuonFit(hasTunePTrack ? mu.tunePMuonBestTrack()->pt()  : -1000.,
       						hasTunePTrack ? mu.tunePMuonBestTrack()->eta() : -1000.,
       						hasTunePTrack ? mu.tunePMuonBestTrack()->phi() : -1000.,
       						hasTunePTrack ? mu.tunePMuonBestTrack()->charge()  : -1000.,
-      						hasTunePTrack ? mu.tunePMuonBestTrack()->ptError() : -1000.));
+      						hasTunePTrack ? mu.tunePMuonBestTrack()->ptError() : -1000.,
+      						hasTunePTrack ? mu.tunePMuonBestTrack()->normalizedChi2() : -1000.,
+						hasTunePTrack ? mu.tunePMuonBestTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						hasTunePTrack ? mu.tunePMuonBestTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						hasTunePTrack ? mu.tunePMuonBestTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
       
       ntupleMu.fits.push_back(muon_pog::MuonFit(hasPickyTrack ? mu.pickyTrack()->pt()  : -1000.,
-                        hasPickyTrack ? mu.pickyTrack()->eta() : -1000.,
-                        hasPickyTrack ? mu.pickyTrack()->phi() : -1000.,
-                        hasPickyTrack ? mu.pickyTrack()->charge()  : -1000.,
-                        hasPickyTrack ? mu.pickyTrack()->ptError() : -1000.));
+						hasPickyTrack ? mu.pickyTrack()->eta() : -1000.,
+						hasPickyTrack ? mu.pickyTrack()->phi() : -1000.,
+						hasPickyTrack ? mu.pickyTrack()->charge()  : -1000.,
+						hasPickyTrack ? mu.pickyTrack()->ptError() : -1000.,
+						hasPickyTrack ? mu.pickyTrack()->normalizedChi2() : -1000.,
+						hasPickyTrack ? mu.pickyTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						hasPickyTrack ? mu.pickyTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						hasPickyTrack ? mu.pickyTrack()->hitPattern().numberOfValidMuonHits() : -1000
+));
       
       ntupleMu.fits.push_back(muon_pog::MuonFit(hasDytTrack ? mu.dytTrack()->pt()  : -1000.,
-                        hasDytTrack ? mu.dytTrack()->eta() : -1000.,
-                        hasDytTrack ? mu.dytTrack()->phi() : -1000.,
-                        hasDytTrack ? mu.dytTrack()->charge()  : -1000.,
-                        hasDytTrack ? mu.dytTrack()->ptError() : -1000.));
+						hasDytTrack ? mu.dytTrack()->eta() : -1000.,
+						hasDytTrack ? mu.dytTrack()->phi() : -1000.,
+						hasDytTrack ? mu.dytTrack()->charge()  : -1000.,
+						hasDytTrack ? mu.dytTrack()->ptError() : -1000.,
+						hasDytTrack ? mu.dytTrack()->normalizedChi2() : -1000.,
+						hasDytTrack ? mu.dytTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						hasDytTrack ? mu.dytTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						hasDytTrack ? mu.dytTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
       
       ntupleMu.fits.push_back(muon_pog::MuonFit(hasTpfmsTrack ? mu.tpfmsTrack()->pt()  : -1000.,
-                        hasTpfmsTrack ? mu.tpfmsTrack()->eta() : -1000.,
-                        hasTpfmsTrack ? mu.tpfmsTrack()->phi() : -1000.,
-                        hasTpfmsTrack ? mu.tpfmsTrack()->charge()  : -1000.,
-                        hasTpfmsTrack ? mu.tpfmsTrack()->ptError() : -1000.));
+						hasTpfmsTrack ? mu.tpfmsTrack()->eta() : -1000.,
+						hasTpfmsTrack ? mu.tpfmsTrack()->phi() : -1000.,
+						hasTpfmsTrack ? mu.tpfmsTrack()->charge()  : -1000.,
+						hasTpfmsTrack ? mu.tpfmsTrack()->ptError() : -1000.,
+						hasTpfmsTrack ? mu.tpfmsTrack()->normalizedChi2() : -1000.,
+						hasTpfmsTrack ? mu.tpfmsTrack()->hitPattern().numberOfValidPixelHits() : -1000, 
+						hasTpfmsTrack ? mu.tpfmsTrack()->hitPattern().trackerLayersWithMeasurement() : -1000, 
+						hasTpfmsTrack ? mu.tpfmsTrack()->hitPattern().numberOfValidMuonHits() : -1000
+						));
 
       // Detector Based Isolation
       reco::MuonIsolation detIso03 = mu.isolationR03();
@@ -1198,7 +1238,9 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		  
                   ntupleMatch.errDxDz = match.dXdZErr;
                   ntupleMatch.errDyDz = match.dYdZErr;
-		  
+
+                  ntupleMatch.nDigis = match.nDigisInRange;
+
                   if (ntupleMatch.type == muon_pog::MuonDetType::DT)
 		    {
 		      
@@ -1207,6 +1249,7 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		      ntupleMatch.phi = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).phi(); 
 		      ntupleMatch.eta = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).eta();
 		      ntupleMatch.zGlb = chamb->toGlobal(LocalPoint(ntupleMatch.x,ntupleMatch.y,0.)).z();
+
 
 		      matchTkMuSeg(match, ntupleMatch);
 
@@ -1296,6 +1339,8 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
 		  
                   ntupleMatch.errDxDz = -999.;
                   ntupleMatch.errDyDz = -999.;
+
+                  ntupleMatch.nDigis = -999;
 		  
 		  ntupleMu.matches.push_back(ntupleMatch);
 		  
