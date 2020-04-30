@@ -40,6 +40,8 @@ Its main configuration parameters are:
 1. `-m, --mu` : a string with the parameters from RECO muons to be included in the data frame (enclosed in "", as: "pt eta")
 1. `-r, --refit` : a string with the parameters from RECO muon REFITs to be included in the data frame (enclosed in "", as: "pt eta")
 
+Note, the production of a DataFrame out of 500k is rather long (takes ~ 3 hours in lxplus), when experimenting it is worth to reduce the number of processed events.
+
 ## Ntuple format notes:
 
 The interface of muon Ntuples is defined in : 
