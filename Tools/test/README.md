@@ -14,7 +14,7 @@ In particular:
 * you should be able to change the input folder with EDM files to be processed: `eosInputFolder`
   * the particle guns to be used for this study are in:
     * `/store/group/phys_muon/SingleMuPlusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_154053//0000/`
-    * `/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/
+    * `/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/`
 * you should be able to control the number of processed events: `nEvents`
   * NOTE: `nEvents=-1` means process ALL events
 * you should be able to change the output root file name: `ntupleName`
