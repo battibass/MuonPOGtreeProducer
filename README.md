@@ -4,10 +4,10 @@ Muon POG tree producer
 ## Installation instructions
 
 ```bash
-cmsrel CMSSW_9_4_4 
-cd CMSSW_9_4_4/src/
+cmsrel CMSSW_11_0_2 
+cd CMSSW_11_0_2/src/
 
-git clone git@github.com:battibass/MuonPOGtreeProducer.git -b 94X_powermatches
+git clone git@github.com:battibass/MuonPOGtreeProducer.git -b 110X_powermatches
 
 cmsenv
 
@@ -33,8 +33,10 @@ python muonPogNtuples_cfg.py --print # this will give you the default input para
                                      # ntuple production via command line [1] or in a crab cfg [2] 
 
 [1] 
-cmsRun muonPogNtuples_cfg.py globalTag=80X_mcRun2_asymptotic_v5 \\
-  eosInputFolder=/store/relval/CMSSW_8_0_0_patch2/RelValZMM_13/GEN-SIM-RECO/PU25ns_80X_mcRun2_asymptotic_v5_refGT-v1/10000
+# For example
+cmsRun muonPogNtuples_cfg.py nEvents=1000 \
+       eosInputFolder=/store/group/phys_muon/SingleMuPlusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_154053//0000/ \
+       ntupleName=./muonPOGNtuple_11_0_1_SingleMuMinusPt20to2500_NoPU_1k.root
 
 [2] 
 https://twiki.cern.ch/twiki/bin/view/CMSPublic/CRAB3ConfigurationFile#CRAB_configuration_parameters (find pyCfgParams)
@@ -53,21 +55,6 @@ The CRAB client can be sourced using the command below after cmsenv.
 Check if you have writing permissions in the common area if you already asked for that. 
 
     crab checkwrite --site=T2_CH_CERN --lfn=/store/group/phys_muon/
-
-For running on the most recent re-reco data you can open file example: 
-
-    crab_SingleMuon_Run2016B-23SepReReco_Run273158.py    
-
-whit the configuration pset parameters: 
-
-    config.JobType.pyCfgParams = ['globalTag=80X_dataRun2_2016SeptRepro_v3',
-                                  'ntupleName=muonPOGNtuple_SingleMuonRun2016B_23SepReReco.root',
-                                  'nEvents=-1',
-                                  'runOnMC=False',
-                                  'hltPathFilter=all',
-                                  'minMuPt=10.0',
-                                  'minNMu=2' ]
-
 
 The ntuple producer gets loaded by :
 
