@@ -1042,6 +1042,16 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       ntupleMu.phi    = mu.phi();
       ntupleMu.charge = mu.charge();
 
+      std::map<reco::Muon::MuonTrackType, int> refitMap;
+      refitMap[reco::Muon::MuonTrackType::DYT] = 0;
+      refitMap[reco::Muon::MuonTrackType::Picky] = 1;
+      refitMap[reco::Muon::MuonTrackType::TPFMS] = 2;
+      refitMap[reco::Muon::MuonTrackType::InnerTrack] = 3;
+      refitMap[reco::Muon::MuonTrackType::CombinedTrack] = 4;
+      refitMap[reco::Muon::MuonTrackType::OuterTrack] = 5;
+
+      ntupleMu.tunePTrackType= refitMap[mu.tunePMuonBestTrackType()];
+
       ntupleMu.fits.push_back(muon_pog::MuonFit(mu.pt(),mu.eta(),mu.phi(),
 						mu.charge(),mu.muonBestTrack()->ptError(),
 						mu.muonBestTrack()->normalizedChi2(),
@@ -1397,38 +1407,48 @@ Int_t MuonPogTreeProducer::fillMuons(const edm::Handle<edm::View<reco::Muon> > &
       double dxybs = hasInnerTrack ? mu.innerTrack()->dxy(beamSpot->position()) : -1000;
       double dzbs  = hasInnerTrack ? mu.innerTrack()->dz(beamSpot->position())  : -1000;
 
-      double dxy = -1000.;
-      double dz  = -1000.;
-
-      ntupleMu.isSoft    = 0;	  
-      ntupleMu.isTight   = 0;	  
-      ntupleMu.isHighPt  = 0;
-      ntupleMu.isLoose   = muon::isLooseMuon(mu)  ? 1 : 0;	  
-      ntupleMu.isMedium  = muon::isMediumMuon(mu) ? 1 : 0;	  
+      reco::Vertex vertex(beamSpot->position(), 
+			  reco::Vertex::Error());
 
       if (vertexes->size() > 0)
 	{
-	  const reco::Vertex & vertex = vertexes->at(0);
-
-	  dxy = hasInnerTrack ? mu.innerTrack()->dxy(vertex.position()) : -1000;
-	  dz =  hasInnerTrack ? mu.innerTrack()->dz(vertex.position())  : -1000;
- 
-	  ntupleMu.dxyBest  = mu.muonBestTrack()->dxy(vertex.position()); 
-	  ntupleMu.dzBest   = mu.muonBestTrack()->dz(vertex.position());
- 
-	  if(hasInnerTrack) { 
-	    ntupleMu.dxyInner = mu.innerTrack()->dxy(vertex.position()); 
-	    ntupleMu.dzInner  = mu.innerTrack()->dz(vertex.position()); 
-	  } 
-
-	  ntupleMu.isSoft    = muon::isSoftMuon(mu,vertex)   ? 1 : 0;	  
-	  ntupleMu.isTight   = muon::isTightMuon(mu,vertex)  ? 1 : 0;	  
-	  ntupleMu.isHighPt  = muon::isHighPtMuon(mu,vertex) ? 1 : 0;
-
+	  vertex = vertexes->at(0);
 	}
 
-      ntupleMu.dxy    = dxy;
-      ntupleMu.dz     = dz;
+      ntupleMu.isSoft    = 0; // muon::isSoftMuon(mu,vertex)   ? 1 : 0;	  
+      ntupleMu.isTight   = 0; // muon::isTightMuon(mu,vertex)  ? 1 : 0;	  
+      ntupleMu.isHighPt  = 
+	mu.isGlobalMuon()
+	&& ( mu.globalTrack()->hitPattern().numberOfValidMuonHits() > 0 
+	     || mu.tunePMuonBestTrack()->hitPattern().numberOfValidMuonHits() > 0 
+	   )
+	&& ( mu.numberOfMatchedStations() > 1
+	     || ( mu.numberOfMatchedStations() == 1 &&
+		  ( mu.expectedNnumberOfMatchedStations() < 2
+		    || (!(mu.stationMask() == 1) && !(mu.stationMask() == 16))
+		    || mu.numberOfMatchedRPCLayers() > 2
+		  )
+		)
+	   )
+	&& (mu.tunePMuonBestTrack()->ptError() / mu.tunePMuonBestTrack()->pt()) < 0.3
+	&& mu.innerTrack()->hitPattern().numberOfValidPixelHits() > 0
+	&& mu.innerTrack()->hitPattern().trackerLayersWithMeasurement() > 5;
+
+      // muon::isHighPtMuon(mu,vertex) ? 1 : 0;
+      ntupleMu.isLoose   = muon::isLooseMuon(mu)  ? 1 : 0;	  
+      ntupleMu.isMedium  = muon::isMediumMuon(mu) ? 1 : 0;	  
+
+      
+      ntupleMu.dxyBest  = mu.muonBestTrack()->dxy(vertex.position()); 
+      ntupleMu.dzBest   = mu.muonBestTrack()->dz(vertex.position());
+      
+      if(hasInnerTrack) { 
+	ntupleMu.dxyInner = mu.innerTrack()->dxy(vertex.position()); 
+	ntupleMu.dzInner  = mu.innerTrack()->dz(vertex.position()); 
+      } 
+      
+      ntupleMu.dxy    = hasInnerTrack ? mu.innerTrack()->dxy(vertex.position()) : -1000;
+      ntupleMu.dz     = hasInnerTrack ? mu.innerTrack()->dz(vertex.position())  : -1000;;
       ntupleMu.edxy   = hasInnerTrack ? mu.innerTrack()->dxyError() : -1000;
       ntupleMu.edz    = hasInnerTrack ? mu.innerTrack()->dzError() : -1000;
 

@@ -56,7 +56,7 @@ PARSER.add_argument("-g", "--gen",
                           with blanks, e.g.: \"pt eta\".")
 
 PARSER.add_argument("-m", "--mu",
-                    default="pt eta",
+                    default="pt eta isHighPt tunePTrackType dxy dz",
                     help="List of muon object variables to be \
                           migrated from the ntuples to the Pandas \
                           DataFrame. Multiple variables are separated \
