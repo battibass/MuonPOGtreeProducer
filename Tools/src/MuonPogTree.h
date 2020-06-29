@@ -280,7 +280,7 @@ namespace muon_pog {
     Float_t phi; // phi
 
     Int_t   charge;    // charge
-    Int_t   tunePTrackType; // enum wit tuneP track type {0: DYT, 1: PICKY, 2: TMFMS, 3: INNER, 4: GLOBAL}
+    Int_t   tunePTrackType; // enum wit tuneP track type {0: DYT, 1: PICKY, 2: TMFMS, 3: INNER, 4: GLOBAL, 5: OUTER}
 
     Int_t   isGlobal;
     Int_t   isTracker;
