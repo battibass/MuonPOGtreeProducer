@@ -14,7 +14,7 @@ In particular:
 * you should be able to change the input folder with EDM files to be processed: `eosInputFolder`
   * the particle guns to be used for this study are in:
     * `/store/group/phys_muon/SingleMuPlusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_154053//0000/`
-    * `/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/
+    * `/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/`
 * you should be able to control the number of processed events: `nEvents`
   * NOTE: `nEvents=-1` means process ALL events
 * you should be able to change the output root file name: `ntupleName`
@@ -39,6 +39,8 @@ Its main configuration parameters are:
 1. `-g, --gen` : a string with the parameters from GEN particles to be included in the data frame (enclosed in "", as: "pt eta")
 1. `-m, --mu` : a string with the parameters from RECO muons to be included in the data frame (enclosed in "", as: "pt eta")
 1. `-r, --refit` : a string with the parameters from RECO muon REFITs to be included in the data frame (enclosed in "", as: "pt eta")
+
+Note, the production of a DataFrame out of 500k is rather long (takes ~ 3 hours in lxplus), when experimenting it is worth to reduce the number of processed events.
 
 ## Ntuple format notes:
 
