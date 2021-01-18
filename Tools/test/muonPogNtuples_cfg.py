@@ -8,7 +8,7 @@ import sys
 options = VarParsing.VarParsing()
 
 options.register('globalTag',
-                 '110X_mcRun3_2021_realistic_v9', #default value
+                 '110X_mcRun3_2021_realistic_v6', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Global Tag")
@@ -21,14 +21,14 @@ options.register('nEvents',
 
 options.register('eosInputFolder',
                  # '/store/group/phys_muon/SingleMuPlusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_154053//0000/', #default value
-                 '/store/group/phys_muon/SingleMuMinusPt20to2500_NoPU/step3_CMSSW_11_0_X/200403_153823/0000/', #default value
+                 '/store/mc/Run3Winter20DRPremixMiniAOD/Muplus_E-200To4000_Barrel-gun/GEN-SIM-RECO/110X_mcRun3_2021_realistic_v6-v1/270000/', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "EOS folder with input files")
 
 options.register('ntupleName',
                  # './muonPOGNtuple_11_0_1_SingleMuPlusPt20to2500_NoPU_50k.root', #default value
-                 './muonPOGNtuple_11_0_1_SingleMuMinusPt20to2500_NoPU_50k.root', #default value
+                 './muonPOGNtuple_Run3Winter20_SingleMuPlusE200to4000_Premix.root', #default value
                  VarParsing.VarParsing.multiplicity.singleton,
                  VarParsing.VarParsing.varType.string,
                  "Folder and name ame for output ntuple")

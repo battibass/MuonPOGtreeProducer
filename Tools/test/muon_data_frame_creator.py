@@ -94,22 +94,22 @@ NP_ARRAYS = {}
 
 for q in GEN_QUANTITIES:
     name = "gen_" + q
-    NP_ARRAYS[name] = np.array([])
+    NP_ARRAYS[name] = []
 
 for q in MU_QUANTITIES:
     name = "mu_" + q
-    NP_ARRAYS[name] = np.array([])
+    NP_ARRAYS[name] = []
 
 for rName, r in MU_REFITS.iteritems():
     for q in MU_REFIT_QUANTITIES:
         name = "mu_" + rName + "_" + q
-        NP_ARRAYS[name] = np.array([])
+        NP_ARRAYS[name] = []
 
 for q in MU_CHAMB_QUANTITIES:
     for st in range(1, 5):
         for detector in ["DT", "CSC"]:
             name = "mu_" + q + "_" + detector + "_st" + str(st)
-            NP_ARRAYS[name] = np.array([])
+            NP_ARRAYS[name] = []
 
 
 ##### ROOT TChain ########################
@@ -185,16 +185,16 @@ for entry in MUON_POG_TREE:
         for q in GEN_QUANTITIES:
             name = "gen_" + q
             if q == "p":
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], genMuVector.P())
+                NP_ARRAYS[name].append(genMuVector.P())
             elif q == "charge":
                 charge = - genPart.pdgId / abs(genPart.pdgId)
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], charge)
+                NP_ARRAYS[name].append(charge)
             elif q == "qOverPt":
                 charge = - genPart.pdgId / abs(genPart.pdgId)
                 qOverPt = charge / genPart.pt
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], qOverPt)
+                NP_ARRAYS[name].append(qOverPt)
             else:
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], genPart.__getattribute__(q))
+                NP_ARRAYS[name].append(genPart.__getattribute__(q))
 
         ##### DIGI-based shower info #####
         digisPerSt = {"DT"  :[NAN_INT, NAN_INT, NAN_INT, NAN_INT],
@@ -213,7 +213,7 @@ for entry in MUON_POG_TREE:
         for detector, digisPerDetector in digisPerSt.iteritems():
             for st, nDigis in zip(range(1, 5), digisPerDetector):
                 name = "mu_nDigis_" + detector + "_st" + str(st)
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], nDigis)
+                NP_ARRAYS[name].append(nDigis)
 
         ##### Track - segment pulls #####
         pullsPerSt = {"DT"  : [NAN_FLOAT, NAN_FLOAT, NAN_FLOAT, NAN_FLOAT],
@@ -250,16 +250,16 @@ for entry in MUON_POG_TREE:
         for detector, pullsPerDetector in pullsPerSt.iteritems():
             for st, pull in zip(range(1, 5), pullsPerDetector):
                 name = "mu_pull_" + detector + "_st" + str(st)
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], pull)
+                NP_ARRAYS[name].append(pull)
 
         ##### MU quantities (general ones) #####
         for q in MU_QUANTITIES:
             name = "mu_" + q
             if q == "qOverPt":
                 qOverPt = mu.charge / mu.pt
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], qOverPt)
+                NP_ARRAYS[name].append(qOverPt)
             else:
-                NP_ARRAYS[name] = np.append(NP_ARRAYS[name], mu.__getattribute__(q))
+                NP_ARRAYS[name].append(mu.__getattribute__(q))
 
         ##### MU refit quantities #####
         for rName, r in MU_REFITS.iteritems():
@@ -268,12 +268,12 @@ for entry in MUON_POG_TREE:
                 refit = mu.fits[r]
                 if q == "qOverPt":
                     qOverPt = refit.charge / refit.pt
-                    NP_ARRAYS[name] = np.append(NP_ARRAYS[name], qOverPt)
+                    NP_ARRAYS[name].append(qOverPt)
                 elif q == "ptErrOverPt":
                     ptErrOverPt = refit.ptErr / refit.pt
-                    NP_ARRAYS[name] = np.append(NP_ARRAYS[name], ptErrOverPt)
+                    NP_ARRAYS[name].append(ptErrOverPt)
                 else:
-                    NP_ARRAYS[name] = np.append(NP_ARRAYS[name], refit.__getattribute__(q))
+                    NP_ARRAYS[name].append(refit.__getattribute__(q))
 
 ##### Pandas DataFrame ###################
 DATA_F = pd.DataFrame(data=NP_ARRAYS,
