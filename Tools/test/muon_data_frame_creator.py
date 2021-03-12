@@ -6,7 +6,9 @@ file.
 
 import math
 import argparse
+import shutil
 import sys
+import os
 
 import numpy as np
 import pandas as pd
@@ -39,14 +41,20 @@ PARSER.add_argument("fileNamesInput",
                           Multiple files are given as string separated \
                           with blanks, e.g.: \"filename1 filename2\".")
 
-PARSER.add_argument("fileNameOutput",
-                    help="Path to the output Pandas DataFrame file.")
+PARSER.add_argument("folderOutput",
+                    help="Path to the output folder with Pandas DataFrame files.")
 
 PARSER.add_argument("-n", "--nEvents",
                     default=-1,
                     type=int,
                     help="The number of events to process (-1 means \
                           all events).")
+
+PARSER.add_argument("-no", "--nEventsOutput",
+                    default=100000,
+                    type=int,
+                    help="The number of events for each dataframe \
+                          csv file (-1 means all events).")
 
 PARSER.add_argument("-g", "--gen",
                     default="p pt eta charge qOverPt",
@@ -112,6 +120,10 @@ for q in MU_CHAMB_QUANTITIES:
             NP_ARRAYS[name] = []
 
 
+if os.path.exists(ARGS.folderOutput):
+    shutil.rmtree(ARGS.folderOutput)
+os.makedirs(ARGS.folderOutput)
+
 ##### ROOT TChain ########################
 MUON_POG_TREE = root.TChain("MuonPogTree/MUONPOGTREE")
 
@@ -127,6 +139,8 @@ print "[" + __file__ + "] Entries to be processed : {:9d} ".format(TOT_ENTRIES)
 
 ##### Main loop on TChain ################
 N_MUONS = 0
+N_MUONS_FILE = 0
+FILE_IDX = 0
 
 for entry in MUON_POG_TREE:
 
@@ -178,8 +192,7 @@ for entry in MUON_POG_TREE:
             continue
 
         N_MUONS += 1
-
-        mu = entry.event.muons[iBestMuon]
+        N_MUONS_FILE += 1
 
         ##### GEN quantities #####
         for q in GEN_QUANTITIES:
@@ -275,8 +288,24 @@ for entry in MUON_POG_TREE:
                 else:
                     NP_ARRAYS[name].append(refit.__getattribute__(q))
 
+        ##### Pandas DataFrame #####
+        if N_MUONS_FILE == ARGS.nEventsOutput:
+            
+            data_f = pd.DataFrame(data=NP_ARRAYS,
+                                  index=np.arange(N_MUONS_FILE))
+            
+            data_f.to_csv(os.path.join(ARGS.folderOutput,"df_{}.csv".format(FILE_IDX)), index=False)
+            
+            for array in NP_ARRAYS.values():
+                del array [:]
+
+            FILE_IDX += 1
+            N_MUONS_FILE = 0
+
+        mu = entry.event.muons[iBestMuon]
+
 ##### Pandas DataFrame ###################
 DATA_F = pd.DataFrame(data=NP_ARRAYS,
-                      index=np.arange(N_MUONS))
+                      index=np.arange(N_MUONS_FILE))
 
-DATA_F.to_csv(ARGS.fileNameOutput, index=False)
+DATA_F.to_csv(os.path.join(ARGS.folderOutput,"df_{}.csv".format(FILE_IDX)), index=False)
